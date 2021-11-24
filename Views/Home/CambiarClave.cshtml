@@ -1,0 +1,108 @@
+﻿@model DynamicForecast.Models.DT_Usuario
+
+<div class="row">
+    <div class="col-md-12">
+        <form class="mb-3" asp-controller="Home" asp-action="CambiarClave" method="post">
+            <div class="form-row">
+
+                <div class="form-group col-md-4">
+                    <label>Clave Actual</label>
+                    <div class="input-group" id="ClaveActual2">
+                        <input class="form-control" asp-for="PalabraClaveActual" type="password" minlength="3" maxlength="20" required="required" value="@ViewBag.Actual">
+                        <div class="input-group-append">
+                            <span class="input-group-text text-muted bg-transparent border-left-0">
+                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Nueva Clave</label>
+                    <div class="input-group" id="NuevaClave">
+                        <input class="form-control" asp-for="PalabraClaveNueva" type="password" minlength="3" maxlength="20" required="required" value="@ViewBag.Nueva">
+                        <div class="input-group-append">
+                            <span class="input-group-text text-muted bg-transparent border-left-0">
+                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label>Repetir Nueva Clave</label>
+                    <div class="input-group" id="NuevaClave2">
+                        <input class="form-control" asp-for="PalabraClaveNueva2" type="password" minlength="3" maxlength="20" required="required" value="@ViewBag.Nuevarep">
+                        <div class="input-group-append">
+                            <span class="input-group-text text-muted bg-transparent border-left-0">
+                                <a href=""><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br />
+
+            <div class="text-center text-danger">
+                @ViewBag.Error                
+            </div>
+
+            <hr />
+            <div class="form-group text-center">
+                <input type="submit" value="Cambiar Clave" class="btn btn-primary btn-sm" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#ClaveActual2 a").on('click', function (event) {
+            event.preventDefault();
+            if ($('#ClaveActual2 input').attr("type") == "text") {
+                $('#ClaveActual2 input').attr('type', 'password');
+                $('#ClaveActual2 i').addClass("fa-eye-slash");
+                $('#ClaveActual2 i').removeClass("fa-eye");
+            } else if ($('#ClaveActual2 input').attr("type") == "password") {
+                $('#ClaveActual2 input').attr('type', 'text');
+                $('#ClaveActual2 i').removeClass("fa-eye-slash");
+                $('#ClaveActual2 i').addClass("fa-eye");
+            }
+        });
+
+        $("#NuevaClave a").on('click', function (event) {
+            event.preventDefault();
+            if ($('#NuevaClave input').attr("type") == "text") {
+                $('#NuevaClave input').attr('type', 'password');
+                $('#NuevaClave i').addClass("fa-eye-slash");
+                $('#NuevaClave i').removeClass("fa-eye");
+            } else if ($('#NuevaClave input').attr("type") == "password") {
+                $('#NuevaClave input').attr('type', 'text');
+                $('#NuevaClave i').removeClass("fa-eye-slash");
+                $('#NuevaClave i').addClass("fa-eye");
+            }
+        });
+
+        $("#NuevaClave2 a").on('click', function (event) {
+            event.preventDefault();
+            if ($('#NuevaClave2 input').attr("type") == "text") {
+                $('#NuevaClave2 input').attr('type', 'password');
+                $('#NuevaClave2 i').addClass("fa-eye-slash");
+                $('#NuevaClave2 i').removeClass("fa-eye");
+            } else if ($('#NuevaClave2 input').attr("type") == "password") {
+                $('#NuevaClave2 input').attr('type', 'text');
+                $('#NuevaClave2 i').removeClass("fa-eye-slash");
+                $('#NuevaClave2 i').addClass("fa-eye");
+            }
+        });
+
+    });
+
+</script>
+
+@section scripts
+{
+}

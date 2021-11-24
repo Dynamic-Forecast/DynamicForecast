@@ -1,0 +1,26 @@
+﻿.form-control-sm {
+    text-transform: uppercase
+}
+
+input.datosMensajes[disabled]:disabled, input.datosMensajes[disabled]:hover {
+    background-color: transparent;
+}
+
+.datosMensajes {
+    background-color: transparent;
+    border-color: transparent;
+    font-size: 14px;
+    color: gray;
+    width: 180px
+}
+
+#TComercial, #TContratoEstudios, #TContratoHijos, #TContratoHijos, #TDotacion, #TDatosContrato {
+    display: none;
+}
+@supports(object-fit: cover) {
+    img {
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+    }
+}

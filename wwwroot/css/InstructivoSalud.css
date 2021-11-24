@@ -1,0 +1,48 @@
+﻿.inst_inicio {
+    height: 45em;
+}
+
+.inst_inicio__titulo {
+    margin-top: 7rem;
+    font-size: 64px;
+    text-align: center;
+}
+
+.inst_inicio__myprocess {
+    background: -webkit-linear-gradient(360deg, rgba(8,103,212,1) 0%, rgba(8,103,212,1) 15%, rgba(127,10,158,1) 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 84px;
+    font: bolder;
+    text-align: center;
+}
+@media screen and (max-width: 500px) {
+    .inst_logo img {
+        margin: auto;
+        display: list-item;
+        float: left;
+    }
+
+    .nav-item {
+        margin: -60px;
+    }
+
+    .box img {
+        display: none;
+    }
+
+    .inst_inicio__titulo {
+        font-size: 32px;
+        margin-top: 1rem;
+    }
+
+    .inst_inicio__myprocess {
+        font-size: 40px;
+    }
+
+    .inst_inicio {
+        height: 40rem;
+    }
+}

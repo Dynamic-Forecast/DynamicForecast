@@ -1,0 +1,97 @@
+﻿@model DynamicForecast.Models.DT_Usuario
+@inject Microsoft.Extensions.Options.IOptions<DynamicForecast.Models.ReCAPTCHASettings> GooglereCAPTCHA
+
+<div class="wrapper">
+    <div class="block-center mt-4 wd-xl">
+        <!-- START card-->
+        <div class="card card-flat border">
+            <div class="card-header text-center" style="background-color:black">
+                <a href="#">
+                    <img class="block-center rounded" src="~/images/logos/Logo_Myprocess.png" alt="Image" />
+
+                </a>
+            </div>
+            <div class="card-body" id="cardlogin">
+                <p class="text-center py-2">INICIE SESIÓN PARA CONTINUAR.</p>
+                <form class="mb-3" asp-controller="Home" asp-action="Index" method="post">
+                    <div class="form-group">
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" asp-for="E_Mail" type="email" placeholder="Correo Electrónico" autocomplete="off" required="required" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0">
+                                    <em class="fa fa-envelope"></em>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group with-focus">
+                            <input class="form-control border-right-0" asp-for="PalabraClave" type="password" placeholder="Palabra Clave" required="required" />
+                            <div class="input-group-append">
+                                <span class="input-group-text text-muted bg-transparent border-left-0" id="MostrarContrasena" onclick="Mostrar()">
+                                    <em class="fa fa-eye"></em>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <div class="g-recaptcha" data-sitekey="@GooglereCAPTCHA.Value.ReCAPTCHA_Site_Key"></div>
+                        @*<div class="g-recaptcha" data-sitekey="@GooglereCAPTCHA.Value.reCAPTCHA_Site_Key"></div>*@
+                        @*@Html.Captcha(5)*@
+                    </div>
+
+                    <div class="text-center">
+                        <button class="btn btn-block btn-primary mt-3" type="submit">Iniciar Sesión</button>
+                    </div>
+                    <hr />
+                    <div class="clearfix d-none">
+                        <div class="text-center">
+                            <a class="text-muted" href="">Olvido su palabra clave?</a>
+                        </div>
+                    </div>
+
+                    <div id="MensajeAlerta" class="alert mt-2 text-center" role="alert">
+                    </div>
+
+                    <div class="form-group text-center" style="color:red">
+                        <label>@ViewBag.Error</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END card-->
+        <div class="p-3 text-center">
+            <span class="mr-2">&copy;</span>
+            <span>2022</span>
+            <span class="mr-2">-</span>
+            <span>DYNAMIC FORECAST</span>
+        </div>
+    </div>
+
+</div>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<script>
+    const PalabraClave = document.getElementById('PalabraClave');
+    const MensajeAlerta = document.getElementById('MensajeAlerta');
+
+    PalabraClave.addEventListener('keyup', function (e) {
+        if (e.getModifierState('CapsLock')) {
+            MensajeAlerta.textContent = 'Bloq Mayús Activado';
+        } else {
+            MensajeAlerta.textContent = '';
+        }
+    });
+
+    function Mostrar() {
+        var tipo = document.getElementById('PalabraClave');
+        if (tipo.type == 'password') { tipo.type = 'text'; }
+        else { tipo.type = 'password'; }
+    }
+
+    $('#E_Mail').trigger('focus')
+
+</script>
+

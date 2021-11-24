@@ -1,0 +1,45 @@
+﻿.fc-title {
+    font-size: .8em;
+}
+
+/*.fc-time-grid .fc-slats td {
+    width: 5px;
+}*/
+
+/*
+.input-group-text {
+    background-color: transparent
+}
+*/
+
+/*.fc table {*/
+    /* width: 100%; */
+    /*box-sizing: border-box;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 1em;
+}*/
+
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+    .btn-file input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        min-width: 100%;
+        min-height: 100%;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        outline: none;
+        background: white;
+        display: block;
+        cursor: pointer;
+    }
+
+
