@@ -67,9 +67,10 @@ namespace DynamicForecast.Controllers
                     PalabraClave = HashHelper.MD5(PalabraClave);
 
                 var usuario = FsvrConn.DT_Usuario.
-                              Where(h => (h.E_Mail.Equals(E_Mail) || h.CodigoUsr.Equals(E_Mail))).
-                              Where(h => h.PalabraClave.Equals(PalabraClave)).
-                              Where(h => h.Estado.Equals("AC")).FirstOrDefault();
+                            Include(h => h.CT_Empresa).DefaultIfEmpty().
+                            Where(h => (h.E_Mail.Equals(E_Mail) || h.CodigoUsr.Equals(E_Mail))).
+                            Where(h => h.PalabraClave.Equals(PalabraClave)).
+                            Where(h => h.Estado.Equals("AC")).FirstOrDefault();
 
                 if (usuario != null)
                 {

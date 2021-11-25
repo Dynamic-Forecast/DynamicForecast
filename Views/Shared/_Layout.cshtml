@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="equaltech, erp, contabilidad, facturación, Nomina, Salud">
+
+    @{
+        var Titulo = "Dynamic Forecast";
+        if (!string.IsNullOrEmpty(Context.Session.GetString("CodigoUsr")))
+        {
+            Titulo = Titulo + " - " + Context.Session.GetString("NombreEmpr");
+        }
+        <title>@Titulo</title>
+    }
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="stylesheet" href="~/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="~/vendor/datatables.net-keytable-bs/css/keyTable.bootstrap.css">
+    <link rel="stylesheet" href="~/vendor/datatables.net-responsive-bs/css/responsive.bootstrap.css">
+
+    <!-- Place styles for plugins -->
+    <link href="~/vendor/weather-icons/css/weather-icons.css" rel="stylesheet" />
+    <link href="~/vendor/weather-icons/css/weather-icons-wind.css" rel="stylesheet" />
+
+    <!-- Place styles for plugins -->
+    <link href="~/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="~/vendor/bootstrap-slider/dist/css/bootstrap-slider.css" rel="stylesheet" />
+    <link href="~/vendor/chosen-js/chosen.css" rel="stylesheet" />
+    <link href="~/vendor/select2/dist/css/select2.css" rel="stylesheet" />
+    <link href="~/vendor/ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.css" rel="stylesheet">
+
+    <!-- =============== VENDOR STYLES ===============-->
+    <link href='~/vendor/fortawesome/fontawesome-free/css/brands.css' rel="stylesheet" />
+    <link href='~/vendor/fortawesome/fontawesome-free/css/regular.css' rel="stylesheet" />
+    <link href='~/vendor/fortawesome/fontawesome-free/css/solid.css' rel="stylesheet" />
+    <link href='~/vendor/fortawesome/fontawesome-free/css/fontawesome.css' rel="stylesheet" />
+    <link href="~/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" />
+    <link href="~/vendor/animate.css/animate.css" rel="stylesheet" />
+    <link href="~/vendor/whirl/dist/whirl.css" rel="stylesheet" />
+    <link href="~/vendor/jquery-ui/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/css/tempusdominus-bootstrap-4.css" rel="stylesheet" />
+    @*    <link href="~/vendor/jquery-ui/css/jquery.datetimepicker.css" rel="stylesheet" />*@
+
+    <!-- =============== BOOTSTRAP STYLES ===============-->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/vendor/bootstrap-datepicker/dist/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    <link href="~/vendor/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.css" rel="stylesheet" />
+
+    @*Para Alertas*@
+    <link href="~/vendor/alertifyjs/css/alertify.min.css" rel="stylesheet" />
+    <link href="~/vendor/alertifyjs/css/themes/semantic.min.css" rel="stylesheet" />
+
+    <!-- =============== APP STYLES ===============-->
+    <link href="~/css/app.css" rel="stylesheet" />
+    <script src="~/js/site.js"></script>
+
+    <!-- =============== VENDOR SCRIPTS ===============-->
+
+    <script src="~/vendor/modernizr/modernizr.custom.js"></script>
+    <script src="~/vendor/js-storage/js.storage.js"></script>
+    <script src="~/vendor/screenfull/dist/screenfull.js"></script>
+    <script src="~/vendor/i18next/i18next.js"></script>
+    <script src="~/vendor/i18next-xhr-backend/i18nextXHRBackend.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    @*<script src="~/vendor/jquery/dist/jquery.js"></script>*@
+    <script src="~/vendor/popper.js/dist/umd/popper.js"></script>
+    <script src="~/vendor/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
+    <script src="~/vendor/datatables.net/js/jquery.dataTables.js"></script>
+    <script src="~/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+    <script src="~/vendor/datatables.net-buttons/js/dataTables.buttons.js"></script>
+    <script src="~/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.js"></script>
+    <script src="~/vendor/datatables.net-buttons/js/buttons.colVis.js"></script>
+    <script src="~/vendor/datatables.net-buttons/js/buttons.flash.js"></script>
+    <script src="~/vendor/datatables.net-buttons/js/buttons.html5.js"></script>
+    <script src="~/vendor/datatables.net-buttons/js/buttons.print.js"></script>
+    <script src="~/vendor/datatables.net-keytable/js/dataTables.keyTable.js"></script>
+    <script src="~/vendor/datatables.net-responsive/js/dataTables.responsive.js"></script>
+    <script src="~/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="~/vendor/jszip/dist/jszip.js"></script>
+    <script src="~/vendor/pdfmake/build/pdfmake.js"></script>
+    <script src="~/vendor/pdfmake/build/vfs_fonts.js"></script>
+
+    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
+    <script src="~/vendor/jquery-sparkline/jquery.sparkline.js"></script>
+    <script src="~/vendor/flot/jquery.flot.js"></script>
+    <script src="~/vendor/jquery.flot.tooltip/js/jquery.flot.tooltip.js"></script>
+    <script src="~/vendor/flot/jquery.flot.resize.js"></script>
+    <script src="~/vendor/flot/jquery.flot.pie.js"></script>
+    <script src="~/vendor/flot/jquery.flot.time.js"></script>
+    <script src="~/vendor/flot/jquery.flot.categories.js"></script>
+    <script src="~/vendor/jquery.flot.spline/jquery.flot.spline.js"></script>
+    <script src="~/vendor/easy-pie-chart/dist/jquery.easypiechart.js"></script>
+    <script src="~/vendor/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="~/vendor/moment/min/moment-with-locales.js"></script>
+
+    <!-- =============== PAGE VENDOR SCRIPTS ===============-->
+    <script src="~/vendor/bootstrap-filestyle/src/bootstrap-filestyle.js"></script>
+    <script src="~/vendor/bootstrap-tagsinput/dist/bootstrap-tagsinput.js"></script>
+    <script src="~/vendor/chosen-js/chosen.jquery.js"></script>
+    <script src="~/vendor/bootstrap-slider/dist/bootstrap-slider.js"></script>
+    <script src="~/vendor/inputmask/dist/jquery.inputmask.bundle.js"></script>
+    <script src="~/vendor/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js"></script>
+    <script src="~/vendor/moment/min/moment-with-locales.js"></script>
+    <script src="~/vendor/bootstrap-datepicker/dist/js/bootstrap-datetimepicker.js"></script>
+    <script src="~/vendor/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.js"></script>
+    <script src="~/vendor/select2/dist/js/select2.js"></script>
+
+    <script src="~/vendor/jquery-ui/js/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/js/tempusdominus-bootstrap-4.js"></script>
+    @*<script src="~/vendor/jquery-ui/js/jquery.datetimepicker.full.min.js"></script>*@
+
+    <!-- =============== APP SCRIPTS ===============-->
+    <script src="~/js/app.js"></script>
+
+    <!-- =============== CALENDAR ===============-->
+    <link href='~/vendor/fullcalendar-scheduler-4.2.0/core/main.css' rel='stylesheet' />
+    <link href='~/vendor/fullcalendar-scheduler-4.2.0/daygrid/main.min.css' rel='stylesheet' />
+    <link href='~/vendor/fullcalendar-scheduler-4.2.0/timegrid/main.min.css' rel='stylesheet' />
+    <link href='~/vendor/fullcalendar-scheduler-4.2.0/list/main.min.css' rel='stylesheet' />
+    <link href='~/vendor/fullcalendar-scheduler-4.2.0/timeline/main.css' rel='stylesheet' />
+    <link href='~/vendor/fullcalendar-scheduler-4.2.0/resource-timeline/main.css' rel='stylesheet' />
+
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/core/locales-all.min.js'></script>
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/core/main.js'></script>
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/interaction/main.min.js'></script>
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/daygrid/main.min.js'></script>
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/timegrid/main.min.js'></script>
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/timeline/main.js'></script>
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/resource-common/main.min.js'></script>
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/resource-daygrid/main.min.js'></script>
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/resource-timegrid/main.min.js'></script>
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/resource-timeline/main.js'></script>
+    <script src='~/vendor/fullcalendar-scheduler-4.2.0/list/main.min.js'></script>
+
+    @*Para Alertas*@
+    <script src='~/vendor/alertifyjs/alertify.min.js'></script>
+    <link href="~/css/site.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.all.min.js"></script>
+    <script>
+        const swal = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
+    </script>
+
+</head>
+<body class="aside-collapsed">
+    @if (string.IsNullOrEmpty(Context.Session.GetString("CodigoUsr")))
+    {
+        @RenderBody()
+    }
+    else
+    {
+        <div class="wrapper">
+            <!-- top navbar-->
+            <header class="topnavbar-wrapper">
+                @await Html.PartialAsync("_TopNavbar")
+            </header>
+
+            <!-- sidebar-->
+            <aside class="aside-container">
+                @await Html.PartialAsync("_Sidebar")
+            </aside>
+            <!-- offsidebar-->
+
+
+            <aside class="offsidebar d-none">
+                @await Html.PartialAsync("_Offsidebar")
+            </aside>
+            <!-- Main section-->
+            <section class="section-container">
+                <!-- Page content-->
+                <breadcrumb asp-homepage-title="Inicio" style="margin-bottom:0rem; font-size:small"
+                            asp-homepage-url="@Url.Action("Index", "Home", values: new { area = "" })"
+                            asp-bootstrap-version="V4"
+                            asp-homepage-glyphicon="icon icon-home"></breadcrumb>
+
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+            </section>
+            <!-- Page footer-->
+            <footer class="footer-container">
+                @await Html.PartialAsync("_Footer")
+            </footer>
+        </div>
+    }
+
+    @RenderSection("Scripts", required: false)
+
+    <!-- Modal -->
+    <div id="form-modal" class="modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="labelmessage" class="text-center">
+                    <label for="message-text" class="modal-message text-danger"></label>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="form-modal2" class="modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="close" onclick="CloseModal();" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+

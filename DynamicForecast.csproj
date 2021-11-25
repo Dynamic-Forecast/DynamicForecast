@@ -78,6 +78,18 @@
 	  <Folder Include="ViewComponents\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Include="Views\Shared\Components\Navigation\Default.cshtml" />
+	  <None Include="Views\Shared\Error.cshtml" />
+	  <None Include="Views\Shared\_Footer.cshtml" />
+	  <None Include="Views\Shared\_Layout.cshtml" />
+	  <None Include="Views\Shared\_Offsidebar.cshtml" />
+	  <None Include="Views\Shared\_Sidebar.cshtml" />
+	  <None Include="Views\Shared\_TopNavbar.cshtml" />
+	  <None Include="Views\Shared\_TopNavbarHorizontal.cshtml" />
+	  <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+	</ItemGroup>
+
 	<ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

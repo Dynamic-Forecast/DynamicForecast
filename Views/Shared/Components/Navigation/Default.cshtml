@@ -1,0 +1,66 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model IEnumerable<DynamicForecast.Models.MenuItemModel>
+
+@{
+    ShowItemMenu(Model);
+}
+
+@functions
+        {
+    void ShowItemMenu(IEnumerable<MenuItemModel> Items)
+    {
+
+        foreach (var menu in Items)
+        {
+            if (string.IsNullOrEmpty(menu.Icono)) { menu.Icono = "fa fa-question"; }
+
+            if (menu.SubItems != null)
+            {
+                <li class="">
+                    @if (menu.IsAction)
+                    {
+                        if ((!string.IsNullOrEmpty(menu.Action)) && (!string.IsNullOrEmpty(menu.Controller)))
+                        {
+
+                            <a> <em class="@menu.Icono">@menu.Caption</em></a>
+                            <a href="@Url.Action(menu.Action, menu.Controller, new { Area = menu.Area })"> <em class="@menu.Icono">@menu.Caption</em></a>
+                        }
+                    }
+                    else
+                    {
+                        <a href="#@Html.Raw(menu.Caption.Replace(" ", "").Replace("/","")+menu.Tag)" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" aria-haspopup="true">
+                            <em class="@menu.Icono"></em>
+                            <span data-localize="sidebar.nav.@menu.Caption.@menu.Caption">@menu.Caption</span>
+                        </a>
+                    }
+
+                    <ul id="@Html.Raw(menu.Caption.Replace(" ", "").Replace("/","")+menu.Tag)" class="list-unstyled sidebar-nav sidebar-subnav collapse">
+                        @{ShowItemMenu(menu.SubItems); }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                if (menu.IsAction)
+                {
+                    if ((!string.IsNullOrEmpty(menu.Action)) && (!string.IsNullOrEmpty(menu.Controller)))
+                    {
+                        <li>
+                            <a href="@Url.Action(menu.Action, menu.Controller, new {Area = menu.Area })"><i class="@menu.Icono"></i> @menu.Caption</a>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li>
+                        <a href="#@Html.Raw(menu.Caption.Replace(" ", "").Replace("/","")+menu.Tag)" data-toggle="collapse">
+                            <i class="@menu.Icono"></i> @menu.Caption
+                        </a>
+                    </li>
+                }
+
+            }
+        }
+    }
+}
+
