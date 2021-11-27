@@ -88,17 +88,19 @@ namespace DynamicForecast.Controllers
                     HttpContext.Session.SetInt32("Alertas", 0);
                     HttpContext.Session.SetInt32("InterConsultas", 0);
 
-                    var ReCaptcha = Request.Form["g-recaptcha-response"];
-                    var result = await VerifyCaptcha(ReCaptcha);
-                    if (result.Success)
-                    {
-                        return RedirectToAction("Dashboard", "Dashboard");
-                    }
-                    else
-                    {
-                        HttpContext.Session.Clear();
-                        ViewBag.Error = "Captcha invalido";
-                    }
+                    //var ReCaptcha = Request.Form["g-recaptcha-response"];
+                    //var result = await VerifyCaptcha(ReCaptcha);
+                    //if (result.Success)
+                    //{
+                    //    return RedirectToAction("Dashboard", "Dashboard");
+                    //}
+                    //else
+                    //{
+                    //    HttpContext.Session.Clear();
+                    //    ViewBag.Error = "Captcha invalido";
+                    //}
+                    return RedirectToAction("Dashboard", "Dashboard");
+
                 }
             }
             catch (Exception e)

@@ -1,0 +1,163 @@
+﻿@model IEnumerable<DynamicForecast.Areas.Conductor.Models.DT_Conductor>
+
+<div class="content-heading">
+    Conductores
+    <div class="ml-auto">
+        <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("CrearConductor", "Conductor", Context.Request.Scheme)', 'Nuevo Conductor')">
+            Nuevo Conductor &nbsp;<i class="fa fa-user-alt " title="Nuevo Conductor"></i>
+        </a>
+    </div>
+</div>
+@if (@ViewBag.ConductorCreado)
+{
+    <div class="card-body">
+        <div class="card border-info mb-12 text-center" style="max-width: 90rem;">
+            <div class="card-body text-info">
+                <h4 class="card-title">CONDUCTOR CREADO CON ÉXITO </h4>
+
+            </div>
+        </div>
+    </div>
+}
+@if (@ViewBag.ConductorEliminado)
+{
+    <div class="card border-danger text-center" style="max-width: 90rem;">
+        <div class="card-header text-center">
+            <h4 class="card-title">CONDUCTOR ELIMINADO CON ÉXITO </h4>
+
+        </div>
+    </div>
+}
+@if (@ViewBag.Error != "")
+{
+    <div class="card-body bg-transparent border-danger">
+        <div class="card border-info mb-12 text-center" style="max-width: 90rem;">
+            <div class="card-body text">
+                <h4 class="card-title">ERROR: <b> [ @ViewBag.Error ] </b> </h4>
+            </div>
+        </div>
+    </div>
+}
+<div class="card card-default">
+    <div class="form-group col-md-12">
+        <br />
+        <h4 class="text-bold text-center">Conductores Activos en el Sistema</h4>
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div class="card-body">
+                    @{if (Model.First() != null)
+                        {
+
+                            <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatable22">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"> Eliminar Conductor</th>
+                                        <th class="text-center">
+                                            Id Conductor
+                                        </th>
+                                        <th class="text-center">
+                                            Cod. Conductor
+                                        </th>
+                                        <th class="text-center">
+                                            Nombre
+                                        </th>
+                                        <th class="text-center">
+                                            Documento
+                                        </th>
+                                        <th class="text-center">
+                                            E-Mail
+                                        </th>
+                                        <th class="text-center">
+                                            Celular
+                                        </th>
+                                        <th class="text-center">
+                                            Teléfono
+                                        </th>
+                                        <th class="text-center">
+                                            Dirección
+                                        </th>
+                                        <th class="text-center">
+                                            Fecha Ingreso
+                                        </th>
+                                        <th class="text-center">
+                                            Fecha Modificación
+                                        </th>
+                                        <th class="text-center">
+                                            Estado
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        int ConductorId = item.ConductorId;
+                                        <tr>
+                                            <td class="text-center align-middle">
+                                                <i title="Eliminar Conductor">
+                                                    @Html.ActionLink("", "EliminarConductor", new { ConductorId = ConductorId }, new { @class = "fa fa-trash" })
+                                                </i>
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.ConductorId)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.CodConductor)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.NombreConductor)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.Documento)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.EMail)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.Celular)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.Telefono)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.Direccion)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.FechaIng)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.FechaMod)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.Estado)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        }
+                        else
+                        {
+
+                            <div class="card-body">
+                                <div class="card border-info mb-12 text-center" style="max-width: 90rem;">
+                                    <div class="card-body text-info">
+                                        <h4 class="card-title">No se han registrado conductores en el momento </h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+
+}

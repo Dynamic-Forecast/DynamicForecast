@@ -74,7 +74,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Areas\Conductor\Views\" />
 	  <Folder Include="Areas\Modelo\Controllers\" />
 	  <Folder Include="Areas\Modelo\Models\" />
 	  <Folder Include="Areas\Modelo\Views\" />

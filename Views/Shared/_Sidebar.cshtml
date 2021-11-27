@@ -3,37 +3,13 @@
 @using Microsoft.AspNetCore.Http
 @using DynamicForecast.Clases
 
-@{
-    //string UsuarioId = Context.Session.GetInt32("UsuarioId").ToString();
-    //string Avatar = "avatar-" + UsuarioId + ".png";
-    string Avatar = Avatar = "avatar.png";
-}
 
 <!-- START Sidebar(left)-->
 <div class="aside-inner">
     <nav class="sidebar" data-sidebar-anyclick-close="">
         <!-- START sidebar nav-->
         <ul class="sidebar-nav">
-            <!-- START user info-->
-            <li class="has-user-block">
-                <div id="user-block" class="collapse">
-                    <div class="item user-block">
-                        <!-- User picture-->
-                        <div class="user-block-picture">
-                            <div class="user-block-status">
-                                <img src="~/images/avatars/@Avatar" alt="Avatar" width="80" height="60" class="img-thumbnail rounded-circle" />
-                                <div class="circle bg-success circle-lg"></div>
-                            </div>
-                        </div>
-                        <!-- Name and Job-->
-                        <div class="user-block-info">
-                            <span class="user-block-name">Hola, @Context.Session.GetString("Nombre1")</span>
-                            @*<span class="user-block-role">Desarrolador</span>*@
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <!-- END user info-->
+
             <!-- Iterates over all sidebar items-->
             <li class="nav-heading">
                 <span>Men&uacute; Principal</span>
@@ -42,6 +18,30 @@
                 <a asp-controller="Dashboard" asp-action="Dashboard" title="Dashboard">
                     <em class="icon-speedometer"></em>
                     <span data-localize="sidebar.nav.DASHBOARD">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Conductor" asp-area="Conductor" asp-action="Index" title="Conductor">
+                    <em class="icon-user"></em>
+                    <span data-localize="sidebar.nav.CONDUCTOR">Conductor</span>
+                </a>
+            </li>
+            <li>
+                <a title="Vehículo">
+                    <em class="icon-game-controller"></em>
+                    <span data-localize="sidebar.nav.VEHICULO">Vehículo</span>
+                </a>
+            </li>
+            <li>
+                <a title="Modelo">
+                    <em class="icon-star"></em>
+                    <span data-localize="sidebar.nav.MODELO">Modelo</span>
+                </a>
+            </li>
+            <li>
+                <a title="Viajes">
+                    <em class="icon-map"></em>
+                    <span data-localize="sidebar.nav.CONDUCTOR">Conductor</span>
                 </a>
             </li>
 

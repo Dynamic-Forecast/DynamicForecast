@@ -58,7 +58,7 @@ namespace DynamicForecast.Areas.Conductor.Controllers
             ViewBag.ConductorCreado = false;
             ViewBag.ConductorEliminado = false;
 
-            return View();
+            return PartialView();
         }
 
         [HttpPost]
@@ -84,10 +84,15 @@ namespace DynamicForecast.Areas.Conductor.Controllers
 
                 try
                 {
-                    var lstConductor = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.ConductorId).FirstOrDefault();
+                    var lstConductor = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty().FirstOrDefault();
 
-                    if (lstConductor.ConductorId > 0)
-                        conductorId = lstConductor.ConductorId++;
+                    if (lstConductor != null)
+                    {
+                        if (lstConductor.ConductorId > 0)
+                            conductorId = lstConductor.ConductorId++;
+                        else
+                            conductorId = 1;
+                    }
                     else
                         conductorId = 1;
 
@@ -107,7 +112,7 @@ namespace DynamicForecast.Areas.Conductor.Controllers
                     ViewBag.ConductorCreado = false;
                     var lstConductores = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty();
 
-                    return View("~/Areas/Conductor/Views/Index.cshtml", lstConductores.ToList());
+                    return View("~/Areas/Conductor/Views/Conductor/Index.cshtml", lstConductores.ToList());
                 }
             }
             if (ViewBag.Error == "")
@@ -115,14 +120,14 @@ namespace DynamicForecast.Areas.Conductor.Controllers
                 var lstConductores = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty();
 
                 ViewBag.ConductorCreado = true;
-                return View("~/Areas/Conductor/Views/Index.cshtml", lstConductores.ToList());
+                return View("~/Areas/Conductor/Views/Conductor/Index.cshtml", lstConductores.ToList());
             }
             else
             {
                 var lstConductores = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty();
 
                 ViewBag.ConductorCreado = false;
-                return View("~/Areas/Conductor/Views/Index.cshtml", lstConductores.ToList());
+                return View("~/Areas/Conductor/Views/Conductor/Index.cshtml", lstConductores.ToList());
             }
         }
 
@@ -158,9 +163,8 @@ namespace DynamicForecast.Areas.Conductor.Controllers
             }
             var lstConductores = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty();
 
-            return View("~/Areas/Conductor/Views/Index.cshtml", lstConductores.ToList());
+            return View("~/Areas/Conductor/Views/Conductor/Index.cshtml", lstConductores.ToList());
         }
-
 
     }
 }

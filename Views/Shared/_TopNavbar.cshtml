@@ -17,10 +17,10 @@
     <div class="navbar-header">
         <a class="navbar-brand" asp-controller="Dashboard" asp-action="Dashboard">
             <div class="brand-logo">
-                <img class="img-fluid" src="~/images/myprocess2020.jpg" alt="App Logo">
+                <img class="img-fluid" src="~/images/LogoDinamycForecast.png" height="257" width="92" alt="Dynamic Forecast">
             </div>
             <div class="brand-logo-collapsed">
-                <img class="img-fluid" src="~/images/myprocessLOGO2020.jpg" alt="Logo">
+                <img class="img-fluid" src="~/images/LogoPequeDinamycForecast.png" alt="Dynamic Forecast">
             </div>
         </a>
     </div>
@@ -38,12 +38,12 @@
             </a>
         </li>
         <!-- START User avatar toggle-->
-        <li class="nav-item d-none d-md-block">
-            <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
-            <a class="nav-link" id="user-block-toggle" href="#user-block" data-toggle="collapse" title="@NombreUsr">
+        <!--<li class="nav-item d-none d-md-block">-->
+        <!-- Button used to collapse the left sidebar. Only visible on tablet and desktops-->
+        <!--<a class="nav-link" id="user-block-toggle" href="#user-block" data-toggle="collapse" title="@NombreUsr">
                 <em class="icon-user"></em>
             </a>
-        </li>
+        </li>-->
         <!-- END User avatar toggle-->
         <!-- START Cambiar Clave -->
         <li class="nav-item d-md-block">
@@ -69,88 +69,16 @@
         </li>
         <!-- END Nombre Usuario-->
 
-        <li class="nav-item d-md-block" style="font-size:14px; color:brown">
-            <a class="nav-link text-bold" title="MENSAJE DE ACTUALIZACIÓN" style="font-size:large">
-                <ul id="messagesList"></ul>
-            </a>
-        </li>
 
     </ul>
     <!-- END Left navbar-->
     <!-- START Right Navbar-->
     <ul class="navbar-nav flex-row">
-        <!-- Search icon-->
-        @*<li class="nav-item">
-                <a class="nav-link" href="#" data-search-open="">
-                    <em class="icon-magnifier"></em>
-                </a>
-            </li>*@
-        <!-- Fullscreen (only desktops)-->
-        @*<li class="nav-item d-none d-md-block">
-                <a class="nav-link" href="#" data-toggle-fullscreen="">
-                    <em class="fa fa-expand"></em>
-                </a>
-            </li>*@
-
-        @*<li class="nav-item d-md-block">
-                <a class="nav-link" asp-area="Salud" asp-controller="Beneficiarios" asp-action="BuscarBeneficiarioGestores" title="Gesti&oacute;n Paciente">
-                    <em class="fa fa-user-injured"></em>
-                </a>
-            </li>
-        *@
-
-
-        <li class="nav-item d-md-block">
-            <a class="nav-link" href="/Comercial/Eventos/IndexProceso" title="Eventos X'BPM">
-                <em class="fas fa-bezier-curve"></em>
-            </a>
-        </li>
-        <!-- END Busqueda Terceros -->
-        <!-- START Alert menu-->
         <li class="nav-item dropdown dropdown-list">
-            <a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-toggle="dropdown">
-                <em class="icon-bell"></em>
-                <span class="badge badge-danger">@Alertas</span>
-            </a>
+
             <!-- START Dropdown menu-->
             <div class="dropdown-menu dropdown-menu-right animated flipInX">
                 <div class="dropdown-item">
-                    <!-- START list group-->
-                    <div class="list-group">
-
-                        <!-- list item-->
-                        @*<div class="list-group-item list-group-item-action">
-                                <div class="media">
-                                    <div class="align-self-start mr-2">
-                                        <em class="fa fa-envelope fa-2x text-warning"></em>
-                                    </div>
-                                    <div class="media-body">
-                                        <p class="m-0">New e-mails</p>
-                                        <p class="m-0 text-muted text-sm">You have 10 new emails</p>
-                                    </div>
-                                </div>
-                            </div>*@
-                        <!-- list item-->
-                        @*<div class="list-group-item list-group-item-action">
-                                <div class="media">
-                                    <div class="align-self-start mr-2">
-                                        <em class="fa fa-tasks fa-2x text-success"></em>
-                                    </div>
-                                    <div class="media-body">
-                                        <p class="m-0">Pending Tasks</p>
-                                        <p class="m-0 text-muted text-sm">11 pending task</p>
-                                    </div>
-                                </div>
-                            </div>*@
-                        <!-- last list item-->
-                        @*<div class="list-group-item list-group-item-action">
-                                <span class="d-flex align-items-center">
-                                    <span class="text-sm">More notifications</span>
-                                    <span class="badge badge-danger ml-auto">14</span>
-                                </span>
-                            </div>*@
-                    </div>
-                    <!-- END list group-->
                 </div>
             </div>
             <!-- END Dropdown menu-->
