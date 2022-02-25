@@ -10,6 +10,9 @@ namespace DynamicForecast.Areas.Conductor.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int CertificadoConductorId { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CertificadoId { get; set; }
 
         [Key]

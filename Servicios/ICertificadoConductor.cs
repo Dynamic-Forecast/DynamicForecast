@@ -33,6 +33,13 @@ namespace DynamicForecast.Servicios
                             Where(h => h.EmpresaId == EmpresaId).
                             Where(h => h.ConductorId == ConductorId);
         }
+        
+        public IEnumerable<DT_CertificadoConductor> GetCertificadosXCertificadosConductor(int EmpresaId, int CertificadoConductorId)
+        {
+            return FsvrConn.DT_CertificadoConductor.
+                            Where(h => h.EmpresaId == EmpresaId).
+                            Where(h => h.CertificadoConductorId == CertificadoConductorId);
+        }
 
 
         public void AgregarCertificadoConductor(DT_CertificadoConductor _CertificadoConductor)
@@ -57,7 +64,7 @@ namespace DynamicForecast.Servicios
         {
             var cantidad = FsvrConn.DT_CertificadoConductor.
                                     Where(h => h.EmpresaId == EmpresaId).
-                                    Where(h => h.CertificadoId == CertificadoConductorId).Any();
+                                    Where(h => h.CertificadoConductorId == CertificadoConductorId).Any();
 
             return cantidad;
         }

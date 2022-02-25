@@ -10,6 +10,11 @@ namespace DynamicForecast.Areas.Vehiculo.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int CertificadoVehiculoId { get; set; }
+
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int VehiculoId { get; set; }
 
 

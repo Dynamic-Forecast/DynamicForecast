@@ -33,6 +33,13 @@ namespace DynamicForecast.Servicios
                             Where(h => h.EmpresaId == EmpresaId).
                             Where(h => h.VehiculoId == VehiculoId);
         }
+        
+        public IEnumerable<DT_CertificadoVehiculo> GetCertificadosXCertificadosVehiculo(int EmpresaId, int CertificadoVehiculoId)
+        {
+            return FsvrConn.DT_CertificadoVehiculo.
+                            Where(h => h.EmpresaId == EmpresaId).
+                            Where(h => h.CertificadoVehiculoId == CertificadoVehiculoId);
+        }
 
 
         public void AgregarCertificadoVehiculo(DT_CertificadoVehiculo _CertificadoVehiculo)
@@ -57,7 +64,7 @@ namespace DynamicForecast.Servicios
         {
             var cantidad = FsvrConn.DT_CertificadoVehiculo.
                                     Where(h => h.EmpresaId == EmpresaId).
-                                    Where(h => h.CertificadoId == CertificadoVehiculoId).Any();
+                                    Where(h => h.CertificadoVehiculoId == CertificadoVehiculoId).Any();
 
             return cantidad;
         }

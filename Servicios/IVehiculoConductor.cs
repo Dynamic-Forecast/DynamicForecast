@@ -20,11 +20,18 @@ namespace DynamicForecast.Servicios
                             OrderByDescending(h => h.VehiculoId).DefaultIfEmpty();
         }
 
-        public IEnumerable<DT_VehiculoConductor> GetVehiculoConductor(int EmpresaId, int VehiculoConductorId)
+        public IEnumerable<DT_VehiculoConductor> GetVehiculoConductorXvehiculo(int EmpresaId, int VehiculoId)
         {
             return FsvrConn.DT_VehiculoConductor.
                             Where(h => h.EmpresaId == EmpresaId).
-                            Where(h => h.VehiculoId == VehiculoConductorId);
+                            Where(h => h.VehiculoId == VehiculoId);
+        }
+        
+        public IEnumerable<DT_VehiculoConductor> GetVehiculoConductorXId(int EmpresaId, int VehiculoConductorId)
+        {
+            return FsvrConn.DT_VehiculoConductor.
+                            Where(h => h.EmpresaId == EmpresaId).
+                            Where(h => h.VehiculoConductorId == VehiculoConductorId);
         }
 
 

@@ -31,10 +31,10 @@ namespace DynamicForecast.Clases
             modelBuilder.Entity<CT_Tercero>().HasKey(c => new { c.EmpresaId, c.TerceroId });
             modelBuilder.Entity<DT_Conductor>().HasKey(c => new { c.EmpresaId, c.ConductorId });
             modelBuilder.Entity<DT_Certificado>().HasKey(c => new { c.EmpresaId, c.CertificadoId });
-            modelBuilder.Entity<DT_CertificadoConductor>().HasKey(c => new { c.EmpresaId, c.ConductorId, c.CertificadoId });
+            modelBuilder.Entity<DT_CertificadoConductor>().HasKey(c => new { c.EmpresaId, c.CertificadoConductorId, c.ConductorId, c.CertificadoId });
             modelBuilder.Entity<DT_Vehiculo>().HasKey(c => new { c.EmpresaId, c.VehiculoId });
-            modelBuilder.Entity<DT_VehiculoConductor>().HasKey(c => new { c.EmpresaId, c.ConductorId, c.VehiculoId });
-            modelBuilder.Entity<DT_CertificadoVehiculo>().HasKey(c => new { c.EmpresaId, c.VehiculoId, c.CertificadoId });
+            modelBuilder.Entity<DT_VehiculoConductor>().HasKey(c => new { c.EmpresaId, c.VehiculoConductorId, c.ConductorId, c.VehiculoId });
+            modelBuilder.Entity<DT_CertificadoVehiculo>().HasKey(c => new { c.EmpresaId, c.CertificadoVehiculoId, c.VehiculoId, c.CertificadoId });
 
         }
     }

@@ -10,12 +10,18 @@ namespace DynamicForecast.Areas.Conductor.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ConductorId { get; set; }
-
+        public int VehiculoConductorId { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int VehiculoId { get; set; }
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int ConductorId { get; set; }
+
+
+
 
 
         [Required]
