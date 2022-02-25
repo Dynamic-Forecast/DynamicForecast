@@ -51,7 +51,7 @@ namespace DynamicForecast.Areas.Conductor.Controllers
             return View(lstConductor.ToList());
         }
 
-        [BreadCrumb(Title = "Crear Conductor", Url = "/Conductor/CrearConductor", Order = 1, IgnoreAjaxRequests = true)]
+        //[BreadCrumb(Title = "Crear Conductor", Url = "/Conductor/CrearConductor", Order = 1, IgnoreAjaxRequests = true)]
         public IActionResult CrearConductor()
         {
             ViewBag.Error = "";
@@ -164,6 +164,19 @@ namespace DynamicForecast.Areas.Conductor.Controllers
             var lstConductores = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty();
 
             return View("~/Areas/Conductor/Views/Conductor/Index.cshtml", lstConductores.ToList());
+        }
+
+        public IActionResult AgregarCertificado()
+        {
+            ViewBag.Error = "";
+            //ViewBag.ConductorCreado = false;
+            //ViewBag.ConductorEliminado = false;
+
+
+
+
+
+            return PartialView();
         }
 
     }

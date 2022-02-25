@@ -2,6 +2,7 @@
 using DynamicForecast.Models;
 using Microsoft.EntityFrameworkCore;
 using DynamicForecast.Areas.Conductor.Models;
+using DynamicForecast.Areas.Vehiculo.Models;
 
 
 namespace DynamicForecast.Clases
@@ -13,13 +14,27 @@ namespace DynamicForecast.Clases
         public DbSet<DT_Usuario> DT_Usuario { get; set; }
         public DbSet<CT_Empresa> CT_Empresa { get; set; }
         public DbSet<DT_UsuarioXEmpr> DT_UsuarioXEmpr { get; set; }
+        public DbSet<CT_Tercero> CT_Tercero { get; set; }
         public DbSet<DT_Conductor> DT_Conductor { get; set; }
+        public DbSet<DT_Certificado> DT_Certificado { get; set; }
+        public DbSet<DT_CertificadoConductor> DT_CertificadoConductor { get; set; }
+        public DbSet<DT_Vehiculo> DT_Vehiculo { get; set; }
+        public DbSet<DT_VehiculoConductor> DT_VehiculoConductor { get; set; }
+        public DbSet<DT_CertificadoVehiculo> DT_CertificadoVehiculo { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DT_Usuario>().HasKey(c => new { c.UsuarioId });
             modelBuilder.Entity<CT_Empresa>().HasKey(c => new { c.EmpresaId });
             modelBuilder.Entity<DT_UsuarioXEmpr>().HasKey(c => new { c.UsuarioId, c.EmpresaId });
+            modelBuilder.Entity<CT_Tercero>().HasKey(c => new { c.EmpresaId, c.TerceroId });
             modelBuilder.Entity<DT_Conductor>().HasKey(c => new { c.EmpresaId, c.ConductorId });
+            modelBuilder.Entity<DT_Certificado>().HasKey(c => new { c.EmpresaId, c.CertificadoId });
+            modelBuilder.Entity<DT_CertificadoConductor>().HasKey(c => new { c.EmpresaId, c.ConductorId, c.CertificadoId });
+            modelBuilder.Entity<DT_Vehiculo>().HasKey(c => new { c.EmpresaId, c.VehiculoId });
+            modelBuilder.Entity<DT_VehiculoConductor>().HasKey(c => new { c.EmpresaId, c.ConductorId, c.VehiculoId });
+            modelBuilder.Entity<DT_CertificadoVehiculo>().HasKey(c => new { c.EmpresaId, c.VehiculoId, c.CertificadoId });
 
         }
     }

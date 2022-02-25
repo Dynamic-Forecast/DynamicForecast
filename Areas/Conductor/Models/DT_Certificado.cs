@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DynamicForecast.Areas.Conductor.Models
 {
-    public partial class CT_Certificado
+    public partial class DT_Certificado
     {
         public int EmpresaId { get; set; }
 
