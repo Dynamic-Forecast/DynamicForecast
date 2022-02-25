@@ -1,4 +1,6 @@
+using DynamicForecast.Areas.Vehiculo.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -38,6 +40,13 @@ namespace DynamicForecast.Areas.Conductor.Models
         [Required]
         [StringLength(2)]
         public string Estado { get; set; }
+
+
+        [ForeignKey("EmpresaId, CertificadoId")]
+        public List<DT_CertificadoConductor> DT_CertificadoConductor { get; set; }
+
+        [ForeignKey("EmpresaId, CertificadoId")]
+        public List<DT_CertificadoVehiculo> DT_CertificadoVehiculo { get; set; }
 
     }
 }

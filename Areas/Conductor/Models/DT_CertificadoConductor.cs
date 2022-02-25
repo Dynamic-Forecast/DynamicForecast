@@ -29,5 +29,11 @@ namespace DynamicForecast.Areas.Conductor.Models
         [StringLength(2)]
         public string Estado { get; set; }
 
+        [ForeignKey("EmpresaId, CertificadoId")]
+        public DT_Certificado DT_Certificado { get; set; }
+
+        [ForeignKey("EmpresaId, CertificadoId")]
+        public DT_Conductor DT_Conductor { get; set; }
+
     }
 }

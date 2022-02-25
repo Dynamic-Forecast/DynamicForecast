@@ -166,7 +166,7 @@ namespace DynamicForecast.Areas.Conductor.Controllers
             return View("~/Areas/Conductor/Views/Conductor/Index.cshtml", lstConductores.ToList());
         }
 
-        public IActionResult AgregarCertificado()
+        public IActionResult AgregarCertificado(int? ConductorId)
         {
             ViewBag.Error = "";
             //ViewBag.ConductorCreado = false;
