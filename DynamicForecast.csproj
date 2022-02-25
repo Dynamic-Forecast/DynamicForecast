@@ -20,18 +20,22 @@
 	<ItemGroup>
 	  <Compile Remove="Areas\Nomina\**" />
 	  <Compile Remove="Areas\Salud\**" />
+	  <Compile Remove="Areas\Usuario\**" />
 	  <Compile Remove="wwwroot\EventosXBPM\**" />
 	  <Compile Remove="wwwroot\rips\**" />
 	  <Content Remove="Areas\Nomina\**" />
 	  <Content Remove="Areas\Salud\**" />
+	  <Content Remove="Areas\Usuario\**" />
 	  <Content Remove="wwwroot\EventosXBPM\**" />
 	  <Content Remove="wwwroot\rips\**" />
 	  <EmbeddedResource Remove="Areas\Nomina\**" />
 	  <EmbeddedResource Remove="Areas\Salud\**" />
+	  <EmbeddedResource Remove="Areas\Usuario\**" />
 	  <EmbeddedResource Remove="wwwroot\EventosXBPM\**" />
 	  <EmbeddedResource Remove="wwwroot\rips\**" />
 	  <None Remove="Areas\Nomina\**" />
 	  <None Remove="Areas\Salud\**" />
+	  <None Remove="Areas\Usuario\**" />
 	  <None Remove="wwwroot\EventosXBPM\**" />
 	  <None Remove="wwwroot\rips\**" />
 	</ItemGroup>
@@ -80,13 +84,10 @@
 	  <Folder Include="Areas\Simulacion\Controllers\" />
 	  <Folder Include="Areas\Simulacion\Models\" />
 	  <Folder Include="Areas\Simulacion\Views\" />
-	  <Folder Include="Areas\Usuario\Controllers\" />
-	  <Folder Include="Areas\Usuario\Models\" />
-	  <Folder Include="Areas\Usuario\Views\" />
 	  <Folder Include="Areas\Vehiculo\Views\" />
 	  <Folder Include="Areas\Vehiculo\Controllers\" />
-	  <Folder Include="Areas\Vehiculo\Models\" />
 	  <Folder Include="ViewComponents\" />
+	  <Folder Include="Views\Usuario\" />
 	</ItemGroup>
 
 	<ItemGroup>

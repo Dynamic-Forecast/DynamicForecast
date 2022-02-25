@@ -1,11 +1,10 @@
-
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DynamicForecast.Areas.Conductor.Models
+namespace DynamicForecast.Areas.Vehiculo.Models
 {
-    public partial class DT_Conductor
+    public partial class DT_Vehiculo
     {
         public int EmpresaId { get; set; }
 
@@ -13,34 +12,34 @@ namespace DynamicForecast.Areas.Conductor.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ConductorId { get; set; }
 
+
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int CertificadoId { get; set; }
+
         [Required]
         [StringLength(60)]
-        public string CodConductor { get; set; }
+        public string CodCertificado { get; set; }
 
         [Required]
         [StringLength(120)]
-        public string NombreConductor { get; set; }
+        public string NombreCertificado { get; set; }
 
         [Required]
         [StringLength(15)]
-        public string Documento { get; set; }
+        public string TipoCertificado { get; set; }
 
+        [Required]
         [StringLength(250)]
-        public string EMail { get; set; }
+        public string DescripcionCertificado { get; set; }
 
+        [Required]
         public DateTime FechaIng { get; set; }
 
+        [Required]
         public DateTime FechaMod { get; set; }
 
-        [StringLength(120)]
-        public string Direccion { get; set; }
-
-        [StringLength(30)]
-        public string Telefono { get; set; }
-
-        [StringLength(30)]
-        public string Celular { get; set; }
-
+        [Required]
         [StringLength(2)]
         public string Estado { get; set; }
 
