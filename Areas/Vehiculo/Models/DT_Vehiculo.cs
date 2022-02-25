@@ -12,6 +12,16 @@ namespace DynamicForecast.Areas.Vehiculo.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int VehiculoId { get; set; }
 
+        [Required]
+        [StringLength(16)]
+        public string CodPlacas { get; set; }
+
+        [Required]
+        [StringLength(250)]
+        public string Modelo { get; set; }
+        [Required]
+        [StringLength(250)]
+        public string MarcaEmpresa { get; set; }
 
         [Required]
         [StringLength(6)]
@@ -26,11 +36,11 @@ namespace DynamicForecast.Areas.Vehiculo.Models
         public string NaturalezaCarga { get; set; }
 
         [Required]
-        [StringLength(2)]
+        [StringLength(3)]
         public string EstadoMecanico { get; set; }
 
         [Required]
-        [StringLength(2)]
+        [StringLength(3)]
         public string EstadoLegal { get; set; }
 
         [Required]

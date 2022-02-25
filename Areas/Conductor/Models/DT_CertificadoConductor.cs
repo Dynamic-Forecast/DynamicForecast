@@ -10,13 +10,11 @@ namespace DynamicForecast.Areas.Conductor.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ConductorId { get; set; }
-
+        public int CertificadoId { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int CertificadoId { get; set; }
-
+        public int ConductorId { get; set; }
 
         [Required]
         public DateTime FechaIng { get; set; }

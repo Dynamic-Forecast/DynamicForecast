@@ -13,7 +13,7 @@ namespace DynamicForecast.Servicios
             FsvrConn = svrConn;
         }
 
-        public IEnumerable<DT_Certificado> GetCertificadoes(int EmpresaId)
+        public IEnumerable<DT_Certificado> GetCertificados(int EmpresaId)
         {
             return FsvrConn.DT_Certificado.
                             Where(h => h.EmpresaId == EmpresaId).
