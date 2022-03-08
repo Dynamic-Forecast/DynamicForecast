@@ -116,7 +116,6 @@ namespace DynamicForecast
             app.UseRequestLocalization(localizationOptions);
 
 
-            app.UseFastReport();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -1,3 +1,4 @@
+using DynamicForecast.Areas.Certificado.Models;
 using DynamicForecast.Areas.Conductor.Models;
 using System;
 using System.ComponentModel.DataAnnotations;

@@ -56,7 +56,7 @@ namespace DynamicForecast.Servicios
         }
         public IEnumerable<DT_Vehiculo> GetVehiculoLike(int EmpresaId, string busqueda)
         {
-            return FsvrConn.DT_Vehiculo.Where(h => h.EmpresaId == EmpresaId && (h.Contains(busqueda) || h.CodVehiculo.Contains(busqueda)));
+            return FsvrConn.DT_Vehiculo.Where(h => h.EmpresaId == EmpresaId && (h.VehiculoId.ToString().Contains(busqueda) || h.CodPlacas.Contains(busqueda)|| h.Modelo.Contains(busqueda)|| h.MarcaEmpresa.Contains(busqueda)));
         }
     }
 }

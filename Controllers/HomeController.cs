@@ -76,7 +76,6 @@ namespace DynamicForecast.Controllers
                 {
                     HttpContext.Session.SetInt32("UsuarioId", usuario.UsuarioId);
                     HttpContext.Session.SetString("CodigoUsr", usuario.CodigoUsr);
-                    HttpContext.Session.SetString("Nombre1", usuario.Nombre1);
                     HttpContext.Session.SetString("NombreUsr", usuario.NombreUsr);
                     HttpContext.Session.SetInt32("EmpresaId", usuario.EmpresaId);
                     HttpContext.Session.SetInt32("TipoUsuario", usuario.TipoUsuario);
@@ -385,7 +384,6 @@ namespace DynamicForecast.Controllers
 
                         HttpContext.Session.SetInt32("UsuarioId", usuario.UsuarioId);
                         HttpContext.Session.SetString("CodigoUsr", usuario.CodigoUsr);
-                        HttpContext.Session.SetString("Nombre1", usuario.Nombre1);
                         HttpContext.Session.SetString("NombreUsr", usuario.NombreUsr);
                         HttpContext.Session.SetInt32("EmpresaId", usuario.EmpresaId);
                         HttpContext.Session.SetInt32("TipoUsuario", usuario.TipoUsuario);
