@@ -27,21 +27,27 @@
                 </a>
             </li>
             <li>
-                <a title="Vehículo">
-                    <em class="icon-game-controller"></em>
+                <a asp-controller="Vehiculo" asp-area="Vehiculo" asp-action="Index" title="Vehículo">
+                    <em class="fa fa-truck"></em>
                     <span data-localize="sidebar.nav.VEHICULO">Vehículo</span>
                 </a>
             </li>
             <li>
                 <a title="Modelo">
                     <em class="icon-star"></em>
-                    <span data-localize="sidebar.nav.MODELO">Modelo</span>
+                    <span data-localize="sidebar.nav.MODELO">Modelo Recomendación</span>
                 </a>
             </li>
             <li>
                 <a title="Viajes">
                     <em class="icon-map"></em>
-                    <span data-localize="sidebar.nav.CONDUCTOR">Conductor</span>
+                    <span data-localize="sidebar.nav.VIAJE">Viaje</span>
+                </a>
+            </li>
+            <li>
+                <a asp-controller="Certificado" asp-area="Certificado" asp-action="Index" title="Certificados">
+                    <em class="icon-folder-alt"></em>
+                    <span data-localize="sidebar.nav.CERTIFICADO">Certificados</span>
                 </a>
             </li>
 
