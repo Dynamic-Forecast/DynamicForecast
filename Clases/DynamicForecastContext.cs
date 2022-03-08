@@ -3,7 +3,7 @@ using DynamicForecast.Models;
 using Microsoft.EntityFrameworkCore;
 using DynamicForecast.Areas.Conductor.Models;
 using DynamicForecast.Areas.Vehiculo.Models;
-
+using DynamicForecast.Areas.Certificado.Models;
 
 namespace DynamicForecast.Clases
 {

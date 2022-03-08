@@ -21,12 +21,13 @@ namespace DynamicForecast.Areas.Vehiculo.Models
         [Required]
         [StringLength(250)]
         public string Modelo { get; set; }
+
         [Required]
         [StringLength(250)]
         public string MarcaEmpresa { get; set; }
 
         [Required]
-        [StringLength(6)]
+        [StringLength(12)]
         public string CodConfiguracion { get; set; }
 
         [Required]

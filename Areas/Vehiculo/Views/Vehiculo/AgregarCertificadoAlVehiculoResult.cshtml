@@ -1,0 +1,152 @@
+﻿@model IEnumerable<DynamicForecast.Areas.Vehiculo.Models.DT_CertificadoVehiculo>
+
+
+@if (@ViewBag.CertificadoVehiculoCreado)
+{
+    <div class="card-body">
+        <div class="card border-info mb-12 text-center" style="max-width: 90rem;">
+            <div class="card-body text-info">
+                <h4 class="card-title">CERTIFICADO AÑADIDO AL VEHÍCULO CON ÉXTIO </h4>
+
+            </div>
+        </div>
+    </div>
+}
+<div class="card card-default">
+    <div class="form-group col-md-12">
+        <br />
+        <h4 class="text-bold text-center">Certificados Añadidos al Vehículo</h4>
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div class="card-body">
+                    @{if (Model.First() != null)
+                        {
+
+                            <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatableCertificadoVehiculo">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" data-priority="1">Eliminar Certificado del Vehículo</th>
+                                        <th class="text-center" data-priority="2">
+                                            Id Certificado
+                                        </th>
+                                        <th class="text-center" data-priority="3">
+                                            Cod Certificado
+                                        </th>
+                                        <th class="text-center" data-priority="4">
+                                            Nombre Certificado
+                                        </th>
+                                        <th class="text-center" data-priority="5">
+                                            Tipo Certificado
+                                        </th>
+                                        <th class="text-center" data-priority="6">
+                                            Descripción del Certificado
+                                        </th>
+                                        <th class="text-center">
+                                            Fecha Ingreso
+                                        </th>
+                                        <th class="text-center">
+                                            Fecha Modificación
+                                        </th>
+                                        <th class="text-center">
+                                            Estado Legal
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        int VehiculoId = item.VehiculoId;
+                                        <tr>
+                                            <td class="text-center align-middle">
+                                                <i title="Eliminar Vehiculo">
+                                                    @Html.ActionLink("", "EliminarCertificadoVehiculo", new { CertificadoVehiculoId = item.CertificadoVehiculoId }, new { @class = "fa fa-trash" })
+                                                </i>
+                                            </td>
+
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.CertificadoId)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.DT_Certificado.CodCertificado)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.DT_Certificado.NombreCertificado)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.DT_Certificado.TipoCertificado)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.DT_Certificado.DescripcionCertificado)
+
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.DT_Certificado.FechaIng)
+
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.DT_Certificado.FechaMod)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.DT_Certificado.Estado)
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        }
+                        else
+                        {
+
+                            <div class="card-body">
+                                <div class="card border-info mb-12 text-center" style="max-width: 90rem;">
+                                    <div class="card-body text-info">
+                                        <h4 class="card-title">No se han registrado Certificados añadidos al Vehículo  </h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#datatableCertificadoVehiculo").DataTable({
+            paging: !0,
+            ordering: !0,
+            info: !0,
+            responsive: true,
+            destroy: true,
+            pageLength: 5,
+            oLanguage: {
+                sSearch: "Buscar :",
+                sLengthMenu: "_MENU_ registros por pagina",
+                info: "Pagina _PAGE_ de _PAGES_",
+                zeroRecords: "No hay Datos",
+                infoEmpty: "No hay registros disponibles",
+                infoFiltered: "(filtrado de _MAX_ registros totales)",
+                oPaginate: { sNext: '<em class="fa fa-caret-right"></em>', sPrevious: '<em class="fa fa-caret-left"></em>' },
+            },
+            dom: "Bfrtip",
+            buttons: [
+                { extend: "copy", className: "btn-info", text: "Copiar" },
+                { extend: "csv", className: "btn-info" },
+                { extend: "excel", className: "btn-info", title: "XLS-File" },
+                { extend: "pdf", className: "btn-info", title: $("title").text() },
+                { extend: "print", className: "btn-info", text: "Imprimir" },
+            ],
+        });
+    });
+
+
+</script>
+

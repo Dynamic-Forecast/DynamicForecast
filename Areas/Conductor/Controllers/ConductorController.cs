@@ -45,6 +45,8 @@ namespace DynamicForecast.Areas.Conductor.Controllers
             IConductor Conductor = new IConductor(FsvrConn);
             var lstConductor = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty();
             ViewBag.ConductorCreado = false;
+            ViewBag.CertificadoConductorCreado = false;
+            ViewBag.VehiculoConductorCreado = false;
             ViewBag.Error = "";
             ViewBag.ConductorEliminado = false;
 
@@ -55,8 +57,8 @@ namespace DynamicForecast.Areas.Conductor.Controllers
         public IActionResult CrearConductor()
         {
             ViewBag.Error = "";
-            ViewBag.ConductorCreado = false;
-            ViewBag.ConductorEliminado = false;
+            //ViewBag.ConductorCreado = false;
+            //ViewBag.ConductorEliminado = false;
 
             return PartialView();
         }
@@ -67,6 +69,8 @@ namespace DynamicForecast.Areas.Conductor.Controllers
         {
             ViewBag.Error = "";
             ViewBag.ConductorEliminado = false;
+            ViewBag.CertificadoConductorCreado = false;
+            ViewBag.VehiculoConductorCreado = false;
 
             IConductor Conductor = new IConductor(FsvrConn);
 
@@ -166,17 +170,316 @@ namespace DynamicForecast.Areas.Conductor.Controllers
             return View("~/Areas/Conductor/Views/Conductor/Index.cshtml", lstConductores.ToList());
         }
 
-        public IActionResult AgregarCertificado(int? ConductorId)
+        public IActionResult EliminarVehiculoConductor(int VehiculoConductorId)
         {
             ViewBag.Error = "";
-            //ViewBag.ConductorCreado = false;
-            //ViewBag.ConductorEliminado = false;
+            IConductor Conductor = new IConductor(FsvrConn);
+            IVehiculoConductor VehiculoConductor = new IVehiculoConductor(FsvrConn);
+            ViewBag.ConductorCreado = false;
 
 
+            int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+            if (VehiculoConductorId != null && VehiculoConductorId > 0)
+            {
+                var VehiculoConductorEliminar = VehiculoConductor.GetVehiculoConductorXId(fEmpresaId, (int)VehiculoConductorId).DefaultIfEmpty().FirstOrDefault();
+                if (VehiculoConductorEliminar != null)
+                {
+                    VehiculoConductor.EliminarVehiculoConductor(VehiculoConductorEliminar);
+                    ViewBag.ConductorEliminado = false;
+                }
+                else
+                {
+                    ViewBag.Error = "No se puede eliminar el vehículo al conductor, ya se ha eliminado o no existe.";
+                    ViewBag.ConductorEliminado = false;
+                }
 
+            }
+            else
+            {
+                ViewBag.Error = "No se puede eliminar el vehículo al conductor";
+                ViewBag.ConductorEliminado = false;
+
+
+            }
+            var lstConductores = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty();
+
+            return View("~/Areas/Conductor/Views/Conductor/Index.cshtml", lstConductores.ToList());
+        }
+        public IActionResult EliminarCertificadoConductor(int CertificadoConductorId)
+        {
+            ViewBag.Error = "";
+            IConductor Conductor = new IConductor(FsvrConn);
+            ICertificadoConductor CertificadoConductor = new ICertificadoConductor(FsvrConn);
+            ViewBag.ConductorCreado = false;
+
+
+            int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+            if (CertificadoConductorId != null && CertificadoConductorId > 0)
+            {
+                var CertificadoConductorEliminar = CertificadoConductor.GetCertificadosXCertificadosConductor(fEmpresaId, (int)CertificadoConductorId).DefaultIfEmpty().FirstOrDefault();
+                if (CertificadoConductorEliminar != null)
+                {
+                    CertificadoConductor.EliminarCertificadoConductor(CertificadoConductorEliminar);
+                    ViewBag.ConductorEliminado = false;
+                }
+                else
+                {
+                    ViewBag.Error = "No se puede eliminar el certificado al conductor, ya se ha eliminado o no existe.";
+                    ViewBag.ConductorEliminado = false;
+                }
+
+            }
+            else
+            {
+                ViewBag.Error = "No se puede eliminar el certificado al conductor";
+                ViewBag.ConductorEliminado = false;
+
+
+            }
+            var lstConductores = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty();
+
+            return View("~/Areas/Conductor/Views/Conductor/Index.cshtml", lstConductores.ToList());
+        }
+
+        public IActionResult AgregarCertificadoAlConductor(int ConductorId)
+        {
+            ViewBag.Error = "";
+            int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+
+            IConductor Conductor = new IConductor(FsvrConn);
+            ViewBag.datosConductor = Conductor.GetConductor(fEmpresaId, ConductorId).DefaultIfEmpty().FirstOrDefault();
+
+            return PartialView();
+        }
+
+        public IActionResult AgregarCertificadoAlConductorResult(int ConductorId, int CertificadoId)
+        {
+
+            ViewBag.Error = "";
+            ViewBag.ConductorEliminado = false;
+            ViewBag.VehiculoConductorCreado = false;
+            ViewBag.ConductorCreado = false;
+            int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+            ICertificadoConductor CertificadoConductor = new ICertificadoConductor(FsvrConn);
+
+            if (CertificadoId > 0)
+            {
+
+                IConductor Conductor = new IConductor(FsvrConn);
+
+                int certificadoConductorId = 0;
+                int fUsuarioId = HttpContext.Session.GetInt32("UsuarioId") ?? 0;
+
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.Error = "ModelState no valido";
+                }
+                if (ViewBag.Error == "")  // Sí no hay errores
+                {
+                    using IDbContextTransaction dbTran = FsvrConn.Database.BeginTransaction();
+
+                    try
+                    {
+                        var lstConductor = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty().FirstOrDefault();
+                        var lstCertificadosConductor = CertificadoConductor.GetCertificadoConductores(fEmpresaId).DefaultIfEmpty().FirstOrDefault();
+
+                        if (lstCertificadosConductor != null)
+                        {
+                            if (lstCertificadosConductor.CertificadoConductorId > 0)
+                                certificadoConductorId = lstCertificadosConductor.CertificadoConductorId++;
+                            else
+                                certificadoConductorId = 1;
+                        }
+                        else
+                            certificadoConductorId = 1;
+                        var c = new DT_CertificadoConductor
+                        {
+                            ConductorId = ConductorId,
+                            CertificadoId = CertificadoId,
+                            EmpresaId = fEmpresaId,
+                            CertificadoConductorId = certificadoConductorId,
+                            Estado = "AC",
+                            FechaIng = DateTime.Now,
+                            FechaMod = DateTime.Now,
+                        };
+
+                        CertificadoConductor.AgregarCertificadoConductor(c);
+                        dbTran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbTran.Rollback();
+                        ViewBag.Error = "Error al crear" + ex.InnerException + "<hr />MENSAJE--> " + ex.Message;
+                        ViewBag.ListUsuarios = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.ConductorId);
+                        var lstCertificadosConductores = CertificadoConductor.GetCertificadosXConductor(fEmpresaId, ConductorId).DefaultIfEmpty();
+
+                        ViewBag.CertificadoConductorCreado = false;
+
+                        return PartialView(lstCertificadosConductores.ToList());
+                    }
+                }
+                if (ViewBag.Error == "")
+                {
+
+                    var lstCertificadosConductores = CertificadoConductor.GetCertificadosXConductor(fEmpresaId, ConductorId).DefaultIfEmpty();
+
+                    ViewBag.CertificadoConductorCreado = true;
+
+                    return PartialView(lstCertificadosConductores.ToList());
+                }
+                else
+                {
+
+
+                    var lstCertificadosConductores = CertificadoConductor.GetCertificadosXConductor(fEmpresaId, ConductorId).DefaultIfEmpty();
+
+                    ViewBag.CertificadoConductorCreado = false;
+
+                    return PartialView(lstCertificadosConductores.ToList());
+                }
+            }
+            else
+            {
+                var lstCertificadosConductores = CertificadoConductor.GetCertificadosXConductor(fEmpresaId, ConductorId).DefaultIfEmpty();
+
+                ViewBag.CertificadoConductorCreado = false;
+
+                return PartialView(lstCertificadosConductores.ToList());
+            }
+
+        }
+
+        public IActionResult AgregarVehiculoAlConductor(int ConductorId)
+        {
+            ViewBag.Error = "";
+            int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+
+            IConductor Conductor = new IConductor(FsvrConn);
+            ViewBag.datosConductor = Conductor.GetConductor(fEmpresaId, ConductorId).DefaultIfEmpty().FirstOrDefault();
 
 
             return PartialView();
+        }
+
+        public IActionResult AgregarVehiculoAlConductorResult(int ConductorId, int VehiculoId)
+        {
+            ViewBag.Error = "";
+            ViewBag.ConductorVehiculoCreado = false;
+
+            IVehiculo Vehiculo = new IVehiculo(FsvrConn);
+            IVehiculoConductor VehiculoConductor = new IVehiculoConductor(FsvrConn);
+            int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+
+            if (VehiculoId > 0)
+            {
+
+                int certificadoVehiculoId = 0;
+                int fUsuarioId = HttpContext.Session.GetInt32("UsuarioId") ?? 0;
+
+                if (!ModelState.IsValid)
+                {
+                    ViewBag.Error = "ModelState no valido";
+                }
+                if (ViewBag.Error == "")  // Sí no hay errores
+                {
+                    using IDbContextTransaction dbTran = FsvrConn.Database.BeginTransaction();
+
+                    try
+                    {
+                        var lstVehiculo = Vehiculo.GetVehiculos(fEmpresaId).DefaultIfEmpty().FirstOrDefault();
+                        var lstVehiculoConductor = VehiculoConductor.GetVehiculoConductores(fEmpresaId).DefaultIfEmpty().FirstOrDefault();
+
+                        if (lstVehiculoConductor != null)
+                        {
+                            if (lstVehiculoConductor.VehiculoConductorId > 0)
+                                certificadoVehiculoId = lstVehiculoConductor.VehiculoConductorId++;
+                            else
+                                certificadoVehiculoId = 1;
+                        }
+                        else
+                            certificadoVehiculoId = 1;
+                        var c = new DT_VehiculoConductor
+                        {
+                            EmpresaId = fEmpresaId,
+                            VehiculoId = VehiculoId,
+                            ConductorId = ConductorId,
+                            VehiculoConductorId = certificadoVehiculoId,
+                            Estado = "AC",
+                            FechaIng = DateTime.Now,
+                            FechaMod = DateTime.Now
+
+                        };
+
+                        VehiculoConductor.AgregarVehiculoConductor(c);
+                        dbTran.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbTran.Rollback();
+                        ViewBag.Error = "Error al crear" + ex.InnerException + "<hr />MENSAJE--> " + ex.Message;
+                        ViewBag.ListUsuarios = Vehiculo.GetVehiculos(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.VehiculoId);
+                        var lstVehiculosXConductor = VehiculoConductor.GetVehiculosConductorXConductor(fEmpresaId, ConductorId).DefaultIfEmpty();
+
+                        ViewBag.ConductorVehiculoCreado = false;
+                        return PartialView(lstVehiculosXConductor.ToList());
+
+
+                    }
+                }
+                if (ViewBag.Error == "")
+                {
+                    var lstVehiculosXConductor = VehiculoConductor.GetVehiculosConductorXConductor(fEmpresaId, ConductorId).DefaultIfEmpty();
+
+                    ViewBag.ConductorVehiculoCreado = true;
+                    return PartialView(lstVehiculosXConductor.ToList());
+
+
+                }
+                else
+                {
+                    var lstVehiculosXConductor = VehiculoConductor.GetVehiculosConductorXConductor(fEmpresaId, ConductorId).DefaultIfEmpty();
+
+                    ViewBag.ConductorVehiculoCreado = false;
+                    return PartialView(lstVehiculosXConductor.ToList());
+
+
+
+                }
+            }
+            else
+            {
+                var lstVehiculosXConductor = VehiculoConductor.GetVehiculosConductorXConductor(fEmpresaId, ConductorId).DefaultIfEmpty();
+
+                ViewBag.VehiculoVehiculoCreado = false;
+                return PartialView(lstVehiculosXConductor.ToList());
+
+
+            }
+        }
+
+        public ActionResult GetVehiculosFind(string q)
+        {
+            var fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+            int fUsuarioId = HttpContext.Session.GetInt32("UsuarioId") ?? 0;
+            string estadoPermitido = "AC";
+
+            IVehiculo Vehiculo = new IVehiculo(FsvrConn);
+            var results = Vehiculo.GetVehiculoLike(fEmpresaId, q).Where(h => h.Estado.Equals(estadoPermitido)).
+                          Select(h => new { id = h.VehiculoId, text = h.VehiculoId + " - Placa: " + h.CodPlacas + " - " + h.MarcaEmpresa + "/ " + h.Modelo }).ToList().Take(15);
+            return Json(new { results });
+        }
+
+        public ActionResult GetCertificadosFind(string q)
+        {
+            var fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+            int fUsuarioId = HttpContext.Session.GetInt32("UsuarioId") ?? 0;
+            string estadoPermitido = "AC";
+            string tipoCertificadoConductor = "CER_CON";
+
+            ICertificado Certificado = new ICertificado(FsvrConn);
+            var results = Certificado.GetCertificadoLike(fEmpresaId, q).Where(h => h.Estado.Equals(estadoPermitido) && h.TipoCertificado.Equals(tipoCertificadoConductor)).
+                          Select(h => new { id = h.CertificadoId, text = h.CertificadoId + "- " + h.NombreCertificado }).ToList().Take(15);
+            return Json(new { results });
         }
 
     }

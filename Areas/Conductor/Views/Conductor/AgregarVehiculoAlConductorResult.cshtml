@@ -1,0 +1,171 @@
+﻿@model IEnumerable<DynamicForecast.Areas.Conductor.Models.DT_VehiculoConductor>
+
+
+@if (@ViewBag.ConductorVehiculoCreado)
+{
+    <div class="card-body">
+        <div class="card border-info mb-12 text-center" style="max-width: 90rem;">
+            <div class="card-body text-info">
+                <h4 class="card-title">VEHÍCULO AÑADIDO AL CONDUCTOR CON ÉXTIO </h4>
+
+            </div>
+        </div>
+    </div>
+}
+<div class="card card-default">
+    <div class="form-group col-md-12">
+        <br />
+        <h4 class="text-bold text-center">Vehículos Añadidos al conductor</h4>
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div class="card-body">
+                    @{if (Model.First() != null)
+                        {
+
+                            <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatableVehiculoConductor">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" data-priority="1">Eliminar Vehículo del Conductor</th>
+                                        <th class="text-center" data-priority="2">
+                                            Id Vehiculo
+                                        </th>
+                                        <th class="text-center" data-priority="3">
+                                            Placas
+                                        </th>
+                                        <th class="text-center" data-priority="4">
+                                            Modelo
+                                        </th>
+                                        <th class="text-center" data-priority="5">
+                                            Marca
+                                        </th>
+                                        <th class="text-center" data-priority="6">
+                                            Configuración
+                                        </th>
+                                        <th class="text-center">
+                                            Naturaleza Carga
+                                        </th>
+                                        <th class="text-center">
+                                            Estado Mecánico
+                                        </th>
+                                        <th class="text-center">
+                                            Estado Legal
+                                        </th>
+                                        <th class="text-center">
+                                            Descripción
+                                        </th>
+                                        <th class="text-center">
+                                            Vehiculo Añadido Al Conductor
+                                        </th>
+                                        <th class="text-center">
+                                            Actualización Vehículo
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        int ConductorId = item.ConductorId;
+                                        <tr>
+                                            <td class="text-center align-middle">
+                                                <i title="Eliminar Conductor">
+                                                    @Html.ActionLink("", "EliminarVehiculoConductor", new { VehiculoConductorId = item.VehiculoConductorId }, new { @class = "fa fa-trash" })
+                                                </i>
+                                            </td>
+
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.VehiculoId)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.DT_Vehiculo.CodPlacas)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.DT_Vehiculo.Modelo)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.DT_Vehiculo.MarcaEmpresa)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.DT_Vehiculo.Configuracion)
+                                                -
+                                                @Html.DisplayTextFor(modelItem => item.DT_Vehiculo.CodConfiguracion)
+
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.DT_Vehiculo.NaturalezaCarga)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.DT_Vehiculo.EstadoMecanico)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.DT_Vehiculo.EstadoLegal)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.DT_Vehiculo.Descripcion)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.FechaIng)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.DT_Vehiculo.FechaMod)
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        }
+                        else
+                        {
+
+                            <div class="card-body">
+                                <div class="card border-info mb-12 text-center" style="max-width: 90rem;">
+                                    <div class="card-body text-info">
+                                        <h4 class="card-title">No se han registrado Vehículos añadidos al Conductor  </h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#datatableVehiculoConductor").DataTable({
+            paging: !0,
+            ordering: !0,
+            info: !0,
+            responsive: true,
+            destroy: true,
+            pageLength: 5,
+            oLanguage: {
+                sSearch: "Buscar :",
+                sLengthMenu: "_MENU_ registros por pagina",
+                info: "Pagina _PAGE_ de _PAGES_",
+                zeroRecords: "No hay Datos",
+                infoEmpty: "No hay registros disponibles",
+                infoFiltered: "(filtrado de _MAX_ registros totales)",
+                oPaginate: { sNext: '<em class="fa fa-caret-right"></em>', sPrevious: '<em class="fa fa-caret-left"></em>' },
+            },
+            dom: "Bfrtip",
+            buttons: [
+                { extend: "copy", className: "btn-info", text: "Copiar" },
+                { extend: "csv", className: "btn-info" },
+                { extend: "excel", className: "btn-info", title: "XLS-File" },
+                { extend: "pdf", className: "btn-info", title: $("title").text() },
+                { extend: "print", className: "btn-info", text: "Imprimir" },
+            ],
+        });
+    });
+
+
+</script>

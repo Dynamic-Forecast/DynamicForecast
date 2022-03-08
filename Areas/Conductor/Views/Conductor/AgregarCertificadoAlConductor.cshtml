@@ -1,0 +1,112 @@
+﻿@model DynamicForecast.Areas.Conductor.Models.DT_CertificadoConductor
+<div class="card card-default">
+    <div class="form-group col-md-12">
+        <br />
+        <h4 class="text-bold text-center">Agregar Certificado del Conductor @ViewBag.datosConductor.NombreConductor - Código:  @ViewBag.datosConductor.CodConductor</h4>
+
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Certificados</label>
+                        <select asp-items="@(new SelectList( "id", "text" ))" id="selecCertificados" class="form-control form-control-sm"><option selected disabled value="">Seleccione el Certificado</option></select>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="form-group text-left">
+                            <button id="btn-sendForm" onclick="agregarCertificadoAlConductor();" value="Agregar Certificado al Conductor" class="btn btn-primary">Agregar Certificado al Conductor</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="secListaCertificadosConductor" class="card card-default">
+
+
+</div>
+<input id="ConductorIdSelec" class="d-none" value="@ViewBag.datosConductor.ConductorId" />
+<script>
+$(document).ready(function () {
+
+    $('#selecCertificados').select2({
+        allowClear: true,
+        placeholder: 'Seleccione el Certificado',
+        //dropdownParent: $('#modal-container'),
+        //theme: "bootstrap4",
+        width: "100%",
+        closeOnSelect: true,
+        language: {
+            noResults: function () {
+                return 'No se encontraron resultados';
+            },
+            searching: function () {
+                return 'Buscando…';
+            },
+            inputTooShort: function (args) {
+                var remainingChars = args.minimum - args.input.length;
+                var message = 'Por favor, introduzca ' + remainingChars + ' car';
+
+                if (remainingChars == 1) {
+                    message += 'ácter';
+                } else {
+                    message += 'acteres';
+                }
+
+                return message;
+            },
+            errorLoading: function () {
+                return 'No se pudieron cargar los resultados';
+            },
+            loadingMore: function () {
+                return 'Cargando más resultados…';
+            },
+        },
+        focus: true,
+        minimumInputLength: 2,
+        ajax: {
+            dataType: 'json',
+            url: '@Url.Action("GetCertificadosFind", "Conductor")',
+            data: function (params) {
+                return {
+                    q: params.term
+                };
+            },
+        },
+    });
+
+    var CertificadoId = 0; //$("#selecCertificados").val();
+    var ConductorId = $("#ConductorIdSelec").val();
+
+    $('#secListaCertificadosConductor').load('AgregarCertificadoAlConductorResult', { ConductorId, CertificadoId });
+
+
+
+});
+
+
+    function agregarCertificadoAlConductor() {
+
+        var CertificadoId = $("#selecCertificados").val();
+        var ConductorId = $("#ConductorIdSelec").val();
+
+        if (CertificadoId > 0 && ConductorId > 0) {
+
+            $('#secListaCertificadosConductor').load('AgregarCertificadoAlConductorResult', { ConductorId, CertificadoId });
+
+        }
+        else {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al Agregar el Certificado al Conductor ',
+                text: 'Por favor confirme haber seleccionado un Certificado',
+
+            });
+        }
+
+    }
+
+</script>

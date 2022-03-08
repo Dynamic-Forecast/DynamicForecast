@@ -1,10 +1,11 @@
+using DynamicForecast.Areas.Conductor.Models;
 using DynamicForecast.Areas.Vehiculo.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DynamicForecast.Areas.Conductor.Models
+namespace DynamicForecast.Areas.Certificado.Models
 {
     public partial class DT_Certificado
     {

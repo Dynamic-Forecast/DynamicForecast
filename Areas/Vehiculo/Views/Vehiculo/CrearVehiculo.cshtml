@@ -1,0 +1,85 @@
+﻿@model DynamicForecast.Areas.Vehiculo.Models.DT_Vehiculo
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="CrearVehiculo" method="post" enctype="multipart/form-data">
+
+            @{if (ViewBag.Error != "")
+                {
+                    <div class="text-center text-danger">
+                        @ViewBag.Error
+                        <hr />
+                    </div>
+                }
+            }
+            <div class="text-bold text-center h4">Datos para la Creación del Vehículo</div>
+            <br />
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Placas</label>
+                    <input asp-for="CodPlacas" class="form-control form-control-sm" required />
+                    <span asp-validation-for="CodPlacas" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">Modelo</label>
+                    <input asp-for="Modelo" class="form-control form-control-sm" required />
+                    <span asp-validation-for="Modelo" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Marca</label>
+                    <input asp-for="MarcaEmpresa" class="form-control form-control-sm" required />
+                    <span asp-validation-for="MarcaEmpresa" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Configuración</label>
+                    <select id="selecCertificados" asp-for="CodConfiguracion" class="form-control form-control-sm">
+                        <option selected disabled value="">Seleccione el Certificado</option>
+                        <option value="COD-CONFIG1">Configuración Tipo 1</option>
+                        <option value="COD-CONFIG2">Configuración Tipo 2</option>
+                    </select>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Configuración</label>
+                    <select id="selecCertificados" asp-for="NaturalezaCarga" class="form-control form-control-sm">
+                        <option selected disabled value="">Seleccione la Naturaleza de la Carga</option>
+                        <option value="Naturaleaza Tipo 1">Naturaleaza Tipo 1</option>
+                        <option value="Naturaleaza Tipo 2">Naturaleaza Tipo 2</option>
+                    </select>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Estado Mecánico</label>
+                    <select id="selecCertificados" asp-for="EstadoMecanico" class="form-control form-control-sm">
+                        <option selected disabled value="">Seleccione el Estado Macánico</option>
+                        <option value="EM-1">Estado Mecánico Tipo 1</option>
+                        <option value="EM-2">Estado Mecánico Tipo 2</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Estado Legal</label>
+                    <select id="selecCertificados" asp-for="EstadoLegal" class="form-control form-control-sm">
+                        <option selected disabled value="">Seleccione el Estado Legal</option>
+                        <option value="EL-1">Estado Legal Tipo 1</option>
+                        <option value="EL-2">Estado Legal Tipo 2</option>
+                    </select>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Descripción</label>
+                    <textarea asp-for="Descripcion" class="form-control form-control-sm" required></textarea>/>
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+            </div>
+            <hr />
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary"><t id="txtBtnCrear">Crear Vehiculo</t></button>
+            </div>
+        </form>
+    </div>
+</div>

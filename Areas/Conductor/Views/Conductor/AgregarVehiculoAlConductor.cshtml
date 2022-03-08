@@ -1,0 +1,112 @@
+﻿@model DynamicForecast.Areas.Conductor.Models.DT_VehiculoConductor
+<div class="card card-default">
+    <div class="form-group col-md-12">
+        <br />
+        <h4 class="text-bold text-center">Agregar Vehículo del Conductor @ViewBag.datosConductor.NombreConductor - Código:  @ViewBag.datosConductor.CodConductor</h4>
+
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div class="card-body">
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Vehículos</label>
+                        <select asp-items="@(new SelectList( "id", "text" ))" id="selecVehiculos" class="form-control form-control-sm"><option selected disabled value="">Seleccione el Vehículo</option></select>
+
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="form-group text-left">
+                            <button id="btn-sendForm" onclick="agregarVehiculoAlConductor();" value="Agregar Vehículo al Conductor" class="btn btn-primary">Agregar Vehículo al Conductor</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div id="secListaVehiculosConductor" class="card card-default">
+
+
+</div>
+<input id="ConductorIdSelec" class="d-none" value="@ViewBag.datosConductor.ConductorId" />
+<script>
+$(document).ready(function () {
+
+    $('#selecVehiculos').select2({
+        allowClear: true,
+        placeholder: 'Seleccione el Vehículo',
+        //dropdownParent: $('#modal-container'),
+        //theme: "bootstrap4",
+        width: "100%",
+        closeOnSelect: true,
+        language: {
+            noResults: function () {
+                return 'No se encontraron resultados';
+            },
+            searching: function () {
+                return 'Buscando…';
+            },
+            inputTooShort: function (args) {
+                var remainingChars = args.minimum - args.input.length;
+                var message = 'Por favor, introduzca ' + remainingChars + ' car';
+
+                if (remainingChars == 1) {
+                    message += 'ácter';
+                } else {
+                    message += 'acteres';
+                }
+
+                return message;
+            },
+            errorLoading: function () {
+                return 'No se pudieron cargar los resultados';
+            },
+            loadingMore: function () {
+                return 'Cargando más resultados…';
+            },
+        },
+        focus: true,
+        minimumInputLength: 2,
+        ajax: {
+            dataType: 'json',
+            url: '@Url.Action("GetVehiculosFind", "Conductor")',
+            data: function (params) {
+                return {
+                    q: params.term
+                };
+            },
+        },
+    });
+
+    var VehiculoId = 0; //$("#selecVehiculos").val();
+    var ConductorId = $("#ConductorIdSelec").val();
+
+    $('#secListaVehiculosConductor').load('AgregarVehiculoAlConductorResult', { ConductorId, VehiculoId });
+
+
+
+});
+
+
+    function agregarVehiculoAlConductor() {
+
+        var VehiculoId = $("#selecVehiculos").val();
+        var ConductorId = $("#ConductorIdSelec").val();
+
+        if (VehiculoId > 0 && ConductorId > 0) {
+
+            $('#secListaVehiculosConductor').load('AgregarVehiculoAlConductorResult', { ConductorId, VehiculoId });
+
+        }
+        else {
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Error al Agregar el Vehículo al Conductor ',
+                text: 'Por favor confirme haber seleccionado un vehículo',
+
+            });
+        }
+
+    }
+
+</script>

@@ -84,8 +84,6 @@
 	  <Folder Include="Areas\Simulacion\Controllers\" />
 	  <Folder Include="Areas\Simulacion\Models\" />
 	  <Folder Include="Areas\Simulacion\Views\" />
-	  <Folder Include="Areas\Vehiculo\Views\" />
-	  <Folder Include="Areas\Vehiculo\Controllers\" />
 	  <Folder Include="ViewComponents\" />
 	  <Folder Include="Views\Usuario\" />
 	</ItemGroup>

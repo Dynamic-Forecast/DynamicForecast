@@ -1,7 +1,8 @@
 ﻿using DynamicForecast.Clases;
-using DynamicForecast.Areas.Conductor.Models;
 using System.Collections.Generic;
 using System.Linq;
+using DynamicForecast.Areas.Certificado.Models;
+
 namespace DynamicForecast.Servicios
 {
     public class ICertificado
