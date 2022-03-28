@@ -60,11 +60,11 @@ namespace DynamicForecast.Areas.Vehiculo.Models
         [StringLength(2)]
         public string Estado { get; set; }
 
-        [ForeignKey("EmpresaId, VehiculoId")]
-        public List<DT_CertificadoVehiculo> DT_CertificadoVehiculo { get; set; }
+        //[ForeignKey("EmpresaId, VehiculoId")]
+        //public List<DT_CertificadoVehiculo> DT_CertificadoVehiculo { get; set; }
 
-        [ForeignKey("EmpresaId, VehiculoId")]
-        public List<DT_VehiculoConductor> DT_VehiculoConductor { get; set; }
+        //[ForeignKey("EmpresaId, VehiculoId")]
+        //public List<DT_VehiculoConductor> DT_VehiculoConductor { get; set; }
 
     }
 }

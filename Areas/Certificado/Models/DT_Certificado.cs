@@ -43,11 +43,11 @@ namespace DynamicForecast.Areas.Certificado.Models
         public string Estado { get; set; }
 
 
-        [ForeignKey("EmpresaId, CertificadoId")]
-        public List<DT_CertificadoConductor> DT_CertificadoConductor { get; set; }
+        //[ForeignKey("EmpresaId, CertificadoId")]
+        //public List<DT_CertificadoConductor> DT_CertificadoConductor { get; set; }
 
-        [ForeignKey("EmpresaId, CertificadoId")]
-        public List<DT_CertificadoVehiculo> DT_CertificadoVehiculo { get; set; }
+        //[ForeignKey("EmpresaId, CertificadoId")]
+        //public List<DT_CertificadoVehiculo> DT_CertificadoVehiculo { get; set; }
 
     }
 }

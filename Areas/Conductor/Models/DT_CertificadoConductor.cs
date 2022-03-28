@@ -9,14 +9,14 @@ namespace DynamicForecast.Areas.Conductor.Models
     {
         public int EmpresaId { get; set; }
 
-        [Key]
+        [Key, Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CertificadoConductorId { get; set; }
-        [Key]
+        [Key, Column(Order = 2)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CertificadoId { get; set; }
 
-        [Key]
+        [Key, Column(Order = 3)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ConductorId { get; set; }
 
