@@ -79,7 +79,7 @@ namespace DynamicForecast.Areas.Certificado.Controllers
                     if (lstCertificado != null)
                     {
                         if (lstCertificado.CertificadoId > 0)
-                            CertificadoId = lstCertificado.CertificadoId++;
+                            CertificadoId = lstCertificado.CertificadoId+1;
                         else
                             CertificadoId = 1;
                     }

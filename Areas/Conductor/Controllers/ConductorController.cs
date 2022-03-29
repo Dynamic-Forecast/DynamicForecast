@@ -93,7 +93,7 @@ namespace DynamicForecast.Areas.Conductor.Controllers
                     if (lstConductor != null)
                     {
                         if (lstConductor.ConductorId > 0)
-                            conductorId = lstConductor.ConductorId++;
+                            conductorId = lstConductor.ConductorId+1;
                         else
                             conductorId = 1;
                     }
@@ -286,7 +286,7 @@ namespace DynamicForecast.Areas.Conductor.Controllers
                         if (lstCertificadosConductor != null)
                         {
                             if (lstCertificadosConductor.CertificadoConductorId > 0)
-                                certificadoConductorId = lstCertificadosConductor.CertificadoConductorId++;
+                                certificadoConductorId = lstCertificadosConductor.CertificadoConductorId+1;
                             else
                                 certificadoConductorId = 1;
                         }
@@ -392,7 +392,7 @@ namespace DynamicForecast.Areas.Conductor.Controllers
                         if (lstVehiculoConductor != null)
                         {
                             if (lstVehiculoConductor.VehiculoConductorId > 0)
-                                certificadoVehiculoId = lstVehiculoConductor.VehiculoConductorId++;
+                                certificadoVehiculoId = lstVehiculoConductor.VehiculoConductorId+1;
                             else
                                 certificadoVehiculoId = 1;
                         }

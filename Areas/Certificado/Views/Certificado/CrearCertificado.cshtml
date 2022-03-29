@@ -3,7 +3,8 @@
     <div class="col-md-12">
         <form asp-action="CrearCertificado" method="post" enctype="multipart/form-data">
 
-            @{if (ViewBag.Error != "")
+            @{
+                if (ViewBag.Error != "")
                 {
                     <div class="text-center text-danger">
                         @ViewBag.Error
@@ -15,13 +16,13 @@
             <br />
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label class="control-label">Placas</label>
+                    <label class="control-label">Cod Certificado</label>
                     <input asp-for="CodCertificado" class="form-control form-control-sm" required />
                     <span asp-validation-for="CodCertificado" class="text-danger"></span>
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label class="control-label">Modelo</label>
+                    <label class="control-label">Nombre Certificado</label>
                     <input asp-for="NombreCertificado" class="form-control form-control-sm" required />
                     <span asp-validation-for="NombreCertificado" class="text-danger"></span>
                 </div>
@@ -29,16 +30,16 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label class="control-label">Marca</label>
+                    <label class="control-label">Descripción</label>
                     <input asp-for="DescripcionCertificado" class="form-control form-control-sm" required />
                     <span asp-validation-for="DescripcionCertificado" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-6">
-                    <label class="control-label">Configuración</label>
+                    <label class="control-label">Tipo de Certificado</label>
                     <select id="selecCertificados" asp-for="TipoCertificado" class="form-control form-control-sm">
                         <option selected disabled value="">Seleccione el Certificado</option>
-                        <option  value="COD-CERT1">Certificado Tipo 1</option>
-                        <option  value="COD-CERT2">Certificado Tipo 2</option>
+                        <option value="COD-CERT1">Certificado Tipo 1</option>
+                        <option value="COD-CERT2">Certificado Tipo 2</option>
                     </select>
 
                 </div>

@@ -78,61 +78,48 @@ namespace DynamicForecast.Areas.Vehiculo.Controllers
             int fUsuarioId = HttpContext.Session.GetInt32("UsuarioId") ?? 0;
             int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
 
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Error = "ModelState no valido";
-            }
-            if (ViewBag.Error == "")  // Sí no hay errores
-            {
-                using IDbContextTransaction dbTran = FsvrConn.Database.BeginTransaction();
 
-                try
+            using IDbContextTransaction dbTran = FsvrConn.Database.BeginTransaction();
+
+            try
+            {
+                var lstVehiculo = Vehiculo.GetVehiculos(fEmpresaId).DefaultIfEmpty().FirstOrDefault();
+
+                if (lstVehiculo != null)
                 {
-                    var lstVehiculo = Vehiculo.GetVehiculos(fEmpresaId).DefaultIfEmpty().FirstOrDefault();
-
-                    if (lstVehiculo != null)
-                    {
-                        if (lstVehiculo.VehiculoId > 0)
-                            VehiculoId = lstVehiculo.VehiculoId++;
-                        else
-                            VehiculoId = 1;
-                    }
+                    if (lstVehiculo.VehiculoId > 0)
+                        VehiculoId = lstVehiculo.VehiculoId + 1;
                     else
                         VehiculoId = 1;
-
-                    c.VehiculoId = VehiculoId;
-                    c.EmpresaId = fEmpresaId;
-                    c.Estado = "AC";
-                    c.FechaIng = DateTime.Now;
-                    c.FechaMod = DateTime.Now;
-                    Vehiculo.AgregarVehiculo(c);
-                    dbTran.Commit();
                 }
-                catch (Exception ex)
-                {
-                    dbTran.Rollback();
-                    ViewBag.Error = "Error al crear" + ex.InnerException + "<hr />MENSAJE--> " + ex.Message;
-                    ViewBag.ListUsuarios = Vehiculo.GetVehiculos(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.VehiculoId);
-                    ViewBag.VehiculoCreado = false;
-                    var lstVehiculoes = Vehiculo.GetVehiculos(fEmpresaId).DefaultIfEmpty();
+                else
+                    VehiculoId = 1;
 
-                    return View("~/Areas/Vehiculo/Views/Vehiculo/Index.cshtml", lstVehiculoes.ToList());
-                }
-            }
-            if (ViewBag.Error == "")
-            {
+                c.VehiculoId = VehiculoId;
+                c.EmpresaId = fEmpresaId;
+                c.Estado = "AC";
+                c.FechaIng = DateTime.Now;
+                c.FechaMod = DateTime.Now;
+                Vehiculo.AgregarVehiculo(c);
+                dbTran.Commit();
+
                 var lstVehiculoes = Vehiculo.GetVehiculos(fEmpresaId).DefaultIfEmpty();
 
                 ViewBag.VehiculoCreado = true;
                 return View("~/Areas/Vehiculo/Views/Vehiculo/Index.cshtml", lstVehiculoes.ToList());
+
             }
-            else
+            catch (Exception ex)
             {
+                dbTran.Rollback();
+                ViewBag.Error = "Error al crear" + ex.InnerException + "<hr />MENSAJE--> " + ex.Message;
+                ViewBag.ListUsuarios = Vehiculo.GetVehiculos(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.VehiculoId);
+                ViewBag.VehiculoCreado = false;
                 var lstVehiculoes = Vehiculo.GetVehiculos(fEmpresaId).DefaultIfEmpty();
 
-                ViewBag.VehiculoCreado = false;
                 return View("~/Areas/Vehiculo/Views/Vehiculo/Index.cshtml", lstVehiculoes.ToList());
             }
+
         }
 
         public IActionResult EliminarVehiculo(int? VehiculoId)
@@ -169,7 +156,7 @@ namespace DynamicForecast.Areas.Vehiculo.Controllers
 
             return View("~/Areas/Vehiculo/Views/Vehiculo/Index.cshtml", lstVehiculoes.ToList());
         }
-   public IActionResult EliminarCertificadoVehiculo(int CertificadoVehiculoId)
+        public IActionResult EliminarCertificadoVehiculo(int CertificadoVehiculoId)
         {
             ViewBag.Error = "";
             IVehiculo Vehiculo = new IVehiculo(FsvrConn);
@@ -178,7 +165,7 @@ namespace DynamicForecast.Areas.Vehiculo.Controllers
 
 
             int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
-            if ( CertificadoVehiculoId > 0)
+            if (CertificadoVehiculoId > 0)
             {
                 var CertificadoVehiculoEliminar = CertificadoVehiculo.GetCertificadosXCertificadosVehiculo(fEmpresaId, (int)CertificadoVehiculoId).DefaultIfEmpty().FirstOrDefault();
                 if (CertificadoVehiculoEliminar != null)
@@ -250,7 +237,7 @@ namespace DynamicForecast.Areas.Vehiculo.Controllers
                         if (lstCertificadosVehiculo != null)
                         {
                             if (lstCertificadosVehiculo.CertificadoVehiculoId > 0)
-                                certificadoVehiculoId = lstCertificadosVehiculo.CertificadoVehiculoId++;
+                                certificadoVehiculoId = lstCertificadosVehiculo.CertificadoVehiculoId + 1;
                             else
                                 certificadoVehiculoId = 1;
                         }
@@ -265,7 +252,7 @@ namespace DynamicForecast.Areas.Vehiculo.Controllers
                             Estado = "AC",
                             FechaIng = DateTime.Now,
                             FechaMod = DateTime.Now,
-                            
+
                         };
 
                         CertificadoVehiculo.AgregarCertificadoVehiculo(c);
