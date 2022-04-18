@@ -2,6 +2,8 @@
 using DynamicForecast.Areas.Vehiculo.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+
 namespace DynamicForecast.Servicios
 {
     public class ICertificadoVehiculo
@@ -30,6 +32,8 @@ namespace DynamicForecast.Servicios
         public IEnumerable<DT_CertificadoVehiculo> GetCertificadosXVehiculo(int EmpresaId, int VehiculoId)
         {
             return FsvrConn.DT_CertificadoVehiculo.
+                            Include(h => h.DT_Certificado ).
+                            Include(h => h.DT_Vehiculo ).
                             Where(h => h.EmpresaId == EmpresaId).
                             Where(h => h.VehiculoId == VehiculoId);
         }

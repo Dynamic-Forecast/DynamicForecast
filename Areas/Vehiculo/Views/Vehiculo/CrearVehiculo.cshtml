@@ -42,11 +42,11 @@
 
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="control-label">Configuración</label>
+                    <label class="control-label">Naturaleza</label>
                     <select id="selecCertificados" asp-for="NaturalezaCarga" class="form-control form-control-sm">
                         <option selected disabled value="">Seleccione la Naturaleza de la Carga</option>
-                        <option value="Naturaleaza Tipo 1">Naturaleaza Tipo 1</option>
-                        <option value="Naturaleaza Tipo 2">Naturaleaza Tipo 2</option>
+                        <option value="NAT-TIPO1">Naturaleaza Tipo 1</option>
+                        <option value="NAT-TIPO2">Naturaleaza Tipo 2</option>
                     </select>
 
                 </div>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label class="control-label">Descripción</label>
-                    <textarea asp-for="Descripcion" class="form-control form-control-sm" required></textarea>/>
+                    <textarea asp-for="Descripcion" class="form-control form-control-sm" required></textarea>
                     <span asp-validation-for="Descripcion" class="text-danger"></span>
                 </div>
             </div>

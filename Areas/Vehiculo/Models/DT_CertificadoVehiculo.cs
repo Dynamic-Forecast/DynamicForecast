@@ -39,7 +39,7 @@ namespace DynamicForecast.Areas.Vehiculo.Models
         [ForeignKey("EmpresaId, CertificadoId")]
         public DT_Certificado DT_Certificado { get; set; }
 
-        [ForeignKey("EmpresaId, CertificadoId")]
+        [ForeignKey("EmpresaId, VehiculoId")]
         public DT_Vehiculo DT_Vehiculo { get; set; }
     }
 }

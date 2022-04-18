@@ -33,6 +33,7 @@ namespace DynamicForecast.Servicios
         {
             return FsvrConn.DT_VehiculoConductor.
                             Include(h => h.DT_Vehiculo).
+                            Include(h => h.DT_Conductor).
                             Where(h => h.EmpresaId == EmpresaId).
                             Where(h => h.ConductorId == ConductorId);
         }

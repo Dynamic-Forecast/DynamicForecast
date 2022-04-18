@@ -2,7 +2,7 @@
 <div class="card card-default">
     <div class="form-group col-md-12">
         <br />
-        <h4 class="text-bold text-center">Agregar Certificado del Vehículo @ViewBag.datosVehiculo.NombreVehiculo - Código:  @ViewBag.datosVehiculo.CodVehiculo</h4>
+        <h4 class="text-bold text-center">Agregar Certificado del Vehículo @ViewBag.datosVehiculo.Modelo / @ViewBag.datosVehiculo.MarcaEmpresa - Placas:  @ViewBag.datosVehiculo.CodPlacas</h4>
 
         <div class="container-fluid">
             <div class="card card-default">
@@ -34,9 +34,8 @@ $(document).ready(function () {
     $('#selecCertificados').select2({
         allowClear: true,
         placeholder: 'Seleccione el Certificado',
-        //dropdownParent: $('#modal-container'),
-        //theme: "bootstrap4",
-        width: "100%",
+        dropdownParent: $('#form-modal .modal-content'),
+        width: '100%',
         closeOnSelect: true,
         language: {
             noResults: function () {

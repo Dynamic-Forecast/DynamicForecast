@@ -63,7 +63,7 @@ namespace DynamicForecast.Servicios
         }
         public IEnumerable<DT_Certificado> GetCertificadoLike(int EmpresaId, string busqueda)
         {
-            return FsvrConn.DT_Certificado.Where(h => h.EmpresaId == EmpresaId && (h.NombreCertificado.Contains(busqueda) || h.CodCertificado.Contains(busqueda)));
+            return FsvrConn.DT_Certificado.Where(h => h.EmpresaId == EmpresaId && (h.NombreCertificado.Contains(busqueda) || h.CodCertificado.Contains(busqueda) || h.CertificadoId.ToString().Contains(busqueda)));
         }
     }
 }

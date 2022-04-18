@@ -11,7 +11,7 @@
 @if (@ViewBag.ConductorCreado)
 {
     <div class="card-body">
-        <div class="card border-info mb-12 text-center" >
+        <div class="card border-info mb-12 text-center">
             <div class="card-body text-info">
                 <h4 class="card-title">CONDUCTOR CREADO CON ÉXITO </h4>
 
@@ -21,7 +21,7 @@
 }
 @if (@ViewBag.ConductorEliminado)
 {
-    <div class="card border-danger text-center" >
+    <div class="card border-danger text-center">
         <div class="card-header text-center">
             <h4 class="card-title">CONDUCTOR ELIMINADO CON ÉXITO </h4>
 
@@ -31,7 +31,7 @@
 @if (@ViewBag.Error != "")
 {
     <div class="card-body bg-transparent border-danger">
-        <div class="card border-info mb-12 text-center" >
+        <div class="card border-info mb-12 text-center">
             <div class="card-body text">
                 <h4 class="card-title">ERROR: <b> [ @ViewBag.Error ] </b> </h4>
             </div>
@@ -97,17 +97,17 @@
                                         <tr>
                                             <td class="text-center align-middle">
                                                 <i title="Eliminar Conductor">
-                                                    @Html.ActionLink("", "EliminarConductor", new { ConductorId = ConductorId }, new { @class = "fa fa-trash" })
+                                                    @Html.ActionLink("", "EliminarConductor", new { ConductorId = ConductorId }, new { @class = "fa fa-trash-alt" })
                                                 </i>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("AgregarCertificadoAlConductor", "Conductor", new { ConductorId = ConductorId }, Context.Request.Scheme)', 'Agregar Certificado')">
-                                                    <i class="fa fa-file-alt " title="Agregar Certificado"></i>
+                                                <a  href="#" onclick="showInPopup('@Url.Action("AgregarCertificadoAlConductor", "Conductor", new { ConductorId = ConductorId }, Context.Request.Scheme)', 'Agregar Certificado')">
+                                                    <i class="fa fa-file-alt" title="Agregar Certificado"></i>
                                                 </a>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("AgregarVehiculoAlConductor", "Conductor", new { ConductorId = ConductorId }, Context.Request.Scheme)', 'Agregar Vehículo')">
-                                                    <i class="fa fa-car-alt " title="Agregar Vehículo"></i>
+                                                <a href="#" onclick="showInPopup('@Url.Action("AgregarVehiculoAlConductor", "Conductor", new { ConductorId = ConductorId }, Context.Request.Scheme)', 'Agregar Vehículo')">
+                                                    <i class="fa fa-car-alt" title="Agregar Vehículo"></i>
                                                 </a>
                                             </td>
                                             <td class="text-center">
@@ -154,7 +154,7 @@
                         {
 
                             <div class="card-body">
-                                <div class="card border-info mb-12 text-center" >
+                                <div class="card border-info mb-12 text-center">
                                     <div class="card-body text-info">
                                         <h4 class="card-title">No se han registrado conductores en el momento </h4>
 

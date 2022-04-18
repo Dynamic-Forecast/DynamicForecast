@@ -11,7 +11,7 @@
 @if (@ViewBag.VehiculoCreado)
 {
     <div class="card-body">
-        <div class="card border-info mb-12 text-center" >
+        <div class="card border-info mb-12 text-center">
             <div class="card-body text-info">
                 <h4 class="card-title">VEHÍCULO CREADO CON ÉXITO </h4>
 
@@ -21,7 +21,7 @@
 }
 @if (@ViewBag.VehiculoEliminado)
 {
-    <div class="card border-danger text-center" >
+    <div class="card border-danger text-center">
         <div class="card-header text-center">
             <h4 class="card-title">VEHÍCULO ELIMINADO CON ÉXITO </h4>
 
@@ -31,7 +31,7 @@
 @if (@ViewBag.Error != "")
 {
     <div class="card-body bg-transparent border-danger">
-        <div class="card border-info mb-12 text-center" >
+        <div class="card border-info mb-12 text-center">
             <div class="card-body text">
                 <h4 class="card-title">ERROR: <b> [ @ViewBag.Error ] </b> </h4>
             </div>
@@ -99,11 +99,11 @@
                                         <tr>
                                             <td class="text-center align-middle">
                                                 <i title="Eliminar Vehículo">
-                                                    @Html.ActionLink("", "EliminarVehiculo", new { VehiculoId = VehiculoId }, new { @class = "fa fa-trash" })
+                                                    @Html.ActionLink("", "EliminarVehiculo", new { VehiculoId = VehiculoId }, new { @class = "fa fa-trash-alt" })
                                                 </i>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("AgregarCertificadoAlVehiculo", "Vehiculo", new { VehiculoId = VehiculoId }, Context.Request.Scheme)', 'Agregarle Certificado')">
+                                                <a href="#" onclick="showInPopup('@Url.Action("AgregarCertificadoAlVehiculo", "Vehiculo", new { VehiculoId = VehiculoId }, Context.Request.Scheme)', 'Agregarle Certificado')">
                                                     <i class="fa fa-file-alt " title="Agregarle Certificado"></i>
                                                 </a>
                                             </td>
@@ -120,7 +120,7 @@
                                                 @Html.DisplayFor(modelItem => item.MarcaEmpresa)
                                             </td>
                                             <td class="text-center">
-                                                @Html.DisplayTextFor(modelItem => item.CodConfiguracion) - @Html.DisplayTextFor(modelItem => item.Configuracion)
+                                                @Html.DisplayTextFor(modelItem => item.CodConfiguracion)
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.NaturalezaCarga)
@@ -130,6 +130,9 @@
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.EstadoLegal)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.Descripcion)
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.FechaIng)

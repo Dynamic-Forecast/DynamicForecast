@@ -20,12 +20,12 @@ namespace DynamicForecast.Areas.Certificado.Controllers
     [Area("Certificado")]
     [Route("Certificado/[controller]/[action]")]
     [Autenticado]
-    [BreadCrumb(Title = "Certificados", Url = "/Certificado/Index", Order = 0, IgnoreAjaxRequests = true)]
+    [BreadCrumb(Title = "Certificados", Url = "/Certificado/Certificado/Index", Order = 0, IgnoreAjaxRequests = true)]
 
     public class CertificadoController : Controller
     {
         private readonly DynamicForecastContext FsvrConn;
- 
+
         public CertificadoController(DynamicForecastContext svrConn)
         {
             FsvrConn = svrConn;
@@ -64,61 +64,49 @@ namespace DynamicForecast.Areas.Certificado.Controllers
             int fUsuarioId = HttpContext.Session.GetInt32("UsuarioId") ?? 0;
             int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
 
-            if (!ModelState.IsValid)
-            {
-                ViewBag.Error = "ModelState no valido";
-            }
-            if (ViewBag.Error == "")  // Sí no hay errores
-            {
-                using IDbContextTransaction dbTran = FsvrConn.Database.BeginTransaction();
+            using IDbContextTransaction dbTran = FsvrConn.Database.BeginTransaction();
 
-                try
+            try
+            {
+                var lstCertificado = Certificado.GetCertificados(fEmpresaId).DefaultIfEmpty().FirstOrDefault();
+
+                if (lstCertificado != null)
                 {
-                    var lstCertificado = Certificado.GetCertificados(fEmpresaId).DefaultIfEmpty().FirstOrDefault();
+                    var CertificadoIdAnterior = lstCertificado.CertificadoId;
 
-                    if (lstCertificado != null)
-                    {
-                        if (lstCertificado.CertificadoId > 0)
-                            CertificadoId = lstCertificado.CertificadoId++;
-                        else
-                            CertificadoId = 1;
-                    }
+                    if (lstCertificado.CertificadoId > 0)
+                        CertificadoId = CertificadoIdAnterior + 1;
                     else
                         CertificadoId = 1;
-
-                    c.CertificadoId = CertificadoId;
-                    c.EmpresaId = fEmpresaId;
-                    c.Estado = "AC";
-                    c.FechaIng = DateTime.Now;
-                    c.FechaMod = DateTime.Now;
-                    Certificado.AgregarCertificado(c);
-                    dbTran.Commit();
                 }
-                catch (Exception ex)
-                {
-                    dbTran.Rollback();
-                    ViewBag.Error = "Error al crear" + ex.InnerException + "<hr />MENSAJE--> " + ex.Message;
-                    ViewBag.ListUsuarios = Certificado.GetCertificados(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.CertificadoId);
-                    ViewBag.CertificadoCreado = false;
-                    var lstCertificadoes = Certificado.GetCertificados(fEmpresaId).DefaultIfEmpty();
+                else
+                    CertificadoId = 1;
 
-                    return View("~/Areas/Certificado/Views/Certificado/Index.cshtml", lstCertificadoes.ToList());
-                }
-            }
-            if (ViewBag.Error == "")
-            {
+                c.CertificadoId = CertificadoId;
+                c.EmpresaId = fEmpresaId;
+                c.Estado = "AC";
+                c.FechaIng = DateTime.Now;
+                c.FechaMod = DateTime.Now;
+                Certificado.AgregarCertificado(c);
+                dbTran.Commit();
+
                 var lstCertificadoes = Certificado.GetCertificados(fEmpresaId).DefaultIfEmpty();
 
                 ViewBag.CertificadoCreado = true;
                 return View("~/Areas/Certificado/Views/Certificado/Index.cshtml", lstCertificadoes.ToList());
             }
-            else
+            catch (Exception ex)
             {
+                dbTran.Rollback();
+                ViewBag.Error = "Error al crear" + ex.InnerException + "<hr />MENSAJE--> " + ex.Message;
+                ViewBag.ListUsuarios = Certificado.GetCertificados(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.CertificadoId);
+                ViewBag.CertificadoCreado = false;
                 var lstCertificadoes = Certificado.GetCertificados(fEmpresaId).DefaultIfEmpty();
 
-                ViewBag.CertificadoCreado = false;
                 return View("~/Areas/Certificado/Views/Certificado/Index.cshtml", lstCertificadoes.ToList());
             }
+
+
         }
 
         public IActionResult EliminarCertificado(int? CertificadoId)
@@ -155,8 +143,8 @@ namespace DynamicForecast.Areas.Certificado.Controllers
 
             return View("~/Areas/Certificado/Views/Certificado/Index.cshtml", lstCertificadoes.ToList());
         }
-   
-       
+
+
         public ActionResult GetCertificadosFind(string q)
         {
             var fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
@@ -165,11 +153,11 @@ namespace DynamicForecast.Areas.Certificado.Controllers
 
             ICertificado Certificado = new ICertificado(FsvrConn);
             var results = Certificado.GetCertificadoLike(fEmpresaId, q).Where(h => h.Estado.Equals(estadoPermitido)).
-                          Select(h => new { id = h.CertificadoId, text = h.CertificadoId + " - Cod Certificado: " + h.CodCertificado + " - " + h.DescripcionCertificado  }).ToList().Take(15);
+                          Select(h => new { id = h.CertificadoId, text = h.CertificadoId + " - Cod Certificado: " + h.CodCertificado + " - " + h.DescripcionCertificado }).ToList().Take(15);
             return Json(new { results });
         }
 
-      
+
 
     }
 }

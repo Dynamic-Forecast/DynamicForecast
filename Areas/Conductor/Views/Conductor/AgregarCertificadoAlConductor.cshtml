@@ -34,9 +34,8 @@ $(document).ready(function () {
     $('#selecCertificados').select2({
         allowClear: true,
         placeholder: 'Seleccione el Certificado',
-        //dropdownParent: $('#modal-container'),
-        //theme: "bootstrap4",
-        width: "100%",
+        dropdownParent: $('#form-modal .modal-content'),
+        width: '100%',
         closeOnSelect: true,
         language: {
             noResults: function () {
