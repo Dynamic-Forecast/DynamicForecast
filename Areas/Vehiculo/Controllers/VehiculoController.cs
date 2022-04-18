@@ -108,6 +108,7 @@ namespace DynamicForecast.Areas.Vehiculo.Controllers
 
                 ViewBag.VehiculoCreado = true;
                 return View("~/Areas/Vehiculo/Views/Vehiculo/Index.cshtml", lstVehiculoes.ToList());
+
             }
             catch (Exception ex)
             {
@@ -119,7 +120,6 @@ namespace DynamicForecast.Areas.Vehiculo.Controllers
 
                 return View("~/Areas/Vehiculo/Views/Vehiculo/Index.cshtml", lstVehiculoes.ToList());
             }
-
 
         }
 

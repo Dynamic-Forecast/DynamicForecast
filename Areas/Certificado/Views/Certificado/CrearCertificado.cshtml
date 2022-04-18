@@ -3,7 +3,8 @@
     <div class="col-md-12">
         <form asp-action="CrearCertificado" method="post" enctype="multipart/form-data">
 
-            @{if (ViewBag.Error != "")
+            @{
+                if (ViewBag.Error != "")
                 {
                     <div class="text-center text-danger">
                         @ViewBag.Error
