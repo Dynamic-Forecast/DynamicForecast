@@ -44,7 +44,6 @@ namespace DynamicForecast.Areas.Certificado.Controllers
             return View(lstCertificado.ToList());
         }
 
-        //[BreadCrumb(Title = "Crear Certificado", Url = "/Certificado/CrearCertificado", Order = 1, IgnoreAjaxRequests = true)]
         public IActionResult CrearCertificado()
         {
             ViewBag.Error = "";

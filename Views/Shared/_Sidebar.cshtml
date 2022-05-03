@@ -27,7 +27,7 @@
                 </a>
             </li>
             <li>
-                <a asp-controller="Vehiculo" asp-area="Vehiculo" asp-action="Index" title="Vehículo">
+                <a asp-controller="Vehiculo" asp-area="Vehiculo" asp-action="Index">
                     <em class="fa fa-truck"></em>
                     <span data-localize="sidebar.nav.VEHICULO">Veh&iacute;culos</span>
                 </a>
@@ -39,7 +39,8 @@
                 </a>
             </li>
             <li>
-                <a title="Viajes">
+                <a title="Viajes"  asp-controller="Viaje" asp-area="Viaje" asp-action="Index" >
+
                     <em class="icon-map"></em>
                     <span data-localize="sidebar.nav.VIAJE">Viajes</span>
                 </a>

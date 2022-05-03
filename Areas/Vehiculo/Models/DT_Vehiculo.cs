@@ -56,6 +56,13 @@ namespace DynamicForecast.Areas.Vehiculo.Models
         [StringLength(2)]
         public string Estado { get; set; }
 
+        [Required]
+        public int Capacidad { get; set; } //Galones / Toneladas}
+
+        [Required]
+        public int CapacidadVolumen { get; set; } //M3
+
+
         //[ForeignKey("EmpresaId, VehiculoId")]
         //public List<DT_CertificadoVehiculo> DT_CertificadoVehiculo { get; set; }
 

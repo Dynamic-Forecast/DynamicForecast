@@ -30,6 +30,14 @@ namespace DynamicForecast.Areas.Conductor.Models
         [StringLength(2)]
         public string Estado { get; set; }
 
+        [Required]
+        public DateTime FechaCertificado { get; set; }
+
+        public DateTime FechaVencimientoCertificado { get; set; }
+
+        [StringLength(850)]
+        public string UrlCertificado { get; set; }
+
         [ForeignKey("EmpresaId, CertificadoId")]
         public DT_Certificado DT_Certificado { get; set; }
 

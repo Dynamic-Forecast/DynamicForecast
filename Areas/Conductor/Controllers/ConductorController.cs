@@ -1,20 +1,12 @@
 ﻿using DynamicForecast.Areas.Conductor.Models;
 using DynamicForecast.Clases;
-using DynamicForecast.Models;
 using DynamicForecast.Servicios;
 using DNTBreadCrumb.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Humanizer.Bytes;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-
 namespace DynamicForecast.Areas.Conductor.Controllers
 {
     [Area("Conductor")]

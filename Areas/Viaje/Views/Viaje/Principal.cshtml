@@ -1,0 +1,195 @@
+﻿@model IEnumerable<DynamicForecast.Areas.Viaje.Models.AP_Viaje>
+
+
+<div class="content-heading">
+    Viajes
+    <div class="ml-auto">
+        <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("CrearViaje", "Viaje", Context.Request.Scheme)', 'Nuevo Viaje')">
+            Nuevo Viaje &nbsp;<i class="fa fa-file-alt " title="Nuevo Viaje"></i>
+        </a>
+    </div>
+</div>
+@if (@ViewBag.ViajeCreado)
+{
+    <div class="card-body">
+        <div class="card border-info mb-12 text-center">
+            <div class="card-body text-info">
+                <h4 class="card-title">VIAJE CREADO CON ÉXITO </h4>
+
+            </div>
+        </div>
+    </div>
+}
+@if (@ViewBag.ViajeEliminado)
+{
+    <div class="card border-danger text-center">
+        <div class="card-header text-center">
+            <h4 class="card-title">VIAJE ELIMINADO CON ÉXITO </h4>
+
+        </div>
+    </div>
+}
+@if (@ViewBag.Error != "")
+{
+    <div class="card-body bg-transparent border-danger">
+        <div class="card border-info mb-12 text-center">
+            <div class="card-body text">
+                <h4 class="card-title">ERROR: <b> [ @ViewBag.Error ] </b> </h4>
+            </div>
+        </div>
+    </div>
+}
+<div class="card card-default">
+    <div class="form-group col-md-12">
+        <br />
+        <h4 class="text-bold text-center">Viajes Activos en el Sistema</h4>
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div class="card-body">
+                    @{if (Model.First() != null)
+                        {
+
+                            <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatable22">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"> Eliminar Viaje</th>
+                                        <th class="text-center"> Editar Viaje</th>
+                                        <th class="text-center"> Iniciar Viaje </th>
+
+                                        <th class="text-center">
+                                            Id Viaje
+                                        </th>
+                                        <th class="text-center">
+                                            Código
+                                        </th>
+                                        <th class="text-center">
+                                            Descripción
+                                        </th>
+
+
+
+                                        <th class="text-center">
+                                            Usuario Crea
+                                        </th>
+
+
+
+                                        <th class="text-center">
+                                            Tercero
+                                        </th>
+
+                                        <th class="text-center">
+                                            Estado
+                                        </th>
+
+                                        <th class="text-center">
+                                            Valor Cotizado
+                                        </th>
+
+                                        <th class="text-center">
+                                            Valor Cancelado
+                                        </th>
+
+
+                                        <th class="text-center">
+                                            Fecha Servicio
+                                        </th>
+                                        <th class="text-center">
+                                            Fecha Inicio Viaje
+                                        </th>
+                                        <th class="text-center">
+                                            Fecha Fin del Viaje
+                                        </th>
+                                        <th class="text-center">
+                                            Fecha Creación
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        int ViajeId = item.ViajeId;
+                                        <tr>
+                                            <td class="text-center align-middle">
+                                                <i title="Eliminar Vehículo">
+                                                    @Html.ActionLink("", "EliminarViaje", new { ViajeId = ViajeId }, new { @class = "fa fa-trash-alt" })
+                                                </i>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("EditarlViaje", "Viaje", new { ViajeId = ViajeId }, Context.Request.Scheme)', 'Editar Viaje')">
+                                                    <i class="fa fa-pen-alt " title="Editar Viaje"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center align-middle">
+                                                <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("IniciarViaje", "Viaje", new { ViajeId = ViajeId }, Context.Request.Scheme)', 'Iniciar Viaje')">
+                                                    <i class="fa fa-arrow-alt-circle-right " title="Iniciar Viaje"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.ViajeId)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.CodViaje)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.Descripcion)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.UsuarioId) 
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.TerceroId) 
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.Estado)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.ValorCotizado.ToString("C2"))
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => ((decimal)item.ValorPagado).ToString("C2"))
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.FechaServicio)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.FechaInicioViaje)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.FechaFinalizacion)
+                                            </td>
+
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.FechaIng)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        }
+                        else
+                        {
+
+                            <div class="card-body">
+                                <div class="card border-info mb-12 text-center">
+                                    <div class="card-body text-info">
+                                        <h4 class="card-title">No se han registrado Viajes en el momento </h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+
+}

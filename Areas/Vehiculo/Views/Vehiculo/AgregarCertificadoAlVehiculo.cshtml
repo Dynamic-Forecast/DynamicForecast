@@ -13,6 +13,30 @@
 
                     </div>
                     <div class="form-group col-md-6">
+                        <label class="control-label">Fecha del Certificado </label>
+                        <div class="input-group date" id="FechaCertificado_" data-target-input="nearest">
+                            <input asp-for="FechaCertificado" class="form-control form-control-sm atetimepicker-input" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy HH:mm")" required />
+                            <div class="input-group-append" data-target="#FechaCertificado_" data-toggle="datetimepicker">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Fecha Vencimiento</label>
+                        <div class="input-group date" id="FechaVencimientoCertificado_" data-target-input="nearest">
+                            <input asp-for="FechaVencimientoCertificado" class="form-control form-control-sm atetimepicker-input" type="text" value="@DateTime.Now.AddMonths(3).ToString("dd/MM/yyyy HH:mm")" />
+                            <div class="input-group-append" data-target="#FechaVencimientoCertificado_" data-toggle="datetimepicker">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label class="control-label">URL Acceso Documento</label>
+                        <input class="form-control form-control-sm" type="text" maxlength="850" asp-for="UrlCertificado" />
+                    </div>
+
+                    <div class="form-group col-md-6">
                         <div class="form-group text-left">
                             <button id="btn-sendForm" onclick="agregarCertificadoAlVehiculo();" value="Agregar Certificado al Vehiculo" class="btn btn-primary">Agregar Certificado al Vehiculo</button>
                         </div>
@@ -30,6 +54,34 @@
 <input id="VehiculoIdSelec" class="d-none" value="@ViewBag.datosVehiculo.VehiculoId" />
 <script>
 $(document).ready(function () {
+
+    jQuery('#FechaCertificado_').datetimepicker({
+
+        format: 'DD/MM/YYYY HH:mm',
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar',
+            close: 'far fa-times'
+        },
+        minDate: 0,
+        closeOnSelect: true,
+        orientation: 'bottom',
+        locale: 'es'
+    });
+    jQuery('#FechaVencimientoCertificado_').datetimepicker({
+
+        format: 'DD/MM/YYYY HH:mm',
+        icons: {
+            time: 'far fa-clock',
+            date: 'far fa-calendar',
+            close: 'far fa-times'
+        },
+        minDate: 0,
+        closeOnSelect: true,
+        orientation: 'bottom',
+        locale: 'es'
+    });
+
 
     $('#selecCertificados').select2({
         allowClear: true,

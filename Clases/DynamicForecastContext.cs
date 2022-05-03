@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using DynamicForecast.Areas.Conductor.Models;
 using DynamicForecast.Areas.Vehiculo.Models;
 using DynamicForecast.Areas.Certificado.Models;
+using DynamicForecast.Areas.Viaje.Models;
 
 namespace DynamicForecast.Clases
 {
@@ -21,6 +22,7 @@ namespace DynamicForecast.Clases
         public DbSet<DT_Vehiculo> DT_Vehiculo { get; set; }
         public DbSet<DT_VehiculoConductor> DT_VehiculoConductor { get; set; }
         public DbSet<DT_CertificadoVehiculo> DT_CertificadoVehiculo { get; set; }
+        public DbSet<AP_Viaje> AP_Viaje { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -35,6 +37,7 @@ namespace DynamicForecast.Clases
             modelBuilder.Entity<DT_Vehiculo>().HasKey(c => new { c.EmpresaId, c.VehiculoId });
             modelBuilder.Entity<DT_VehiculoConductor>().HasKey(c => new { c.EmpresaId, c.VehiculoConductorId, c.ConductorId, c.VehiculoId });
             modelBuilder.Entity<DT_CertificadoVehiculo>().HasKey(c => new { c.EmpresaId, c.CertificadoVehiculoId, c.VehiculoId, c.CertificadoId });
+            modelBuilder.Entity<AP_Viaje>().HasKey(c => new { c.EmpresaId, c.ViajeId });
 
         }
     }

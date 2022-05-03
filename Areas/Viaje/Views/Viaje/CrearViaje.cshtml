@@ -1,0 +1,214 @@
+﻿@model DynamicForecast.Areas.Viaje.Models.AP_Viaje
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="CrearViaje" method="post" enctype="multipart/form-data">
+
+            @{
+                if (ViewBag.Error != "")
+                {
+                    <div class="text-center text-danger">
+                        @ViewBag.Error
+                        <hr />
+                    </div>
+                }
+            }
+            <div class="text-bold text-center h4">Datos para la Creación del Viaje</div>
+            <br />
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Código del Viaje</label>
+                    <input asp-for="CodViaje" class="form-control form-control-sm" required />
+                    <span asp-validation-for="CodViaje" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">Descripcion</label>
+                    <textarea asp-for="Descripcion" class="form-control form-control-sm" required></textarea>
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Tercero que Solicita el Viaje</label>
+                    <select asp-for="TerceroId" required class="form-control form-control-sm">
+                        <option selected disabled value="">Seleccione el Tercero</option>
+                    </select>
+                    <span asp-validation-for="TerceroId" class="text-danger"></span>
+
+                </div>
+
+            </div>
+            <div class="form-row">
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">Fecha de Estimada del Viaje </label>
+                    <div class="input-group date" id="FechaServicio_" data-target-input="nearest">
+                        <input asp-for="FechaServicio" class="form-control form-control-sm datetimepicker-input" type="text" value="@DateTime.Now.ToString("dd/MM/yyyy HH:mm")" required />
+                        <div class="input-group-append" data-target="#FechaServicio_" data-toggle="datetimepicker">
+                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                        </div>
+                        <span asp-validation-for="FechaServicio" class="text-danger"></span>
+
+                    </div>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">Valor Cotizado (COP)</label>
+                    <input style="font-size:18px" type="text" min="0" onkeyup="formatoMoneda(this, 'valorNuevoCotizado' );" class="form-control form-control-sm text-center w-100 m-auto" required>
+                    <input class="form-control form-control-sm" asp-for="ValorCotizado" id="valorNuevoCotizado" hidden />
+                    <span asp-validation-for="ValorCotizado" class="text-danger"></span>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Operación de Transporte</label>
+                    <select id="selecViajes" asp-for="CodOperacionTransporte" class="form-control form-control-sm" required>
+                        <option selected disabled value="">Seleccione la Operación de Transporte</option>
+                        <option value="COD-CERT1">Viaje para Vehículo</option>
+                        <option value="COD-CERT2">Viaje para Conductor</option>
+                    </select>
+                    <span asp-validation-for="CodOperacionTransporte" class="text-danger"></span>
+
+                </div>
+
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Municipio de Origen</label>
+                    <select id="selecViajes" asp-for="CodMunicipioOrigen" class="form-control form-control-sm" required>
+                        <option selected disabled value="">Seleccione el Municipio de Origen</option>
+                        <option value="COD-CERT1">Viaje para Vehículo</option>
+                        <option value="COD-CERT2">Viaje para Conductor</option>
+                    </select>
+                    <span asp-validation-for="CodMunicipioOrigen" class="text-danger"></span>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Municipio de Destino</label>
+                    <select id="selecViajes" asp-for="CodMunicipioDestino" class="form-control form-control-sm" required>
+                        <option selected disabled value="">Seleccione el Municipio de Destino</option>
+                        <option value="COD-CERT1">Viaje para Vehículo</option>
+                        <option value="COD-CERT2">Viaje para Conductor</option>
+                    </select>
+                    <span asp-validation-for="CodMunicipioDestino" class="text-danger"></span>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Departamento de Origen</label>
+                    <select id="selecViajes" asp-for="CodDepartamentoOrigen" class="form-control form-control-sm" required>
+                        <option selected disabled value="">Seleccione el Departamento de Origen</option>
+                        <option value="COD-CERT1">Viaje para Vehículo</option>
+                        <option value="COD-CERT2">Viaje para Conductor</option>
+                    </select>
+                    <span asp-validation-for="CodDepartamentoOrigen" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Departamento de Destino</label>
+                    <select id="selecViajes" asp-for="CodDepartamentoDestino" class="form-control form-control-sm" required>
+                        <option selected disabled value="">Seleccione el Departamento de Destino</option>
+                        <option value="COD-CERT1">Viaje para Vehículo</option>
+                        <option value="COD-CERT2">Viaje para Conductor</option>
+                    </select>
+                    <span asp-validation-for="CodDepartamentoDestino" class="text-danger"></span>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Tipo Mercancía</label>
+                    <select id="selecViajes" asp-for="CodMercancia" class="form-control form-control-sm" required>
+                        <option selected disabled value="">Seleccione Tipo Mercancía</option>
+                        <option value="COD-CERT1">Viaje para Vehículo</option>
+                        <option value="COD-CERT2">Viaje para Conductor</option>
+                    </select>
+                    <span asp-validation-for="CodMercancia" class="text-danger"></span>
+
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Naturaleza de la Carga</label>
+                    <select id="selecViajes" asp-for="NaturalezaCarga" class="form-control form-control-sm" required>
+                        <option selected disabled value="">Seleccione la Naturaleza de la Carga</option>
+                        <option value="COD-CERT1">Viaje para Vehículo</option>
+                        <option value="COD-CERT2">Viaje para Conductor</option>
+                    </select>
+                    <span asp-validation-for="NaturalezaCarga" class="text-danger"></span>
+
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Porcentaje de Ruta Primaria</label>
+                    <input asp-for="PorcentajeRutaPrimaria" type="range" min="0" max="100" step="10" class="form-control form-control-sm range" required />
+                    <span asp-validation-for="PorcentajeRutaPrimaria" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Porcentaje de Ruta Secundaria</label>
+                    <input asp-for="PorcentajeRutaSecundaria" type="range" min="0" max="100" step="10" class="form-control form-control-sm range" required />
+                    <span asp-validation-for="PorcentajeRutaSecundaria" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Porcentaje de Ruta Terciaria</label>
+                    <input asp-for="PorcentajeRutaTerciaria" type="range" min="0" max="100" step="10" class="form-control form-control-sm range" required />
+                    <span asp-validation-for="PorcentajeRutaTerciaria" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Número de Peajes del Trayecto</label>
+                    <input asp-for="NumeroPeajes" class="form-control form-control-sm number" type="number" min="0" max="200" required />
+                    <span asp-validation-for="NumeroPeajes" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">Valor Total Peajes (COP)</label>
+                    <input style="font-size:18px" type="text" min="0" onkeyup="formatoMoneda(this, 'valorNuevoPeajes');" class="form-control form-control-sm text-center w-100 m-auto" required>
+                    <input class="form-control form-control-sm" asp-for="ValorCotizado" id="valorNuevoPeajes" hidden />
+                    <span asp-validation-for="ValorCotizado" class="text-danger"></span>
+
+                </div>
+            </div>
+
+            <hr />
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary"><t id="txtBtnCrear">Crear Viaje</t></button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function quita_comas(numero) {
+        var cadenas = numero.split(".");
+        cadena_sin_comas = "";
+        for (i = 0; i < cadenas.length; i++) {
+            cadena_sin_comas = cadena_sin_comas + cadenas[i];
+        }
+        return cadena_sin_comas;
+    }
+    function separador(obj) {
+        var separador = obj;
+        separador.addEventListener('keyup', (e) => {
+            var entrada = e.target.value.split('.').join('');
+            entrada = entrada.split('').reverse();
+            var salida = [];
+            var aux = '';
+            var paginador = Math.ceil(entrada.length / 3);
+            for (let i = 0; i < paginador; i++) {
+                for (let j = 0; j < 3; j++) {
+                    "123 4"
+                    if (entrada[j + (i * 3)] != undefined) {
+                        aux += entrada[j + (i * 3)];
+                    }
+                }
+                salida.push(aux);
+                aux = '';
+                e.target.value = salida.join('.').split("").reverse().join('');
+            }
+        }, false);
+    }
+    function formatoMoneda(obj, valorInput) {
+        separador(obj);
+        var val2 = obj.value;
+        var val22 = quita_comas(val2);
+        var val4 = parseFloat(val22);
+        document.getElementById(valorInput).value = val4;
+    }
+</script>
