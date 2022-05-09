@@ -12,7 +12,7 @@
 @if (@ViewBag.CertificadoCreado)
 {
     <div class="card-body">
-        <div class="card border-info mb-12 text-center" >
+        <div class="card border-info mb-12 text-center">
             <div class="card-body text-info">
                 <h4 class="card-title">CERTIFICADO CREADO CON ÉXITO </h4>
 
@@ -22,7 +22,7 @@
 }
 @if (@ViewBag.CertificadoEliminado)
 {
-    <div class="card border-danger text-center" >
+    <div class="card border-danger text-center">
         <div class="card-header text-center">
             <h4 class="card-title">CERTIFICADO ELIMINADO CON ÉXITO </h4>
 
@@ -32,7 +32,7 @@
 @if (@ViewBag.Error != "")
 {
     <div class="card-body bg-transparent border-danger">
-        <div class="card border-info mb-12 text-center" >
+        <div class="card border-info mb-12 text-center">
             <div class="card-body text">
                 <h4 class="card-title">ERROR: <b> [ @ViewBag.Error ] </b> </h4>
             </div>
@@ -52,8 +52,8 @@
                             <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatable22">
                                 <thead>
                                     <tr>
-                                        <th class="text-center"> Eliminar Certificado</th>
-                                        @*<th class="text-center"> Agregarle Certificado</th>*@
+                                        <th class="text-center">Eliminar Certificado</th>
+                                        <th class="text-center">Adjuntar Documento</th>
 
                                         <th class="text-center">
                                             Id Certificado
@@ -88,14 +88,14 @@
                                         <tr>
                                             <td class="text-center align-middle">
                                                 <i title="Eliminar Vehículo">
-                                                    @Html.ActionLink("", "EliminarCertificado", new { CertificadoId = CertificadoId }, new { @class = "fa fa-trash-alt" })
+                                                    @Html.ActionLink("", "EliminarCertificado", new { CertificadoId = item.CertificadoId }, new { @class = "fa fa-trash-alt" })
                                                 </i>
                                             </td>
-                                            @*<td class="text-center align-middle">
-                                                    <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("AgregarCertificadoAlCertificado", "Certificado", new { CertificadoId = CertificadoId }, Context.Request.Scheme)', 'Agregarle Certificado')">
-                                                        <i class="fa fa-file-alt " title="Agregarle Certificado"></i>
-                                                    </a>
-                                                </td>*@
+                                            <td class="text-center align-middle">
+                                                <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("IndexAdjuntarArchivo", "Certificado", new { CertificadoId = item.CertificadoId }, Context.Request.Scheme)', 'Adjuntar Archivo')">
+                                                    <i class="fa fa-file-alt " title="Adjuntar Archivo"></i>
+                                                </a>
+                                            </td>
                                             <td class="text-center">
                                                 @Html.DisplayFor(modelItem => item.CertificadoId)
                                             </td>
@@ -131,7 +131,7 @@
                         {
 
                             <div class="card-body">
-                                <div class="card border-info mb-12 text-center" >
+                                <div class="card border-info mb-12 text-center">
                                     <div class="card-body text-info">
                                         <h4 class="card-title">No se han registrado Certificados en el momento </h4>
 

@@ -3,17 +3,20 @@ using DynamicForecast.Areas.Conductor.Models;
 using DynamicForecast.Areas.Vehiculo.Models;
 using DynamicForecast.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DynamicForecast.Areas.Viaje.Models
 {
-    public partial class AP_Viaje
+    public partial class AP_Simulacion
     {
         public int EmpresaId { get; set; }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int SimulacionId { get; set; }
+
         public int ViajeId { get; set; }
 
         [Required]
@@ -100,21 +103,22 @@ namespace DynamicForecast.Areas.Viaje.Models
         [Column(TypeName = "decimal(18, 2)")]
         public decimal CostoPeajes { get; set; }
 
-        // Fase de confirmación del viaje y elección de conductor y vehículo
-        public DateTime? FechaInicioViaje { get; set; }
 
-        public int? VehiculoId { get; set; }
-        public int? ConductorId { get; set; }
         public int? ModeloRecomendacionId { get; set; }
 
-        // Notificación de Fin del Viaje
-        public DateTime? FechaFinalizacion { get; set; }
 
-        [Column(TypeName = "decimal(18, 2)")]
-        public decimal? ValorPagado { get; set; }
+        public int? CalificacionRecomendacion { get; set; }
 
-        [StringLength(920)]
-        public string NovedadesViaje { get; set; }
+
+        [StringLength(1200)]
+        public string ComentarioSimulacion { get; set; }
+
+        [StringLength(1)]
+        public string SimulacionElegida { get; set; }
+
+
+        [ForeignKey("EmpresaId, RecomendacionId")]
+        public virtual List<AP_Recomendacion> AP_Recomendacion { get; set; }
 
         // Otros datos
         [ForeignKey("EmpresaId, UsuarioId")]

@@ -111,12 +111,12 @@
                                         int ViajeId = item.ViajeId;
                                         <tr>
                                             <td class="text-center align-middle">
-                                                <i title="Eliminar Vehículo">
+                                                <i title="Eliminar Viaje">
                                                     @Html.ActionLink("", "EliminarViaje", new { ViajeId = ViajeId }, new { @class = "fa fa-trash-alt" })
                                                 </i>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("EditarlViaje", "Viaje", new { ViajeId = ViajeId }, Context.Request.Scheme)', 'Editar Viaje')">
+                                                <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("EditarViaje", "Viaje", new { ViajeId = ViajeId }, Context.Request.Scheme)', 'Editar Viaje')">
                                                     <i class="fa fa-pen-alt " title="Editar Viaje"></i>
                                                 </a>
                                             </td>

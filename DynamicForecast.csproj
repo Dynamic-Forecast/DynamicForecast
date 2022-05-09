@@ -75,9 +75,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Areas\Simulacion\Controllers\" />
-	  <Folder Include="Areas\Simulacion\Models\" />
-	  <Folder Include="Areas\Simulacion\Views\" />
 	  <Folder Include="ViewComponents\" />
 	  <Folder Include="Views\Usuario\" />
 	</ItemGroup>
