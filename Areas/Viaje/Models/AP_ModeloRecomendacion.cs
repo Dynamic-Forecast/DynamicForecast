@@ -49,10 +49,6 @@ namespace DynamicForecast.Areas.Viaje.Models
         [StringLength(2000)]
         public string RutaArchivo { get; set; }
 
-        // Otros datos
-        [ForeignKey("EmpresaId, UsuarioId")]
-        public virtual DT_Usuario DT_Usuario { get; set; }
-
 
     }
 }

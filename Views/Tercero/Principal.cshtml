@@ -1,0 +1,148 @@
+﻿@model IEnumerable<DynamicForecast.Models.CT_Tercero>
+
+
+<div class="content-heading">
+    Terceros
+    <div class="ml-auto">
+        <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("CrearTercero", "Tercero", Context.Request.Scheme)', 'Nuevo Tercero')">
+            Nuevo Tercero &nbsp;<i class="fa fa-file-alt " title="Nuevo Tercero"></i>
+        </a>
+    </div>
+</div>
+@if (@ViewBag.TerceroCreado)
+{
+    <div class="card-body">
+        <div class="card border-info mb-12 text-center">
+            <div class="card-body text-info">
+                <h4 class="card-title">TERCERO CREADO CON ÉXITO </h4>
+
+            </div>
+        </div>
+    </div>
+}
+@if (@ViewBag.TerceroEliminado)
+{
+    <div class="card border-danger text-center">
+        <div class="card-header text-center">
+            <h4 class="card-title">TERCERO ELIMINADO CON ÉXITO </h4>
+
+        </div>
+    </div>
+}
+@if (@ViewBag.Error != "")
+{
+    <div class="card-body bg-transparent border-danger">
+        <div class="card border-info mb-12 text-center">
+            <div class="card-body text">
+                <h4 class="card-title">ERROR: <b> [ @ViewBag.Error ] </b> </h4>
+            </div>
+        </div>
+    </div>
+}
+<div class="card card-default">
+    <div class="form-group col-md-12">
+        <br />
+        <h4 class="text-bold text-center">Terceros Activos en el Sistema</h4>
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div class="card-body">
+                    @{if (Model.First() != null)
+                        {
+
+                            <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatable22">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"> Eliminar Tercero</th>
+                                        <th class="text-center">
+                                            Id Tercero
+                                        </th>
+                                        <th class="text-center">
+                                            Nombre
+                                        </th>
+                                        <th class="text-center">
+                                            Nit
+                                        </th>
+                                        <th class="text-center">
+                                            Email
+                                        </th>
+                                        <th class="text-center">
+                                            Celular
+                                        </th>
+                                        <th class="text-center">
+                                            Direccion
+                                        </th>
+                                        <th class="text-center">
+                                            Estado
+                                        </th>
+                                        <th class="text-center">
+                                            Fecha Creación
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        int TerceroId = item.TerceroId;
+                                    <tr>
+                                        <td class="text-center align-middle">
+                                            <i title="Eliminar Tercero">
+                                                @Html.ActionLink("", "EliminarTercero", new { TerceroId = TerceroId }, new { @class = "fa fa-trash-alt" })
+                                            </i>
+                                        </td>
+
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.TerceroId)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.NombreTer)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.NumeroNit)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.E_Mail)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.Celular)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayFor(modelItem => item.Direccion)
+                                        </td>
+
+                                        <td class="text-center">
+                                            @Html.DisplayTextFor(modelItem => item.Estado)
+                                        </td>
+                                        <td class="text-center">
+                                            @Html.DisplayTextFor(modelItem => item.FechaIng)
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        }
+                        else
+                        {
+
+                            <div class="card-body">
+                                <div class="card border-info mb-12 text-center">
+                                    <div class="card-body text-info">
+                                        <h4 class="card-title">No se han registrado Terceros en el momento </h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+
+}

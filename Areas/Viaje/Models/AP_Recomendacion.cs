@@ -54,17 +54,6 @@ namespace DynamicForecast.Areas.Viaje.Models
         public int? ModeloRecomendacionId { get; set; }
 
         // Otros datos
-        [ForeignKey("EmpresaId, UsuarioId")]
-        public virtual DT_Usuario DT_Usuario { get; set; }
-
-        [ForeignKey("EmpresaId, TerceroId")]
-        public virtual CT_Tercero CT_Tercero { get; set; }
-
-        [ForeignKey("EmpresaId, VehiculoId")]
-        public virtual DT_Vehiculo DT_Vehiculo { get; set; }
-
-        [ForeignKey("EmpresaId, ConductorId")]
-        public virtual DT_Conductor DT_Conductor { get; set; }
 
     }
 }

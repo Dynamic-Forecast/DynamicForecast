@@ -116,18 +116,11 @@ namespace DynamicForecast.Areas.Viaje.Models
         [StringLength(920)]
         public string NovedadesViaje { get; set; }
 
-        // Otros datos
-        [ForeignKey("EmpresaId, UsuarioId")]
-        public virtual DT_Usuario DT_Usuario { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal TiempoTotalViaje { get; set; }
 
-        [ForeignKey("EmpresaId, TerceroId")]
-        public virtual CT_Tercero CT_Tercero { get; set; }
+        public int? Satisfaccion { get; set; }
 
-        [ForeignKey("EmpresaId, VehiculoId")]
-        public virtual DT_Vehiculo DT_Vehiculo { get; set; }
-
-        [ForeignKey("EmpresaId, ConductorId")]
-        public virtual DT_Conductor DT_Conductor { get; set; }
 
     }
 }

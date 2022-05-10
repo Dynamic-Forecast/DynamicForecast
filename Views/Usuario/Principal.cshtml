@@ -1,0 +1,157 @@
+﻿@model IEnumerable<DynamicForecast.Models.DT_Usuario>
+
+
+<div class="content-heading">
+    Usuarios
+    <div class="ml-auto">
+        <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("CrearUsuario", "Usuario", Context.Request.Scheme)', 'Nuevo Usuario')">
+            Nuevo Usuario &nbsp;<i class="fa fa-file-alt " title="Nuevo Usuario"></i>
+        </a>
+    </div>
+</div>
+@if (@ViewBag.UsuarioCreado)
+{
+    <div class="card-body">
+        <div class="card border-info mb-12 text-center">
+            <div class="card-body text-info">
+                <h4 class="card-title">USUARIO CREADO CON ÉXITO </h4>
+
+            </div>
+        </div>
+    </div>
+}
+@if (@ViewBag.UsuarioEliminado)
+{
+    <div class="card border-danger text-center">
+        <div class="card-header text-center">
+            <h4 class="card-title">USUARIO ELIMINADO CON ÉXITO </h4>
+
+        </div>
+    </div>
+}
+@if (@ViewBag.Error != "")
+{
+    <div class="card-body bg-transparent border-danger">
+        <div class="card border-info mb-12 text-center">
+            <div class="card-body text">
+                <h4 class="card-title">ERROR: <b> [ @ViewBag.Error ] </b> </h4>
+            </div>
+        </div>
+    </div>
+}
+<div class="card card-default">
+    <div class="form-group col-md-12">
+        <br />
+        <h4 class="text-bold text-center">Usuarios Activos en el Sistema</h4>
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div class="card-body">
+                    @{if (Model.First() != null)
+                        {
+
+                            <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatable22">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"> Eliminar Usuario</th>
+                                        <th class="text-center">
+                                            Id Usuario
+                                        </th>
+                                        <th class="text-center">
+                                            Código
+                                        </th>
+                                        <th class="text-center">
+                                            Nombre
+                                        </th>
+                                        <th class="text-center">
+                                            Nit
+                                        </th>
+                                        <th class="text-center">
+                                            Email
+                                        </th>
+                                        <th class="text-center">
+                                            Estado
+                                        </th>
+                                        <th class="text-center">
+                                            Tipo Susuario
+                                        </th>
+                                        <th class="text-center">
+                                            Administrador
+                                        </th>
+                                        <th class="text-center">
+                                            Fecha Creación
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        int UsuarioId = item.UsuarioId;
+                                        <tr>
+                                            <td class="text-center align-middle">
+                                                <i title="Eliminar Usuario">
+                                                    @Html.ActionLink("", "EliminarUsuario", new { UsuarioId = UsuarioId }, new { @class = "fa fa-trash-alt" })
+                                                </i>
+                                            </td>
+
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.UsuarioId)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.CodigoUsr)
+                                            </td>
+
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.NombreUsr)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.NumeroNit)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.E_Mail)
+                                            </td>
+
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.Estado)
+                                            </td>
+
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.TipoUsuario)
+                                            </td>
+
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.UsuarioAdmin)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.FechaIng)
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+
+                        }
+                        else
+                        {
+
+                            <div class="card-body">
+                                <div class="card border-info mb-12 text-center">
+                                    <div class="card-body text-info">
+                                        <h4 class="card-title">No se han registrado Usuarios en el momento </h4>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+
+}

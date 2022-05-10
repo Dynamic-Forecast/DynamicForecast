@@ -21,7 +21,7 @@ namespace DynamicForecast.Servicios
         {
             return FsvrConn.DT_Usuario.
                 Where(h => h.EmpresaId == EmpresaId).
-                OrderBy(h => h.NombreUsr); // Agregado 
+                OrderBy(h => h.FechaIng); // Agregado 
         }
 
         public IEnumerable<DT_Usuario> GetUsuario(int EmpresaId, int UsuarioId)

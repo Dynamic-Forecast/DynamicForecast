@@ -1,0 +1,64 @@
+﻿@model DynamicForecast.Models.CT_Tercero
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="CrearTercero" method="post" enctype="multipart/form-data">
+
+            @{
+                if (ViewBag.Error != "")
+                {
+                    <div class="text-center text-danger">
+                        @ViewBag.Error
+                        <hr />
+                    </div>
+                }
+            }
+            <div class="text-bold text-center h4">Datos para la Creación del Tercero</div>
+            <br />
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label class="control-label">Nombre</label>
+                    <input asp-for="NombreTer" class="form-control form-control-sm" required />
+                    <span asp-validation-for="NombreTer" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">Nit</label>
+                    <input asp-for="NumeroNit" class="form-control form-control-sm" required />
+
+                    <span asp-validation-for="NumeroNit" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">E-Mail</label>
+                    <input asp-for="E_Mail" class="form-control form-control-sm " type="email" required />
+
+                    <span asp-validation-for="E_Mail" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">Direccion</label>
+                    <input asp-for="Direccion" class="form-control form-control-sm"  required />
+
+                    <span asp-validation-for="Direccion" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Celular</label>
+                    <input asp-for="Celular" class="form-control form-control-sm" type="number" required />
+
+                    <span asp-validation-for="Celular" class="text-danger"></span>
+                </div>
+                
+            </div>
+            
+            <hr />
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary"><t id="txtBtnCrear">Crear Tercero</t></button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+
+</script>

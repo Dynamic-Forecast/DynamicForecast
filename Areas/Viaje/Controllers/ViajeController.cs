@@ -137,6 +137,38 @@ namespace DynamicForecast.Areas.Viaje.Controllers
         }
 
 
+
+        public IActionResult IniciarViaje(int? ViajeId)
+        {
+            ViewBag.Error = "";
+            IViaje Viaje = new IViaje(FsvrConn);
+            ViewBag.ViajeCreado = false;
+            ViewBag.ViajeEliminado = false;
+            ViewBag.ViajeIniciado = false;
+
+            int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+
+            var ViajeEliminar = Viaje.GetViaje(fEmpresaId, (int)ViajeId).DefaultIfEmpty().FirstOrDefault();
+            if (ViajeEliminar != null)
+            {
+                Viaje.EliminarViaje(ViajeEliminar);
+                ViewBag.ViajeEliminado = true;
+            }
+            else
+            {
+                ViewBag.Error = "No se puede eliminar el Viaje, ya se ha eliminado.";
+
+            }
+
+
+
+            var lstViajees = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty();
+
+            return View("~/Areas/Viaje/Views/Viaje/Index.cshtml", lstViajees.ToList());
+        }
+
+
+
         public ActionResult GetViajesFind(string q)
         {
             var fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;

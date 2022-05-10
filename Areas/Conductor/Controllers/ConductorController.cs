@@ -156,7 +156,7 @@ namespace DynamicForecast.Areas.Conductor.Controllers
 
 
             int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
-            if (VehiculoConductorId != null && VehiculoConductorId > 0)
+            if (VehiculoConductorId > 0)
             {
                 var VehiculoConductorEliminar = VehiculoConductor.GetVehiculoConductorXId(fEmpresaId, (int)VehiculoConductorId).DefaultIfEmpty().FirstOrDefault();
                 if (VehiculoConductorEliminar != null)
@@ -191,7 +191,7 @@ namespace DynamicForecast.Areas.Conductor.Controllers
 
 
             int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
-            if (CertificadoConductorId != null && CertificadoConductorId > 0)
+            if ( CertificadoConductorId > 0)
             {
                 var CertificadoConductorEliminar = CertificadoConductor.GetCertificadosXCertificadosConductor(fEmpresaId, (int)CertificadoConductorId).DefaultIfEmpty().FirstOrDefault();
                 if (CertificadoConductorEliminar != null)

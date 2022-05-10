@@ -57,7 +57,7 @@ namespace DynamicForecast.Controllers
         //--------------------------------------------------------------------------
 
         [HttpPost]
-        public async Task<IActionResult> Index(string E_Mail, string PalabraClave)
+        public IActionResult Index(string E_Mail, string PalabraClave)
         {
             ViewBag.Error = "";
             try

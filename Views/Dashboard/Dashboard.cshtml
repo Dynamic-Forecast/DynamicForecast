@@ -10,6 +10,10 @@
         </div>
     }
 }
+@if (ViewBag.UltimoViaje != null)
+{
+
+
 <div class="container-fluid " style="padding:1%">
 
 
@@ -23,9 +27,9 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                               Promedio de Tiempo en Creación y Asignación del Viaje
+                                Promedio de Tiempo en Creación y Asignación del Viaje
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">25 Minutos</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.PromedioTiempo Minutos</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-clock-o fa-2x text-gray-300"></i>
@@ -44,7 +48,7 @@
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 Ventas Totales por Viajes
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">$856'650,000</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">$ @ViewBag.VentasTotales.ToString("C2")</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -65,11 +69,11 @@
                             </div>
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">75%</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@ViewBag.PorcentajeViajesConcretados %</div>
                                 </div>
                                 <div class="col">
                                     <div class="progress progress-sm mr-2">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: @ViewBag.PorcentajeViajesConcretados %" aria-valuenow="@ViewBag.PorcentajeViajesConcretados" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +95,7 @@
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Viajes Pendientes de Finalizar
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.ViajesPendientesDeFinalizar</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -111,26 +115,52 @@
             <!-- Project Card Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Últimos Viajes</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Último Viaje</h6>
                 </div>
                 <div class="card-body">
-                    <h4 class="small font-weight-bold">Viaje Código: VJ-234S<span class="float-right">50% Viaje Creado</span></h4>
+                    <h4 class="small font-weight-bold">
+                        Viaje Código: @ViewBag.UltimoViaje.CodViaje
+                        @if (ViewBag.UltimoViaje.Estado == "EE")
+                        {
+                            <span class="float-right">30% Viaje Creado, en espera de iniciar</span>
+
+                        }
+                        @if (ViewBag.UltimoViaje.Estado == "EV")
+                        {
+                            <span class="float-right">70% Viaje en Proceso</span>
+
+                        }
+                        @if (ViewBag.UltimoViaje.Estado == "FN")
+                        {
+                            <span class="float-right">100% Viaje Finalizado</span>
+
+                        }
+
+
+                    </h4>
+
                     <div class="progress mb-4">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">Viaje Código: VJ-07WED <span class="float-right">100% Viaje Finalizado</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <h4 class="small font-weight-bold">Viaje Código: VJ-5E4M <span class="float-right">50% Viaje Creado</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                        @if (ViewBag.UltimoViaje.Estado == "EE")
+                        {
+                            <div class="progress-bar bg-green" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+
+
+                        }
+                        @if (ViewBag.UltimoViaje.Estado == "EV")
+                        {
+                            <div class="progress-bar bg-yellow" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+
+
+                        }
+                        @if (ViewBag.UltimoViaje.Estado == "FN")
+                        {
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+
+
+                        }
+
                     </div>
 
-                    <h4 class="small font-weight-bold">Viaje Código: VJ-9WQ4S <span class="float-right">70% Viaje Iniciado</span></h4>
-                    <div class="progress mb-4">
-                        <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
 
                 </div>
             </div>
@@ -142,7 +172,7 @@
             <div class="col-lg-12 mb-12">
                 <div class="card bg-primary text-white shadow">
                     <div class="card-body">
-                        Viajes Activos
+                        Viajes Totales Creadoss: @ViewBag.NumViajesCreados
                         <div class="text-white-50 small">#4e73df</div>
                     </div>
                 </div>
@@ -150,34 +180,17 @@
             <div class="col-lg-12 mb-12">
                 <div class="card bg-success text-white shadow">
                     <div class="card-body">
-                        Satisfacción del Área encargada de la Asignación
+                        Promedio de Satisfacción del Área encargada de la Asignación: @ViewBag.PromedioSatisfaccion
                         <div class="text-white-50 small">#1cc88a</div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 mb-12">
-                <div class="card bg-info text-white shadow">
-                    <div class="card-body">
-                        Promedios de Tiempo
-                        <div class="text-white-50 small">#312b9cc</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12 mb-12">
-                <div class="card bg-warning text-white shadow">
-                    <div class="card-body">
-                        Viajes Finalizados
-                        <div class="text-white-50 small">#f12c23e</div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
     </div>
 
 </div>
-
+}
 
 @section scripts
 {
