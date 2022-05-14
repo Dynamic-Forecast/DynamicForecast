@@ -45,8 +45,14 @@ namespace DynamicForecast.Areas.Conductor.Models
         [StringLength(2)]
         public string Estado { get; set; }
 
-        //[ForeignKey("EmpresaId, ConductorId")]
-        //public List<DT_CertificadoConductor> DT_CertificadoConductor { get; set; }
+        [StringLength(20)]
+        public string CodMunicipioBase { get; set; }
+
+        [StringLength(20)]
+        public string CodDepartamentoBase { get; set; }
+
+
+
 
     }
 }

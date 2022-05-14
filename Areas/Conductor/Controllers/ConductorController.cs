@@ -274,7 +274,7 @@ namespace DynamicForecast.Areas.Conductor.Controllers
                         CertificadoConductorId = certificadoConductorId,
                         Estado = "AC",
                         FechaIng = DateTime.Now,
-                        FechaMod = DateTime.Now,
+                        FechaMod = DateTime.Now
                     };
 
                     CertificadoConductor.AgregarCertificadoConductor(c);

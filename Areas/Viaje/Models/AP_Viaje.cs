@@ -3,6 +3,7 @@ using DynamicForecast.Areas.Conductor.Models;
 using DynamicForecast.Areas.Vehiculo.Models;
 using DynamicForecast.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -116,11 +117,18 @@ namespace DynamicForecast.Areas.Viaje.Models
         [StringLength(920)]
         public string NovedadesViaje { get; set; }
 
-        [Column(TypeName = "decimal(18, 2)")]
-        public decimal TiempoTotalViaje { get; set; }
+        public int? TiempoTotalViaje { get; set; }
 
         public int? Satisfaccion { get; set; }
 
+        [ForeignKey("ViajeId")]
+        public virtual List<AP_Simulacion> AP_Simulacion { get; set; }
+
+        [ForeignKey("TerceroId")]
+        public virtual CT_Tercero CT_Tercero { get; set; }
+
+        [ForeignKey("UsuarioId")]
+        public virtual DT_Usuario DT_Usuario { get; set; }
 
     }
 }

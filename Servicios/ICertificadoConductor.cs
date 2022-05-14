@@ -8,7 +8,7 @@ namespace DynamicForecast.Servicios
 {
     public class ICertificadoConductor
     {
-        private DynamicForecastContext FsvrConn;
+        private readonly DynamicForecastContext FsvrConn;
 
         public ICertificadoConductor(DynamicForecastContext svrConn)
         {
@@ -19,6 +19,15 @@ namespace DynamicForecast.Servicios
         {
             return FsvrConn.DT_CertificadoConductor.
                             Where(h => h.EmpresaId == EmpresaId).
+                            OrderByDescending(h => h.CertificadoId).DefaultIfEmpty();
+        }
+
+        public IEnumerable<DT_CertificadoConductor> GetCertificadoConductoresCompleto(int EmpresaId)
+        {
+            return FsvrConn.DT_CertificadoConductor.
+                            Where(h => h.EmpresaId == EmpresaId).
+                            Include(h => h.DT_Conductor).AsNoTracking().DefaultIfEmpty().
+                            Include(h => h.DT_Certificado).AsNoTracking().DefaultIfEmpty().
                             OrderByDescending(h => h.CertificadoId).DefaultIfEmpty();
         }
 
@@ -37,7 +46,7 @@ namespace DynamicForecast.Servicios
                             Where(h => h.EmpresaId == EmpresaId).
                             Where(h => h.ConductorId == ConductorId);
         }
-        
+
         public IEnumerable<DT_CertificadoConductor> GetCertificadosXCertificadosConductor(int EmpresaId, int CertificadoConductorId)
         {
             return FsvrConn.DT_CertificadoConductor.

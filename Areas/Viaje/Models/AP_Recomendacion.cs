@@ -11,13 +11,9 @@ namespace DynamicForecast.Areas.Viaje.Models
     {
         public int EmpresaId { get; set; }
 
-        [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int SimulacionId { get; set; }
 
         [Key]
-        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RecomendacionId { get; set; }
 

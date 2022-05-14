@@ -1,7 +1,7 @@
 ﻿@model DynamicForecast.Areas.Viaje.Models.AP_Viaje
 <div class="row">
     <div class="col-md-12">
-        <form asp-action="CrearViaje" method="post" enctype="multipart/form-data">
+        <form asp-action="EditarViaje" method="post" enctype="multipart/form-data">
 
             @{
                 if (ViewBag.Error != "")
@@ -12,28 +12,30 @@
                     </div>
                 }
             }
-            <div class="text-bold text-center h4">Datos para la Creación del Viaje</div>
+            <div class="text-bold text-center h4">Editar el Viaje CÓDIGO: @Model.CodViaje - ID: @Model.ViajeId </div>
+            <div class=" text-center h5">Descripción: @Model.Descripcion </div>
             <br />
-            <input asp-for="Estado" maxlength="2" class="d-none" value="AC" />
+            <input asp-for="EmpresaId" class="d-none" value="@Model.EmpresaId" />
+            <input asp-for="ViajeId" class="d-none" value="@Model.ViajeId" />
+            <input asp-for="UsuarioId" class="d-none" value="@Model.UsuarioId" />
+            <input asp-for="TerceroId" class="d-none" value="@Model.TerceroId" />
+            <input asp-for="CodViaje" class="d-none" value="@Model.CodViaje" />
+            <input asp-for="Descripcion" class="d-none" value="@Model.Descripcion" />
+            <input asp-for="FechaIng" class="d-none" value="@Model.FechaIng" />
+            <input asp-for="Estado" class="d-none" value="@Model.Estado" />
 
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label class="control-label">Código del Viaje</label>
-                    <input asp-for="CodViaje" maxlength="59" class="form-control form-control-sm" required />
-                    <span asp-validation-for="CodViaje" class="text-danger"></span>
+                    <label class="control-label">Código del Viaje: @Model.CodViaje</label>
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label class="control-label">Descripcion</label>
-                    <textarea asp-for="Descripcion" maxlength="119" class="form-control form-control-sm" required></textarea>
-                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                    <label class="control-label">Descripcion: @Model.Descripcion</label>
+
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="control-label">Tercero que Solicita el Viaje</label>
-                    <select asp-for="TerceroId" asp-items="@(new SelectList("id", "text"))" required class="form-control form-control-sm">
-                        <option disabled selected value="">Seleccione un Tercero</option>
-                    </select>
-                    <span asp-validation-for="TerceroId" class="text-danger"></span>
+                    <label class="control-label">Tercero que Solicita el Viaje:  @Model.CT_Tercero.NombreTer - CC/NIT; @Model.CT_Tercero.NumeroNit </label>
+
 
                 </div>
 
@@ -41,18 +43,18 @@
             <div class="form-row">
 
                 <div class="form-group col-md-4">
-                    <label class="control-label">Promedio KM a Recorrer (Ida)</label>
-                    <input asp-for="Kilometros" maxlength="59" class="form-control form-control-sm" required />
+                    <label class="control-label">Promedio KM a Recorrer (Ida) | @Model.Kilometros</label>
+                    <input asp-for="Kilometros" placeholder="@Model.Kilometros" value="@Model.Kilometros" maxlength="59" class="form-control form-control-sm" required />
                     <span asp-validation-for="Kilometros" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="control-label">Peso del Contenido del Viaje</label>
-                    <input asp-for="Contenido" maxlength="59" class="form-control form-control-sm" required />
+                    <label class="control-label">Peso del Contenido del Viaje | @Model.Contenido</label>
+                    <input asp-for="Contenido" maxlength="59" value="@Model.Contenido" placeholder="@Model.Contenido" class="form-control form-control-sm" required />
                     <span asp-validation-for="Contenido" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="control-label">Volumen del Contenido del Viaje</label>
-                    <input asp-for="Volumen" maxlength="59" class="form-control form-control-sm" required />
+                    <input asp-for="Volumen" maxlength="59" value="@Model.Volumen" placeholder="@Model.Volumen" class="form-control form-control-sm" required />
                     <span asp-validation-for="Volumen" class="text-danger"></span>
                 </div>
 
@@ -61,9 +63,9 @@
             <div class="form-row">
 
                 <div class="form-group col-md-4">
-                    <label class="control-label">Fecha de Estimada del Viaje </label>
+                    <label class="control-label">Fecha de Estimada del Viaje | @Model.FechaServicio  </label>
                     <div class="input-group date" id="FechaServicio_" data-target-input="nearest">
-                        <input asp-for="FechaServicio" class="form-control form-control-sm datetimepicker-input" type="text" required />
+                        <input asp-for="FechaServicio" class="form-control form-control-sm datetimepicker-input" value="@Model.FechaServicio" type="text" required />
                         <div class="input-group-append" data-target="#FechaServicio_" data-toggle="datetimepicker">
                             <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                         </div>
@@ -73,16 +75,16 @@
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label class="control-label">Valor Cotizado (COP)</label>
-                    <input style="font-size:18px" type="text" min="0" onkeyup="formatoMoneda(this, 'valorNuevoCotizado' );" class="form-control form-control-sm text-center w-100 m-auto" required>
-                    <input class="form-control form-control-sm" asp-for="ValorCotizado" id="valorNuevoCotizado" hidden />
+                    <label class="control-label">Valor Cotizado (COP) | @Model.ValorCotizado.ToString("C2")</label>
+                    <input style="font-size:18px" type="text" min="0" placeholder="@Model.ValorCotizado.ToString("C2")" onkeyup="formatoMoneda(this, 'valorNuevoCotizado' );" class="form-control form-control-sm text-center w-100 m-auto" required>
+                    <input class="form-control form-control-sm" value="@Model.ValorCotizado" asp-for="ValorCotizado" id="valorNuevoCotizado" hidden />
                     <span asp-validation-for="ValorCotizado" class="text-danger"></span>
 
                 </div>
                 <div class="form-group col-md-4">
                     <label class="control-label">Operación de Transporte</label>
                     <select id="selecViajes" asp-for="CodOperacionTransporte" class="form-control form-control-sm" required>
-                        <option selected disabled value="">Seleccione la Operación de Transporte</option>
+                        <option selected disabled value="@Model.CodOperacionTransporte">@Model.CodOperacionTransporte</option>
                         <option value="G">G - General</option>
                         <option value="V">V - Consolidadores</option>
                         <option value="P">P - Paqueteo</option>
@@ -99,7 +101,7 @@
                 <div class="form-group col-md-4">
                     <label class="control-label">Municipio de Origen</label>
                     <select id="selecViajes" asp-for="CodMunicipioOrigen" class="form-control form-control-sm" required>
-                        <option selected disabled value="">Seleccione el Municipio de Origen</option>
+                        <option selected disabled value="@Model.CodMunicipioOrigen"> @Model.CodMunicipioOrigen</option>
                         <option value="Bogotá">Bogotá</option>
                         <option value="Cartagena">Cartagena</option>
                         <option value="Buenaventura">Buenaventura</option>
@@ -116,7 +118,7 @@
                 <div class="form-group col-md-4">
                     <label class="control-label">Municipio de Destino</label>
                     <select id="selecViajes" asp-for="CodMunicipioDestino" class="form-control form-control-sm" required>
-                        <option selected disabled value="">Seleccione el Municipio de Destino</option>
+                        <option selected disabled value="@Model.CodMunicipioDestino">@Model.CodMunicipioDestino</option>
                         <option value="Bogotá">Bogotá</option>
                         <option value="Cartagena">Cartagena</option>
                         <option value="Buenaventura">Buenaventura</option>
@@ -133,7 +135,7 @@
                 <div class="form-group col-md-4">
                     <label class="control-label">Departamento de Origen</label>
                     <select id="selecViajes" asp-for="CodDepartamentoOrigen" class="form-control form-control-sm" required>
-                        <option selected disabled value="">Seleccione el Departamento de Origen</option>
+                        <option selected disabled value="@Model.CodDepartamentoOrigen">@Model.CodDepartamentoOrigen</option>
                         <option value="Valle del Cauca">Valle del Cauca</option>
                         <option value="Antioquia">Antioquia</option>
                         <option value="Cundinamarca">Cundinamarca</option>
@@ -154,7 +156,7 @@
                 <div class="form-group col-md-4">
                     <label class="control-label">Departamento de Destino</label>
                     <select id="selecViajes" asp-for="CodDepartamentoDestino" class="form-control form-control-sm" required>
-                        <option selected disabled value="">Seleccione el Departamento de Destino</option>
+                        <option selected disabled value="@Model.CodDepartamentoDestino">@Model.CodDepartamentoDestino</option>
                         <option value="Valle del Cauca">Valle del Cauca</option>
                         <option value="Antioquia">Antioquia</option>
                         <option value="Cundinamarca">Cundinamarca</option>
@@ -172,7 +174,7 @@
                 <div class="form-group col-md-4">
                     <label class="control-label">Tipo Mercancía</label>
                     <select id="selecViajes" asp-for="CodMercancia" class="form-control form-control-sm" required>
-                        <option selected disabled value="">Seleccione Tipo Mercancía</option>
+                        <option selected disabled value="@Model.CodMercancia">@Model.CodMercancia</option>
                         <option value="009980">009980 - PRODUCTOS VARIOS</option>
                         <option value="009880">009880 - LÍQUIDOS</option>
                         <option value="009990">009990 - LÍQUIDOS INFLAMABLES</option>
@@ -188,7 +190,7 @@
                 <div class="form-group col-md-4">
                     <label class="control-label">Naturaleza de la Carga</label>
                     <select id="selecViajes" asp-for="NaturalezaCarga" class="form-control form-control-sm" required>
-                        <option selected disabled value="">Seleccione la Naturaleza de la Carga</option>
+                        <option selected disabled value="@Model.NaturalezaCarga">@Model.NaturalezaCarga</option>
                         <option value="CAR-NORMAL">Carga Normal</option>
                         <option value="CAR-PELGRO">Carga Peligrosa</option>
                         <option value="CAR-REFRI">Refrigerada</option>
@@ -202,33 +204,33 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label class="control-label">Cantidad de Ruta Primaria</label>
-                    <input asp-for="PorcentajeRutaPrimaria" type="range" min="0" max="100" step="10" class="form-control form-control-sm range" required />
+                    <label class="control-label">Cantidad de Ruta Primaria | @Model.PorcentajeRutaPrimaria %</label>
+                    <input asp-for="@Model.PorcentajeRutaPrimaria" placeholder="@Model.PorcentajeRutaPrimaria" value="@Model.PorcentajeRutaPrimaria" type="range" min="0" max="100" step="10" class="form-control form-control-sm range" required />
                     <span asp-validation-for="PorcentajeRutaPrimaria" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="control-label">Cantidad de Ruta Secundaria</label>
-                    <input asp-for="PorcentajeRutaSecundaria" type="range" min="0" max="100" step="10" class="form-control form-control-sm range" required />
+                    <label class="control-label">Cantidad de Ruta Secundaria | @Model.PorcentajeRutaSecundaria %</label>
+                    <input asp-for="PorcentajeRutaSecundaria" type="range" placeholder="@Model.PorcentajeRutaSecundaria" value="@Model.PorcentajeRutaSecundaria" min="0" max="100" step="10" class="form-control form-control-sm range" required />
                     <span asp-validation-for="PorcentajeRutaSecundaria" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="control-label">Cantidad de Ruta Terciaria</label>
-                    <input asp-for="PorcentajeRutaTerciaria" type="range" min="0" max="100" step="10" class="form-control form-control-sm range" required />
+                    <label class="control-label">Cantidad de Ruta Terciaria | @Model.PorcentajeRutaTerciaria %</label>
+                    <input asp-for="PorcentajeRutaTerciaria" type="range" placeholder="@Model.PorcentajeRutaTerciaria" value="@Model.PorcentajeRutaTerciaria" min="0" max="100" step="10" class="form-control form-control-sm range" required />
                     <span asp-validation-for="PorcentajeRutaTerciaria" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label class="control-label">Número de Peajes del Trayecto</label>
-                    <input asp-for="NumeroPeajes" class="form-control form-control-sm number" type="number" min="0" max="200" required />
+                    <label class="control-label">Número de Peajes del Trayecto | @Model.NumeroPeajes</label>
+                    <input asp-for="NumeroPeajes" class="form-control form-control-sm number" placeholder="@Model.NumeroPeajes" value="@Model.NumeroPeajes" type="number" min="0" max="200" required />
                     <span asp-validation-for="NumeroPeajes" class="text-danger"></span>
                 </div>
 
 
                 <div class="form-group col-md-4">
-                    <label class="control-label">Valor Total Peajes (COP)</label>
-                    <input style="font-size:18px" type="text" min="0" onkeyup="formatoMoneda(this, 'valorNuevoPeajes');" class="form-control form-control-sm text-center w-100 m-auto" required>
-                    <input class="form-control form-control-sm" asp-for="ValorCotizado" id="valorNuevoPeajes" hidden />
+                    <label class="control-label">Valor Total Peajes (COP) | @Model.ValorCotizado.ToString("C2")</label>
+                    <input style="font-size:18px" type="text" min="0" onkeyup="formatoMoneda(this, 'valorNuevoPeajes');" placeholder="@Model.ValorCotizado" class="form-control form-control-sm text-center w-100 m-auto" required>
+                    <input class="form-control form-control-sm" asp-for="ValorCotizado" placeholder="@Model.ValorCotizado" value="@Model.ValorCotizado" id="valorNuevoPeajes" hidden />
                     <span asp-validation-for="ValorCotizado" class="text-danger"></span>
 
                 </div>
@@ -236,7 +238,7 @@
 
             <hr />
             <div class="form-group text-right">
-                <button type="submit" class="btn btn-primary"><t id="txtBtnCrear">Crear Viaje</t></button>
+                <button type="submit" class="btn btn-primary"><t id="txtBtnCrear">Editar Viaje</t></button>
             </div>
         </form>
     </div>

@@ -1,0 +1,86 @@
+﻿@model DynamicForecast.Areas.Viaje.Models.AP_Viaje
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="FinalizarViaje" method="post" enctype="multipart/form-data">
+
+            @{
+                if (ViewBag.ViewBag.ErrorFinalizacion != "")
+                {
+                    <div class="text-center text-danger">
+                        @ViewBag.ViewBag.ErrorFinalizacion
+                        <hr />
+                    </div>
+                }
+            }
+            <div class="text-bold text-center h4">Datos para la Creación del Viaje</div>
+            <br />
+
+            <div class="form-row">
+
+                <div class="form-group col-md-4">
+                    <label class="control-label">Valor Pagado (COP)</label>
+                    <input style="font-size:18px" type="text" min="0" onkeyup="formatoMoneda(this, 'valorNuevoPagado' );" class="form-control form-control-sm text-center w-100 m-auto" required>
+                    <input class="form-control form-control-sm" asp-for="ValorPagado" id="valorNuevoPagado" hidden />
+                    <span asp-validation-for="ValorPagado" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <div class="form-group col-md-4">
+                        <label class="control-label">Descripcion</label>
+                        <textarea asp-for="NovedadesViaje" maxlength="919" class="form-control form-control-sm" required></textarea>
+                        <span asp-validation-for="NovedadesViaje" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="control-label">Satisfacción en el Proceso de Selección</label>
+                    <input asp-for="Satisfaccion" type="range" min="0" max="100" step="5" class="form-control form-control-sm range" required />
+                    <span asp-validation-for="Satisfaccion" class="text-danger"></span>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="form-group text-right">
+                <button type="submit" class="btn btn-primary disabled">Finalizar Viaje</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    function quita_comas(numero) {
+        var cadenas = numero.split(".");
+        cadena_sin_comas = "";
+        for (i = 0; i < cadenas.length; i++) {
+            cadena_sin_comas = cadena_sin_comas + cadenas[i];
+        }
+        return cadena_sin_comas;
+    }
+    function separador(obj) {
+        var separador = obj;
+        separador.addEventListener('keyup', (e) => {
+            var entrada = e.target.value.split('.').join('');
+            entrada = entrada.split('').reverse();
+            var salida = [];
+            var aux = '';
+            var paginador = Math.ceil(entrada.length / 3);
+            for (let i = 0; i < paginador; i++) {
+                for (let j = 0; j < 3; j++) {
+                    "123 4"
+                    if (entrada[j + (i * 3)] != undefined) {
+                        aux += entrada[j + (i * 3)];
+                    }
+                }
+                salida.push(aux);
+                aux = '';
+                e.target.value = salida.join('.').split("").reverse().join('');
+            }
+        }, false);
+    }
+    function formatoMoneda(obj, valorInput) {
+        separador(obj);
+        var val2 = obj.value;
+        var val22 = quita_comas(val2);
+        var val4 = parseFloat(val22);
+        document.getElementById(valorInput).value = val4;
+    }
+</script>

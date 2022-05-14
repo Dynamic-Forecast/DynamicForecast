@@ -7,7 +7,7 @@ namespace DynamicForecast.Servicios
 {
     public class ISimulacion
     {
-        private DynamicForecastContext FsvrConn;
+        private readonly DynamicForecastContext FsvrConn;
 
         public ISimulacion(DynamicForecastContext svrConn)
         {

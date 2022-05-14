@@ -63,9 +63,6 @@ namespace DynamicForecast.Models
         [ForeignKey("EmpresaId")]
         public virtual CT_Empresa CT_Empresa { get; set; }
 
-        //[ForeignKey("EmpresaId")]
-        //public virtual IN_Empresa IN_Empresa { get; set; }
-
-
+     
     }
 }

@@ -30,20 +30,20 @@ namespace DynamicForecast.Clases
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DT_Usuario>().HasKey(c => new { c.UsuarioId });
+            modelBuilder.Entity<DT_Usuario>().HasKey(c => new {  c.UsuarioId });
             modelBuilder.Entity<CT_Empresa>().HasKey(c => new { c.EmpresaId });
-            modelBuilder.Entity<DT_UsuarioXEmpr>().HasKey(c => new { c.UsuarioId, c.EmpresaId });
-            modelBuilder.Entity<CT_Tercero>().HasKey(c => new { c.EmpresaId, c.TerceroId });
-            modelBuilder.Entity<DT_Conductor>().HasKey(c => new { c.EmpresaId, c.ConductorId });
-            modelBuilder.Entity<DT_Certificado>().HasKey(c => new { c.EmpresaId, c.CertificadoId });
-            modelBuilder.Entity<DT_CertificadoConductor>().HasKey(c => new { c.EmpresaId, c.CertificadoConductorId, c.ConductorId, c.CertificadoId });
-            modelBuilder.Entity<DT_Vehiculo>().HasKey(c => new { c.EmpresaId, c.VehiculoId });
-            modelBuilder.Entity<DT_VehiculoConductor>().HasKey(c => new { c.EmpresaId, c.VehiculoConductorId, c.ConductorId, c.VehiculoId });
-            modelBuilder.Entity<DT_CertificadoVehiculo>().HasKey(c => new { c.EmpresaId, c.CertificadoVehiculoId, c.VehiculoId, c.CertificadoId });
-            modelBuilder.Entity<AP_Viaje>().HasKey(c => new { c.EmpresaId, c.ViajeId });
-            modelBuilder.Entity<AP_Simulacion>().HasKey(c => new { c.EmpresaId, c.SimulacionId });
-            modelBuilder.Entity<AP_Recomendacion>().HasKey(c => new { c.EmpresaId, c.SimulacionId, c.RecomendacionId });
-            modelBuilder.Entity<AP_ModeloRecomendacion>().HasKey(c => new { c.EmpresaId, c.ModeloRecomendacionId });
+            modelBuilder.Entity<DT_UsuarioXEmpr>().HasKey(c => new {  c.UsuarioXEmpresaId });
+            modelBuilder.Entity<CT_Tercero>().HasKey(c => new {  c.TerceroId });
+            modelBuilder.Entity<DT_Conductor>().HasKey(c => new {  c.ConductorId });
+            modelBuilder.Entity<DT_Certificado>().HasKey(c => new { c.CertificadoId });
+            modelBuilder.Entity<DT_CertificadoConductor>().HasKey(c => new {  c.CertificadoConductorId });
+            modelBuilder.Entity<DT_Vehiculo>().HasKey(c => new {c.VehiculoId });
+            modelBuilder.Entity<DT_VehiculoConductor>().HasKey(c => new {c.VehiculoConductorId});
+            modelBuilder.Entity<DT_CertificadoVehiculo>().HasKey(c => new {  c.CertificadoVehiculoId });
+            modelBuilder.Entity<AP_Viaje>().HasKey(c => new { c.ViajeId });
+            modelBuilder.Entity<AP_Simulacion>().HasKey(c => new {c.SimulacionId });
+            modelBuilder.Entity<AP_Recomendacion>().HasKey(c => new {  c.RecomendacionId });
+            modelBuilder.Entity<AP_ModeloRecomendacion>().HasKey(c => new { c.ModeloRecomendacionId });
 
         }
     }

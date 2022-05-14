@@ -8,7 +8,7 @@ namespace DynamicForecast.Servicios
 {
     public class ICertificadoVehiculo
     {
-        private DynamicForecastContext FsvrConn;
+        private readonly DynamicForecastContext FsvrConn;
 
         public ICertificadoVehiculo(DynamicForecastContext svrConn)
         {
@@ -19,6 +19,14 @@ namespace DynamicForecast.Servicios
         {
             return FsvrConn.DT_CertificadoVehiculo.
                             Where(h => h.EmpresaId == EmpresaId).
+                            OrderByDescending(h => h.CertificadoId).DefaultIfEmpty();
+        }
+        public IEnumerable<DT_CertificadoVehiculo> GetCertificadoVehiculosCompleto(int EmpresaId)
+        {
+            return FsvrConn.DT_CertificadoVehiculo.
+                            Where(h => h.EmpresaId == EmpresaId).
+                            Include(h => h.DT_Vehiculo).AsNoTracking().DefaultIfEmpty().
+                            Include(h => h.DT_Certificado).AsNoTracking().DefaultIfEmpty().
                             OrderByDescending(h => h.CertificadoId).DefaultIfEmpty();
         }
 
@@ -32,12 +40,12 @@ namespace DynamicForecast.Servicios
         public IEnumerable<DT_CertificadoVehiculo> GetCertificadosXVehiculo(int EmpresaId, int VehiculoId)
         {
             return FsvrConn.DT_CertificadoVehiculo.
-                            Include(h => h.DT_Certificado ).
-                            Include(h => h.DT_Vehiculo ).
+                            Include(h => h.DT_Certificado).
+                            Include(h => h.DT_Vehiculo).
                             Where(h => h.EmpresaId == EmpresaId).
                             Where(h => h.VehiculoId == VehiculoId);
         }
-        
+
         public IEnumerable<DT_CertificadoVehiculo> GetCertificadosXCertificadosVehiculo(int EmpresaId, int CertificadoVehiculoId)
         {
             return FsvrConn.DT_CertificadoVehiculo.
