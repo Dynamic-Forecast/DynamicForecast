@@ -3,12 +3,17 @@
 <br />
 <div class="content-heading">
     Viajes
+    &nbsp;
+    <i class="fa fa-cannabis fa-xs align-items-center"></i>
+
     <div class="ml-auto">
         <a class="btn btn-primary" href="#" onclick="showInPopup('@Url.Action("CrearViaje", "Viaje", Context.Request.Scheme)', 'Nuevo Viaje')">
             Nuevo Viaje &nbsp;<i class="fa fa-file-alt " title="Nuevo Viaje"></i>
         </a>
     </div>
 </div>
+<br />
+
 @if (@ViewBag.ViajeCreado)
 {
     <div class="card-body">
@@ -79,10 +84,15 @@
     <div class="form-group col-md-12">
         <br />
         <h4 class="text-bold text-center">
+<<<<<<< Updated upstream
             <i class="fa fa-cannabis fa-s align-items-center"></i>
 
             Viajes Activos en el Sistema
             <i class="fa fa-cannabis fa-s align-items-center"></i>
+=======
+
+            Viajes Activos en el Sistema
+>>>>>>> Stashed changes
         </h4>
 
         <div class="container-fluid">
@@ -114,7 +124,11 @@
                                         </th>
 
                                         <th class="text-center">
+<<<<<<< Updated upstream
                                             Cod Mercancía
+=======
+                                            Mercancía
+>>>>>>> Stashed changes
                                         </th>
 
                                         <th class="text-center">
@@ -152,6 +166,12 @@
                                             Departamento Destino
                                         </th>
                                         <th class="text-center">
+<<<<<<< Updated upstream
+=======
+                                            Naturaleza
+                                        </th>
+                                        <th class="text-center">
+>>>>>>> Stashed changes
                                             Fecha Creación
                                         </th>
                                     </tr>
@@ -204,12 +224,54 @@
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayFor(modelItem => item.UsuarioId)
+<<<<<<< Updated upstream
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayFor(modelItem => item.TerceroId)
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.CodMercancia)
+=======
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayFor(modelItem => item.TerceroId)
+                                            </td>
+                                            <td class="text-center">
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "009980")
+                                                {
+                                                    <t> 009980 - PRODUCTOS VARIOS</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "009880")
+                                                {
+                                                    <t>009880 - LÍQUIDOS</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "009990")
+                                                {
+                                                    <t>009990 - LÍQUIDOS INFLAMABLES</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "003816")
+                                                {
+                                                    <t>003816 - CONTENEDOR VACIOs</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "004415")
+                                                {
+                                                    <t> 004415 - CEMENTOS,  MORTEROS,  HORMIGONES Y PREPARACIONES SIMILARES,  REFRACTARIOS,  EX</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "001006")
+                                                {
+                                                    <t>001006 - CAJONES,  CAJAS,  JAULAS,  TAMBORES Y ENVASES SIMILARES,  DE MADERA, CARRETES</t>
+
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "003105")
+                                                {
+                                                    <t> 003105 - ARROZ</t>
+
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "009800")
+                                                {
+                                                    <t> 009800 - ABONOS MINERALES O QUIMICOS,  CON DOS O TRES DE LOS ELEMENTOS FERTILIZANTES NI</t>
+                                                }
+>>>>>>> Stashed changes
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.Estado)
@@ -243,6 +305,39 @@
                                                 @Html.DisplayTextFor(modelItem => item.CodDepartamentoDestino)
                                             </td>
                                             <td class="text-center">
+<<<<<<< Updated upstream
+=======
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO1")
+                                                {
+                                                    <t> Carga Normal</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO2")
+                                                {
+                                                    <t> Carga Peligrosa</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO3")
+                                                {
+                                                    <t> Refrigerada</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO4")
+                                                {
+                                                    <t>Desechos Peligrosos</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO5")
+                                                {
+                                                    <t> Carga Extradimensionada</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO6")
+                                                {
+                                                    <t> Semovientes</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO7")
+                                                {
+                                                    <t> Carga Extrapesada</t>
+                                                }
+                                            </td>
+                                            <td class="text-center">
+>>>>>>> Stashed changes
                                                 @Html.DisplayTextFor(modelItem => item.FechaIng)
                                             </td>
                                         </tr>

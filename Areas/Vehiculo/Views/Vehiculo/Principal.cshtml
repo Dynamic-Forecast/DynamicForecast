@@ -8,6 +8,8 @@
         </a>
     </div>
 </div>
+<br />
+
 @if (@ViewBag.VehiculoCreado)
 {
     <div class="card-body">
@@ -79,6 +81,12 @@
                                             Estado Legal
                                         </th>
                                         <th class="text-center">
+                                            Municipio Base
+                                        </th>
+                                        <th class="text-center">
+                                            Departamento Base
+                                        </th>
+                                        <th class="text-center">
                                             Descripción
                                         </th>
                                         <th class="text-center">
@@ -123,13 +131,48 @@
                                                 @Html.DisplayTextFor(modelItem => item.CodConfiguracion)
                                             </td>
                                             <td class="text-center">
-                                                @Html.DisplayTextFor(modelItem => item.NaturalezaCarga)
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO1")
+                                                {
+                                                    <t> Carga Normal</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO2")
+                                                {
+                                                    <t> Carga Peligrosa</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO3")
+                                                {
+                                                    <t> Refrigerada</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO4")
+                                                {
+                                                    <t>Desechos Peligrosos</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO5")
+                                                {
+                                                    <t> Carga Extradimensionada</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO6")
+                                                {
+                                                    <t> Semovientes</t>
+                                                }
+                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "NAT-TIPO7")
+                                                {
+                                                    <t> Carga Extrapesada</t>
+                                                }
+
+
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.EstadoMecanico)
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.EstadoLegal)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.CodMunicipioBase)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.CodDepartamentoBase)
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.Descripcion)

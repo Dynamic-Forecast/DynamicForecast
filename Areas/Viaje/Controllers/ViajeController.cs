@@ -113,9 +113,29 @@ namespace DynamicForecast.Areas.Viaje.Controllers
         }
 
         public IActionResult EditarViaje(int? ViajeId)
+<<<<<<< Updated upstream
+=======
         {
             ViewBag.Error = "";
             IViaje Viaje = new IViaje(FsvrConn);
+            int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+
+            var ViajeEditar = Viaje.GetViajeCompleto(fEmpresaId, (int)ViajeId).DefaultIfEmpty().FirstOrDefault();
+
+
+            return PartialView(ViajeEditar);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditarViaje([Bind] AP_Viaje c)
+>>>>>>> Stashed changes
+        {
+            ViewBag.Error = "";
+            ViewBag.ViajeEliminado = false;
+            IViaje Viaje = new IViaje(FsvrConn);
+<<<<<<< Updated upstream
             int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
 
             var ViajeEditar = Viaje.GetViajeCompleto(fEmpresaId, (int)ViajeId).DefaultIfEmpty().FirstOrDefault();
@@ -132,6 +152,8 @@ namespace DynamicForecast.Areas.Viaje.Controllers
             ViewBag.Error = "";
             ViewBag.ViajeEliminado = false;
             IViaje Viaje = new IViaje(FsvrConn);
+=======
+>>>>>>> Stashed changes
             ISimulacion Simulacion = new ISimulacion(FsvrConn);
             ViewBag.ErrorRecomendacion = "";
             ViewBag.ErrorFinalizacion = "";
@@ -241,7 +263,11 @@ namespace DynamicForecast.Areas.Viaje.Controllers
                                     ////// 
                                     //////     7  ,    8   ,   9      ,     4   -> CertificadoId - Vehiculo
                                     ////// 009880 , 003105 , 009990   ,         -> CodMercancia
+<<<<<<< Updated upstream
                                     ///
+=======
+
+>>>>>>> Stashed changes
                                     ListaCertificadosVehiculos = ViajeSeleccionado.CodMercancia switch
                                     {
                                         "009880" => ListaCertificadosVehiculos.Where(h => h.DT_Certificado.CertificadoId == 7).DefaultIfEmpty(),
@@ -408,6 +434,7 @@ namespace DynamicForecast.Areas.Viaje.Controllers
 
                 ViewBag.ErrorRecomendacion = "CREADO";
 
+<<<<<<< Updated upstream
 
             }
             catch (Exception ex)
@@ -421,6 +448,21 @@ namespace DynamicForecast.Areas.Viaje.Controllers
 
 
             }
+=======
+
+            }
+            catch (Exception ex)
+            {
+                dbTran.Rollback();
+
+                ViewBag.ErrorRecomendacion = "Error Inesperado en la Recomendación: " + ex.Message.ToString();
+
+
+                return View("~/Areas/Viaje/Views/Viaje/Index.cshtml", lstViaje);
+
+
+            }
+>>>>>>> Stashed changes
 
 
             ViewBag.ErrorRecomendacion = "";
@@ -499,16 +541,29 @@ namespace DynamicForecast.Areas.Viaje.Controllers
         }
         public void AgrgarDatosSimulacion(AP_Viaje c)
         {
+<<<<<<< Updated upstream
 
             try
             {
+=======
+>>>>>>> Stashed changes
 
+            try
+            {
 
                 ISimulacion Simulacion = new ISimulacion(FsvrConn);
                 int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
                 var lstSimulaciones = Simulacion.GetSimulacions(fEmpresaId).DefaultIfEmpty().OrderByDescending(h => h.SimulacionId).FirstOrDefault();
                 int SimulacionIdNuevo;
 
+<<<<<<< Updated upstream
+=======
+                ISimulacion Simulacion = new ISimulacion(FsvrConn);
+                int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+                var lstSimulaciones = Simulacion.GetSimulacions(fEmpresaId).DefaultIfEmpty().OrderByDescending(h => h.SimulacionId).FirstOrDefault();
+                int SimulacionIdNuevo;
+
+>>>>>>> Stashed changes
                 if (lstSimulaciones != null)
                 {
                     var SimulacionIdAnterior = lstSimulaciones.SimulacionId;
@@ -638,6 +693,7 @@ namespace DynamicForecast.Areas.Viaje.Controllers
         public IList CargarDatosIndex()
         {
             int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+<<<<<<< Updated upstream
 
             IViaje Viaje = new IViaje(FsvrConn);
             var lstViaje = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty().ToList().DefaultIfEmpty().ToList();
@@ -647,6 +703,19 @@ namespace DynamicForecast.Areas.Viaje.Controllers
             ViewBag.ViajeIniciado = false;
             ViewBag.ErrorRecomendacion = "";
 
+=======
+
+            IViaje Viaje = new IViaje(FsvrConn);
+            var lstViaje = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty().ToList().DefaultIfEmpty().ToList();
+            ViewBag.Error = "";
+            ViewBag.ViajeCreado = false;
+            ViewBag.ViajeEliminado = false;
+            ViewBag.ErrorFinalizacion = "";
+
+            ViewBag.ViajeIniciado = false;
+            ViewBag.ErrorRecomendacion = "";
+
+>>>>>>> Stashed changes
             return lstViaje;
         }
 

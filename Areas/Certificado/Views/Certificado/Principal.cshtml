@@ -9,6 +9,8 @@
         </a>
     </div>
 </div>
+<br />
+
 @if (@ViewBag.CertificadoCreado)
 {
     <div class="card-body">
@@ -92,7 +94,11 @@
                                                 </i>
                                             </td>
                                             <td class="text-center align-middle">
+<<<<<<< Updated upstream
                                                 <a  href="#" onclick="showInPopup('@Url.Action("IndexAdjuntarArchivo", "Certificado", new { CertificadoId = item.CertificadoId }, Context.Request.Scheme)', 'Adjuntar Archivo')">
+=======
+                                                <a href="#" onclick="showInPopup('@Url.Action("IndexAdjuntarArchivo", "Certificado", new { CertificadoId = item.CertificadoId }, Context.Request.Scheme)', 'Adjuntar Archivo')">
+>>>>>>> Stashed changes
                                                     <i class="fa fa-file-alt " title="Adjuntar Archivo"></i>
                                                 </a>
                                             </td>

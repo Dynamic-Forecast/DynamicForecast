@@ -8,6 +8,8 @@
         </a>
     </div>
 </div>
+<br />
+
 @if (@ViewBag.ConductorCreado)
 {
     <div class="card-body">
@@ -80,6 +82,12 @@
                                             Dirección
                                         </th>
                                         <th class="text-center">
+                                            Municipio Base
+                                        </th>
+                                        <th class="text-center">
+                                            Departamento Base
+                                        </th>
+                                        <th class="text-center">
                                             Fecha Ingreso
                                         </th>
                                         <th class="text-center">
@@ -101,7 +109,7 @@
                                                 </i>
                                             </td>
                                             <td class="text-center align-middle">
-                                                <a  href="#" onclick="showInPopup('@Url.Action("AgregarCertificadoAlConductor", "Conductor", new { ConductorId = ConductorId }, Context.Request.Scheme)', 'Agregar Certificado')">
+                                                <a href="#" onclick="showInPopup('@Url.Action("AgregarCertificadoAlConductor", "Conductor", new { ConductorId = ConductorId }, Context.Request.Scheme)', 'Agregar Certificado')">
                                                     <i class="fa fa-file-alt" title="Agregar Certificado"></i>
                                                 </a>
                                             </td>
@@ -133,6 +141,12 @@
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.Direccion)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.CodMunicipioBase)
+                                            </td>
+                                            <td class="text-center">
+                                                @Html.DisplayTextFor(modelItem => item.CodDepartamentoBase)
                                             </td>
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.FechaIng)
