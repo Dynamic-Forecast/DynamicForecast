@@ -16,43 +16,80 @@
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label class="control-label">Nombre</label>
-                    <input asp-for="NombreConductor" class="form-control form-control-sm" required />
+                    <input asp-for="NombreConductor" maxlength="119" class="form-control form-control-sm" required />
                     <span asp-validation-for="NombreConductor" class="text-danger"></span>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label class="control-label">Documento</label>
-                    <input asp-for="Documento" class="form-control form-control-sm" required />
+                    <input asp-for="Documento" maxlength="15" class="form-control form-control-sm" required />
                     <span asp-validation-for="Documento" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label class="control-label">E-Mail</label>
-                    <input asp-for="EMail" type="email" class="form-control form-control-sm" required />
+                    <input asp-for="EMail" type="email" maxlength="250" class="form-control form-control-sm" required />
                     <span asp-validation-for="EMail" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="control-label">Código</label>
-                    <input asp-for="CodConductor" class="form-control form-control-sm" required />
+                    <input asp-for="CodConductor" maxlength="59" class="form-control form-control-sm" required />
                     <span asp-validation-for="CodConductor" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label class="control-label">Direccion</label>
-                    <input asp-for="Direccion" class="form-control form-control-sm" required />
+                    <input asp-for="Direccion" maxlength="120" class="form-control form-control-sm" required />
                     <span asp-validation-for="Direccion" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="control-label">Telefono</label>
-                    <input asp-for="Telefono" class="form-control form-control-sm" required />
+                    <input asp-for="Telefono" class="form-control form-control-sm" maxlength="30" type="number" required />
                     <span asp-validation-for="Telefono" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="control-label">Celular</label>
-                    <input asp-for="Celular" class="form-control form-control-sm" required />
+                    <input asp-for="Celular" class="form-control form-control-sm" maxlength="30" type="number" required />
                     <span asp-validation-for="Celular" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label class="control-label">Municipio Base</label>
+                    <select id="selecViajes" asp-for="CodMunicipioBase" class="form-control form-control-sm" required>
+                        <option selected disabled value="">Seleccione el Municipio Base del Conductor</option>
+                        <option value="Bogotá">Bogotá</option>
+                        <option value="Cartagena">Cartagena</option>
+                        <option value="Buenaventura">Buenaventura</option>
+                        <option value="Barranquilla">Barranquilla</option>
+                        <option value="Medellin">Medellin</option>
+                        <option value="Yumbo Valle">Yumbo Valle</option>
+                        <option value="Cali Valle">Cali Valle</option>
+                        <option value="Funza Cundinamarca">Funza Cundinamarca</option>
+                        <option value="Itagui">Itagui</option>
+                        <option value="Tocancipá">Tocancipá</option>
+                    </select>
+                    <span asp-validation-for="CodMunicipioBase" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="control-label">Departamento Base</label>
+                    <select id="selecViajes" asp-for="CodDepartamentoBase" class="form-control form-control-sm" required>
+                        <option selected disabled value="">Seleccione el Departamento Base del Conductor</option>
+                        <option value="Valle del Cauca">Valle del Cauca</option>
+                        <option value="Antioquia">Antioquia</option>
+                        <option value="Cundinamarca">Cundinamarca</option>
+                        <option value="Bogotá DC">Bogotá DC</option>
+                        <option value="Atlántico">Atlántico</option>
+                        <option value="Bolívar">Bolívar</option>
+                        <option value="Santander">Santander</option>
+                        <option value="Meta">Meta</option>
+                        <option value="Risaralda">Risaralda</option>
+                        <option value="Boyacá">Boyacá</option>
+                    </select>
+                    <span asp-validation-for="CodDepartamentoBase" class="text-danger"></span>
                 </div>
             </div>
             <hr />

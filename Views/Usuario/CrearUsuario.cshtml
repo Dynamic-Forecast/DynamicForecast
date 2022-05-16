@@ -17,20 +17,20 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label class="control-label">Nombre</label>
-                    <input asp-for="NombreUsr" class="form-control form-control-sm" required />
+                    <input asp-for="NombreUsr" class="form-control form-control-sm" maxlength="120" required />
                     <span asp-validation-for="NombreUsr" class="text-danger"></span>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label class="control-label">Nit</label>
-                    <input asp-for="NumeroNit" class="form-control form-control-sm" required />
+                    <input asp-for="NumeroNit" class="form-control form-control-sm" maxlength="15" required />
 
                     <span asp-validation-for="NumeroNit" class="text-danger"></span>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label class="control-label">E-Mail</label>
-                    <input asp-for="E_Mail" class="form-control form-control-sm " type="email" required />
+                    <input asp-for="E_Mail" class="form-control form-control-sm " maxlength="250" type="email" required />
 
                     <span asp-validation-for="E_Mail" class="text-danger"></span>
                 </div>
@@ -46,15 +46,15 @@
 
 
                 <div class="form-group col-md-4">
-                    <label class="control-label">Contraseña</label>
-                    <input asp-for="PalabraClave" class="form-control form-control-sm" type="password" required />
+                    <label class="control-label">Contraseña (Max 60 Caracteres)</label>
+                    <input asp-for="PalabraClave" class="form-control form-control-sm" maxlength="60" type="password" required />
 
                     <span asp-validation-for="PalabraClave" class="text-danger"></span>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label class="control-label">Confirme Contraseña</label>
-                    <input asp-for="PalabraClaveActual" class="form-control form-control-sm" type="password" required />
+                    <input asp-for="PalabraClaveActual" class="form-control form-control-sm" type="password" maxlength="60 required  />
 
                     <span asp-validation-for="PalabraClaveActual" class="text-danger"></span>
                 </div>

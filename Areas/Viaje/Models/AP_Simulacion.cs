@@ -116,11 +116,8 @@ namespace DynamicForecast.Areas.Viaje.Models
         [StringLength(1)]
         public string SimulacionElegida { get; set; }
 
-
-        [ForeignKey("EmpresaId, RecomendacionId")]
+        [ForeignKey("RecomendacionId")]
         public virtual List<AP_Recomendacion> AP_Recomendacion { get; set; }
-
- 
 
     }
 }

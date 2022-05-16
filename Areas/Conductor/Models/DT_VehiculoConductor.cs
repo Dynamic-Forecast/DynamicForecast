@@ -9,17 +9,13 @@ namespace DynamicForecast.Areas.Conductor.Models
     {
         public int EmpresaId { get; set; }
 
-        [Key, Column(Order = 1)]
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int VehiculoConductorId { get; set; }
 
-        [Key, Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int VehiculoId { get; set; }
-
-        [Key, Column(Order = 3)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ConductorId { get; set; }
+
+        public int VehiculoId { get; set; }
 
         [Required]
         public DateTime FechaIng { get; set; }
@@ -31,10 +27,10 @@ namespace DynamicForecast.Areas.Conductor.Models
         [StringLength(2)]
         public string Estado { get; set; }
 
-        [ForeignKey("EmpresaId, VehiculoId")]
+        [ForeignKey("VehiculoId")]
         public virtual DT_Vehiculo DT_Vehiculo { get; set; }
 
-        [ForeignKey("EmpresaId, ConductorId")]
+        [ForeignKey("ConductorId")]
         public virtual DT_Conductor DT_Conductor { get; set; }
     }
 }

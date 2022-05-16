@@ -12,14 +12,8 @@ namespace DynamicForecast.Models
         [Column(Order = 0)]
         public int UsuarioXEmpresaId { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int UsuarioId { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int EmpresaId { get; set; }
 
         public int UsuarioAct { get; set; }

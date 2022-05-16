@@ -17,20 +17,20 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label class="control-label">Nombre</label>
-                    <input asp-for="NombreTer" class="form-control form-control-sm" required />
+                    <input asp-for="NombreTer" maxlength="120" class="form-control form-control-sm" required />
                     <span asp-validation-for="NombreTer" class="text-danger"></span>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label class="control-label">Nit</label>
-                    <input asp-for="NumeroNit" class="form-control form-control-sm" required />
+                    <input asp-for="NumeroNit" maxlength="15" class="form-control form-control-sm" required />
 
                     <span asp-validation-for="NumeroNit" class="text-danger"></span>
                 </div>
 
                 <div class="form-group col-md-4">
                     <label class="control-label">E-Mail</label>
-                    <input asp-for="E_Mail" class="form-control form-control-sm " type="email" required />
+                    <input asp-for="E_Mail" class="form-control form-control-sm " maxlength="250" type="email" required />
 
                     <span asp-validation-for="E_Mail" class="text-danger"></span>
                 </div>
@@ -39,19 +39,19 @@
 
                 <div class="form-group col-md-4">
                     <label class="control-label">Direccion</label>
-                    <input asp-for="Direccion" class="form-control form-control-sm"  required />
+                    <input asp-for="Direccion" maxlength="120" class="form-control form-control-sm" required />
 
                     <span asp-validation-for="Direccion" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-4">
                     <label class="control-label">Celular</label>
-                    <input asp-for="Celular" class="form-control form-control-sm" type="number" required />
+                    <input asp-for="Celular" maxlength="30" class="form-control form-control-sm" type="number" required />
 
                     <span asp-validation-for="Celular" class="text-danger"></span>
                 </div>
-                
+
             </div>
-            
+
             <hr />
             <div class="form-group text-right">
                 <button type="submit" class="btn btn-primary"><t id="txtBtnCrear">Crear Tercero</t></button>

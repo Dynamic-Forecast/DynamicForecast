@@ -1,5 +1,6 @@
 ﻿using DynamicForecast.Areas.Viaje.Models;
 using DynamicForecast.Clases;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +8,7 @@ namespace DynamicForecast.Servicios
 {
     public class IViaje
     {
-        private DynamicForecastContext FsvrConn;
+        private readonly DynamicForecastContext FsvrConn;
 
         public IViaje(DynamicForecastContext svrConn)
         {
@@ -24,6 +25,14 @@ namespace DynamicForecast.Servicios
         public IEnumerable<AP_Viaje> GetViaje(int EmpresaId, int ViajeId)
         {
             return FsvrConn.AP_Viaje.
+                            Where(h => h.EmpresaId == EmpresaId).
+                            Where(h => h.ViajeId == ViajeId);
+        }
+        public IEnumerable<AP_Viaje> GetViajeCompleto(int EmpresaId, int ViajeId)
+        {
+            return FsvrConn.AP_Viaje.
+                            Include(h => h.CT_Tercero).AsNoTracking().DefaultIfEmpty().
+                            Include(h => h.DT_Usuario).AsNoTracking().DefaultIfEmpty().
                             Where(h => h.EmpresaId == EmpresaId).
                             Where(h => h.ViajeId == ViajeId);
         }

@@ -63,11 +63,15 @@ namespace DynamicForecast.Areas.Vehiculo.Models
         public int CapacidadVolumen { get; set; } //M3
 
 
-        //[ForeignKey("EmpresaId, VehiculoId")]
-        //public List<DT_CertificadoVehiculo> DT_CertificadoVehiculo { get; set; }
+        [StringLength(20)]
+        public string CodMunicipioBase { get; set; }
 
-        //[ForeignKey("EmpresaId, VehiculoId")]
-        //public List<DT_VehiculoConductor> DT_VehiculoConductor { get; set; }
+        [StringLength(20)]
+        public string CodDepartamentoBase { get; set; }
+
+        [ForeignKey("CertificadoVehiculoId")]
+        public virtual List<DT_CertificadoVehiculo> DT_CertificadoVehiculo { get; set; }
+
 
     }
 }
