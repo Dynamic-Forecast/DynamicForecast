@@ -18,7 +18,7 @@ namespace DynamicForecast.Servicios
         public IEnumerable<DT_Vehiculo> GetVehiculos(int EmpresaId)
         {
             return FsvrConn.DT_Vehiculo.
-                            Where(h => h.EmpresaId == EmpresaId).
+                            Where(h => h.EmpresaId == EmpresaId).DefaultIfEmpty().
                             OrderByDescending(h => h.VehiculoId).DefaultIfEmpty();
         }
 
@@ -26,7 +26,7 @@ namespace DynamicForecast.Servicios
         {
             return FsvrConn.DT_Vehiculo.
                             Where(h => h.EmpresaId == EmpresaId).
-                            Include(h => h.DT_CertificadoVehiculo).
+                            Include(h => h.DT_CertificadoVehiculo).AsNoTracking().DefaultIfEmpty().
                             OrderByDescending(h => h.VehiculoId).DefaultIfEmpty();
         }
 

@@ -22,24 +22,27 @@
             <input asp-for="CodViaje" class="d-none" value="@Model.CodViaje" />
             <input asp-for="Descripcion" class="d-none" value="@Model.Descripcion" />
             <input asp-for="FechaIng" class="d-none" value="@Model.FechaIng" />
+            <input asp-for="FechaMod" class="d-none" value="@Model.FechaMod" />
             <input asp-for="Estado" class="d-none" value="@Model.Estado" />
-
+            <hr />
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label class="control-label">Código del Viaje: @Model.CodViaje</label>
+                    <label class="control-label"><b>Código del Viaje: </b>@Model.CodViaje</label>
                 </div>
 
                 <div class="form-group col-md-4">
-                    <label class="control-label">Descripcion: @Model.Descripcion</label>
+                    <label class="control-label"><b>Descripcion: </b>@Model.Descripcion</label>
 
                 </div>
                 <div class="form-group col-md-4">
-                    <label class="control-label">Tercero que Solicita el Viaje:  @Model.CT_Tercero.NombreTer - CC/NIT; @Model.CT_Tercero.NumeroNit </label>
+                    <label class="control-label"><b>Tercero que Solicita el Viaje: </b> @Model.CT_Tercero.NombreTer - CC/NIT; @Model.CT_Tercero.NumeroNit </label>
 
 
                 </div>
 
             </div>
+            <hr />
+
             <div class="form-row">
 
                 <div class="form-group col-md-4">
@@ -76,7 +79,7 @@
 
                 <div class="form-group col-md-4">
                     <label class="control-label">Valor Cotizado (COP) | @Model.ValorCotizado.ToString("C2")</label>
-                    <input style="font-size:18px" type="text" min="0" placeholder="@Model.ValorCotizado.ToString("C2")" onkeyup="formatoMoneda(this, 'valorNuevoCotizado' );" class="form-control form-control-sm text-center w-100 m-auto" required>
+                    <input style="font-size:18px" type="text" min="0" placeholder="@Model.ValorCotizado.ToString("C2")" value="@Model.ValorCotizado" onkeyup="formatoMoneda(this, 'valorNuevoCotizado' );" class="form-control form-control-sm text-center w-100 m-auto" required>
                     <input class="form-control form-control-sm" value="@Model.ValorCotizado" asp-for="ValorCotizado" id="valorNuevoCotizado" hidden />
                     <span asp-validation-for="ValorCotizado" class="text-danger"></span>
 
@@ -229,7 +232,7 @@
 
                 <div class="form-group col-md-4">
                     <label class="control-label">Valor Total Peajes (COP) | @Model.ValorCotizado.ToString("C2")</label>
-                    <input style="font-size:18px" type="text" min="0" onkeyup="formatoMoneda(this, 'valorNuevoPeajes');" placeholder="@Model.ValorCotizado" class="form-control form-control-sm text-center w-100 m-auto" required>
+                    <input style="font-size:18px" type="text" value="@Model.ValorCotizado" min="0" onkeyup="formatoMoneda(this, 'valorNuevoPeajes');" placeholder="@Model.ValorCotizado" class="form-control form-control-sm text-center w-100 m-auto" required>
                     <input class="form-control form-control-sm" asp-for="ValorCotizado" placeholder="@Model.ValorCotizado" value="@Model.ValorCotizado" id="valorNuevoPeajes" hidden />
                     <span asp-validation-for="ValorCotizado" class="text-danger"></span>
 
@@ -245,50 +248,7 @@
 </div>
 <script>
     $(document).ready(function () {
-       $('#TerceroId').select2({
-            allowClear: true,
-            placeholder: 'Seleccione el Tercero del Viaje',
-            dropdownParent: $('#form-modal .modal-content'),
-            width: '100%',
-            closeOnSelect: true,
-            language: {
-                noResults: function () {
-                    return 'No se encontraron resultados';
-                },
-                searching: function () {
-                    return 'Buscando…';
-                },
-                inputTooShort: function (args) {
-                    var remainingChars = args.minimum - args.input.length;
-                    var message = 'Por favor, introduzca ' + remainingChars + ' car';
 
-                    if (remainingChars == 1) {
-                        message += 'ácter';
-                    } else {
-                        message += 'acteres';
-                    }
-
-                    return message;
-                },
-                errorLoading: function () {
-                    return 'No se pudieron cargar los resultados';
-                },
-                loadingMore: function () {
-                    return 'Cargando más resultados…';
-                },
-            },
-            focus: true,
-            minimumInputLength: 2,
-            ajax: {
-                dataType: 'json',
-                url: '@Url.Action("GetTercerosFind", "Viaje")',
-                data: function (params) {
-                    return {
-                        q: params.term
-                    };
-                },
-            },
-       });
 
 
         jQuery('#FechaServicio_').datetimepicker({

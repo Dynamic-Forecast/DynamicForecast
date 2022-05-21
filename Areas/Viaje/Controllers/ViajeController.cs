@@ -65,7 +65,7 @@ namespace DynamicForecast.Areas.Viaje.Controllers
             {
 
                 // Creación viaje
-                var lstViaje = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty().FirstOrDefault();
+                var lstViaje = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty().OrderByDescending(h => h.ViajeId).FirstOrDefault();
 
                 if (lstViaje != null)
                 {
@@ -81,6 +81,7 @@ namespace DynamicForecast.Areas.Viaje.Controllers
 
                 c.ViajeId = ViajeId;
                 c.EmpresaId = fEmpresaId;
+                c.UsuarioId = fUsuarioId;
                 c.Estado = "IN"; //Creado
 
 
@@ -91,7 +92,7 @@ namespace DynamicForecast.Areas.Viaje.Controllers
                 Viaje.AgregarViaje(c);
                 dbTran.Commit();
 
-                var lstViajees = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty();
+                var lstViajees = Viaje.GetViajesCompletos(fEmpresaId).DefaultIfEmpty();
 
                 ViewBag.ViajeCreado = true;
 
@@ -102,9 +103,9 @@ namespace DynamicForecast.Areas.Viaje.Controllers
             {
                 dbTran.Rollback();
                 ViewBag.Error = "Error al crear" + ex.InnerException + "<hr />MENSAJE--> " + ex.Message;
-                ViewBag.ListUsuarios = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.ViajeId);
+                ViewBag.ListUsuarios = Viaje.GetViajesCompletos(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.ViajeId);
                 ViewBag.ViajeCreado = false;
-                var lstViajees = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty();
+                var lstViajees = Viaje.GetViajesCompletos(fEmpresaId).DefaultIfEmpty();
 
                 return View("~/Areas/Viaje/Views/Viaje/Index.cshtml", lstViajees.ToList());
             }
@@ -147,7 +148,8 @@ namespace DynamicForecast.Areas.Viaje.Controllers
 
                 c.EmpresaId = fEmpresaId;
                 c.Estado = "IN"; //Creado
-
+                DateTime fechaIngNueva = DateTime.SpecifyKind(c.FechaIng, DateTimeKind.Local);
+                c.FechaIng = fechaIngNueva;
 
                 c.FechaMod = DateTime.Now;
                 c.FechaFinalizacion = null;
@@ -155,7 +157,7 @@ namespace DynamicForecast.Areas.Viaje.Controllers
                 Viaje.ActualizarViaje(c);
                 dbTran.Commit();
 
-                var lstViajees = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty();
+                var lstViajees = Viaje.GetViajesCompletos(fEmpresaId).DefaultIfEmpty();
 
 
 
@@ -166,9 +168,9 @@ namespace DynamicForecast.Areas.Viaje.Controllers
             {
                 dbTran.Rollback();
                 ViewBag.Error = "Error al crear" + ex.InnerException + "<hr />MENSAJE--> " + ex.Message;
-                ViewBag.ListUsuarios = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.ViajeId);
+                ViewBag.ListUsuarios = Viaje.GetViajesCompletos(fEmpresaId).DefaultIfEmpty().OrderByDescending(c => c.ViajeId);
 
-                var lstViajees = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty();
+                var lstViajees = Viaje.GetViajesCompletos(fEmpresaId).DefaultIfEmpty();
                 ViewBag.ErrorEditar = "HA OCURRIDO UN ERROR AL EDITAR EL VIAJE, POR FAVOR INTETE DE NUEVO. " + ViewBag.Error;
 
                 return View("~/Areas/Viaje/Views/Viaje/Index.cshtml", lstViajees.ToList());
@@ -184,22 +186,23 @@ namespace DynamicForecast.Areas.Viaje.Controllers
             ViewBag.ErrorRecomendacion = "";
             ViewBag.ErrorFinalizacion = "";
             ViewBag.ErrorEditar = "";
-            IList lstViaje = CargarDatosIndex();
-
-
             int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+
+            IViaje Viaje = new IViaje(FsvrConn);
+
+            var ViajeSeleccionado = Viaje.GetViaje(fEmpresaId, (int)ViajeId).DefaultIfEmpty().FirstOrDefault();
+
+
             if (ViajeId != null && ViajeId > 0)
             {
                 try
                 {
-                    IViaje Viaje = new IViaje(FsvrConn);
                     IConductor Conductor = new IConductor(FsvrConn);
                     IVehiculo Vehiculo = new IVehiculo(FsvrConn);
                     ICertificadoVehiculo CertificadoVehiculo = new ICertificadoVehiculo(FsvrConn);
                     ICertificadoConductor CertificadoConductor = new ICertificadoConductor(FsvrConn);
                     IModeloRecomendacion ModeloRecomendacion = new IModeloRecomendacion(FsvrConn);
 
-                    var ViajeSeleccionado = Viaje.GetViaje(fEmpresaId, (int)ViajeId).DefaultIfEmpty().FirstOrDefault();
 
                     ViajeSeleccionado.FechaInicioViaje = DateTime.Now;
                     //var ModeloRecomendacionActual = ModeloRecomendacion.GetModeloRecomendacions(fEmpresaId).DefaultIfEmpty().Where(h => h.Estado == "AC").FirstOrDefault();
@@ -213,29 +216,35 @@ namespace DynamicForecast.Areas.Viaje.Controllers
                         .Where(h => h.Estado == "AC").DefaultIfEmpty().AsEnumerable();
                     var ListaVehiculosFinal = new Collection<DT_Vehiculo>().DefaultIfEmpty().AsEnumerable();
 
-                    if (ListaVehiculos.FirstOrDefault().VehiculoId > 0) // Verifica Si Hay Vehículos Activos
+                    if (ListaVehiculos.DefaultIfEmpty().FirstOrDefault() != null && ListaVehiculos.FirstOrDefault().VehiculoId > 0) // Verifica Si Hay Vehículos Activos
                     {
                         /////
                         /////////////////////// Vehículo
                         /////
 
                         var ListaCertificadosVehiculos = CertificadoVehiculo.GetCertificadoVehiculosCompleto(fEmpresaId).DefaultIfEmpty()
-                                                        .Where(h => h.Estado == "AC");
+                                                        .Where(h => h.Estado == "AC").DefaultIfEmpty();
 
                         // Naturaleza Carga == DT_Vehiculo
-                        ListaVehiculos = ListaVehiculos.Where(h => h.NaturalezaCarga == ViajeSeleccionado.NaturalezaCarga);
+                        ListaVehiculos = ListaVehiculos.DefaultIfEmpty().Where(h => h.NaturalezaCarga == ViajeSeleccionado.NaturalezaCarga).DefaultIfEmpty();
 
-                        if (ListaVehiculos.FirstOrDefault().VehiculoId > 0) // Vehiculos con la Natturaleza Deseada
+                        if (ListaVehiculos.DefaultIfEmpty().FirstOrDefault() != null && ListaVehiculos.DefaultIfEmpty().FirstOrDefault().VehiculoId > 0) // Vehiculos con la Natturaleza Deseada
                         {
                             // Peso, volumen
-                            ListaVehiculos = ListaVehiculos.Where(h => h.Capacidad >= ViajeSeleccionado.Contenido && h.Capacidad >= ViajeSeleccionado.Volumen);
-                            if (ListaVehiculos.FirstOrDefault().VehiculoId > 0) // Vehiculos con el Peso y Volumen Necesario
+
+
+                            ListaVehiculos = ListaVehiculos.DefaultIfEmpty().Where(h => h.Capacidad >= ViajeSeleccionado.Contenido).DefaultIfEmpty();
+
+                            if (ListaVehiculos.DefaultIfEmpty().FirstOrDefault() != null && ListaVehiculos.FirstOrDefault().VehiculoId > 0)
+                                ListaVehiculos = ListaVehiculos.DefaultIfEmpty().Where(h => h.CapacidadVolumen >= ViajeSeleccionado.Volumen).DefaultIfEmpty();
+
+                            if (ListaVehiculos.DefaultIfEmpty().FirstOrDefault() != null && ListaVehiculos.DefaultIfEmpty().FirstOrDefault().VehiculoId > 0) // Vehiculos con el Peso y Volumen Necesario
                             {
 
                                 // Departamento
-                                ListaVehiculos = ListaVehiculos.Where(h => h.CodDepartamentoBase == ViajeSeleccionado.CodDepartamentoOrigen);
+                                ListaVehiculos = ListaVehiculos.DefaultIfEmpty().Where(h => h.CodDepartamentoBase == ViajeSeleccionado.CodDepartamentoOrigen).DefaultIfEmpty();
 
-                                if (ListaVehiculos.FirstOrDefault().VehiculoId > 0) // Vehiculos en el Departamento
+                                if (ListaVehiculos.DefaultIfEmpty().FirstOrDefault() != null && ListaVehiculos.DefaultIfEmpty().FirstOrDefault().VehiculoId > 0) // Vehiculos en el Departamento
                                 {
                                     ////// Líquido, Comida, Inflamable, Normal(Resto)
                                     ////// 
@@ -244,26 +253,26 @@ namespace DynamicForecast.Areas.Viaje.Controllers
 
                                     ListaCertificadosVehiculos = ViajeSeleccionado.CodMercancia switch
                                     {
-                                        "009880" => ListaCertificadosVehiculos.Where(h => h.DT_Certificado.CertificadoId == 7).DefaultIfEmpty(),
-                                        "003105" => ListaCertificadosVehiculos.Where(h => h.DT_Certificado.CertificadoId == 8).DefaultIfEmpty(),
-                                        "009990" => ListaCertificadosVehiculos.Where(h => h.DT_Certificado.CertificadoId == 9).DefaultIfEmpty(),
+                                        "009880" => ListaCertificadosVehiculos.DefaultIfEmpty().Where(h => h.DT_Certificado.CertificadoId == 7).DefaultIfEmpty(),
+                                        "003105" => ListaCertificadosVehiculos.DefaultIfEmpty().Where(h => h.DT_Certificado.CertificadoId == 8).DefaultIfEmpty(),
+                                        "009990" => ListaCertificadosVehiculos.DefaultIfEmpty().Where(h => h.DT_Certificado.CertificadoId == 9).DefaultIfEmpty(),
                                         _ => ListaCertificadosVehiculos.Where(h => h.DT_Certificado.CertificadoId == 4).DefaultIfEmpty(),
                                     };
-                                    ListaCertificadosVehiculos = ListaCertificadosVehiculos.Distinct().DefaultIfEmpty(); // Vehiculos Posibles
+                                    ListaCertificadosVehiculos = ListaCertificadosVehiculos.DefaultIfEmpty().Distinct().DefaultIfEmpty(); // Vehiculos Posibles
 
-                                    if (ListaCertificadosVehiculos.FirstOrDefault().VehiculoId > 0) // Vehiculos con certificados necesarios
+                                    if (ListaCertificadosVehiculos.DefaultIfEmpty().FirstOrDefault() != null && ListaCertificadosVehiculos.DefaultIfEmpty().FirstOrDefault().VehiculoId > 0) // Vehiculos con certificados necesarios
                                     {
                                         foreach (var item in ListaCertificadosVehiculos)
                                         {
-                                            var Entontrado = ListaVehiculos.Where(h => h.VehiculoId == item.VehiculoId).DefaultIfEmpty().FirstOrDefault();
+                                            var Entontrado = ListaVehiculos.DefaultIfEmpty().Where(h => h.VehiculoId == item.VehiculoId).DefaultIfEmpty().FirstOrDefault();
 
-                                            if (Entontrado.VehiculoId > 0)
-                                                ListaVehiculosFinal = ListaVehiculosFinal.Append(Entontrado);
+                                            if (Entontrado != null && Entontrado.VehiculoId > 0)
+                                                ListaVehiculosFinal = ListaVehiculosFinal.DefaultIfEmpty().Append(Entontrado);
 
                                         }
 
 
-                                        if (ListaVehiculosFinal.FirstOrDefault().VehiculoId > 0) // Hay Vehículos Finales
+                                        if (ListaVehiculosFinal.DefaultIfEmpty().FirstOrDefault() != null && ListaVehiculosFinal.FirstOrDefault().VehiculoId > 0) // Hay Vehículos Finales
                                         {
                                             //////// Fin Vehículo
 
@@ -271,16 +280,16 @@ namespace DynamicForecast.Areas.Viaje.Controllers
                                             ///////////////////////////////////////////// Conductor [2 y 1 OBLIGATORIOS]
 
                                             var ListaCertificadosConductor = CertificadoConductor.GetCertificadoConductoresCompleto(fEmpresaId).DefaultIfEmpty()
-                                                    .Where(h => h.Estado == "AC");
+                                                    .Where(h => h.Estado == "AC").DefaultIfEmpty();
 
 
                                             var ListaConductores = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty()
-                                                .Where(h => h.Estado == "AC");
+                                                .Where(h => h.Estado == "AC").DefaultIfEmpty();
 
                                             // Departamento
-                                            ListaConductores = ListaConductores.Where(h => h.CodDepartamentoBase == ViajeSeleccionado.CodDepartamentoOrigen);
+                                            ListaConductores = ListaConductores.DefaultIfEmpty().Where(h => h.CodDepartamentoBase == ViajeSeleccionado.CodDepartamentoOrigen);
 
-                                            if (ListaConductores.FirstOrDefault().ConductorId > 0) // Conductores en el Departamento
+                                            if (ListaConductores.DefaultIfEmpty().FirstOrDefault() != null && ListaConductores.DefaultIfEmpty().FirstOrDefault().ConductorId > 0) // Conductores en el Departamento
                                             {
                                                 ////// Líquido, Comida, Inflamable , Normal(Resto)
                                                 ////// 
@@ -288,41 +297,41 @@ namespace DynamicForecast.Areas.Viaje.Controllers
                                                 ////// 009880 , 003105   , 009990  ,         -> CodMercancia
                                                 ListaCertificadosConductor = ViajeSeleccionado.CodMercancia switch
                                                 {
-                                                    "009880" => ListaCertificadosConductor.Where(h => h.DT_Certificado.CertificadoId == 10).DefaultIfEmpty(),
-                                                    "003105" => ListaCertificadosConductor.Where(h => h.DT_Certificado.CertificadoId == 11).DefaultIfEmpty(),
-                                                    "009990" => ListaCertificadosConductor.Where(h => h.DT_Certificado.CertificadoId == 9).DefaultIfEmpty(),
+                                                    "009880" => ListaCertificadosConductor.DefaultIfEmpty().Where(h => h.DT_Certificado.CertificadoId == 10).DefaultIfEmpty(),
+                                                    "003105" => ListaCertificadosConductor.DefaultIfEmpty().Where(h => h.DT_Certificado.CertificadoId == 11).DefaultIfEmpty(),
+                                                    "009990" => ListaCertificadosConductor.DefaultIfEmpty().Where(h => h.DT_Certificado.CertificadoId == 9).DefaultIfEmpty(),
                                                     _ => ListaCertificadosConductor
                                                     .Where(h => h.DT_Certificado.CertificadoId == 1 || h.DT_Certificado.CertificadoId == 2).DefaultIfEmpty(),
                                                 };
-                                                ListaCertificadosConductor = ListaCertificadosConductor.Distinct().DefaultIfEmpty(); // Conductores Posibles
+                                                ListaCertificadosConductor = ListaCertificadosConductor.DefaultIfEmpty().Distinct().DefaultIfEmpty(); // Conductores Posibles
 
-                                                if (ListaCertificadosConductor.FirstOrDefault().ConductorId > 0) // Conductores con certificados necesarios
+                                                if (ListaCertificadosConductor.DefaultIfEmpty().FirstOrDefault() != null && ListaCertificadosConductor.DefaultIfEmpty().FirstOrDefault().ConductorId > 0) // Conductores con certificados necesarios
                                                 {
                                                     var ListaConductoresFinal = new Collection<DT_Conductor>().DefaultIfEmpty().AsEnumerable();
 
 
                                                     foreach (var item in ListaCertificadosConductor)
                                                     {
-                                                        var Entontrado = ListaConductores.Where(h => h.ConductorId == item.ConductorId).DefaultIfEmpty().FirstOrDefault();
+                                                        var Entontrado = ListaConductores.DefaultIfEmpty().Where(h => h.ConductorId == item.ConductorId).DefaultIfEmpty().FirstOrDefault();
 
-                                                        if (Entontrado.ConductorId > 0)
-                                                            ListaConductoresFinal = ListaConductoresFinal.Append(Entontrado);
+                                                        if (Entontrado != null && Entontrado.ConductorId > 0)
+                                                            ListaConductoresFinal = ListaConductoresFinal.DefaultIfEmpty().Append(Entontrado);
 
                                                     }
 
 
 
-                                                    if (ListaConductoresFinal.FirstOrDefault().ConductorId > 0) // Hay Conductores Finales
+                                                    if (ListaConductoresFinal.DefaultIfEmpty().FirstOrDefault() != null && ListaConductoresFinal.DefaultIfEmpty().FirstOrDefault().ConductorId > 0) // Hay Conductores Finales
                                                     {
 
                                                         // Generación de Score con modelo de recomendación
 
                                                         //Final del proceso de Recomendación
-                                                        ViewBag.lstVehiculosFinales = ListaVehiculosFinal.ToList().DefaultIfEmpty();
+                                                        ViewBag.lstVehiculosFinales = ListaVehiculosFinal.DefaultIfEmpty().ToList().DefaultIfEmpty();
                                                         //.Select(h => new { id = h.VehiculoId, text = h.MarcaEmpresa + " / " + h.Modelo + " ( PLACA: " + h.CodPlacas + ")" }).ToList().DefaultIfEmpty();
 
 
-                                                        ViewBag.lstConductoresFinales = ListaConductoresFinal.ToList().DefaultIfEmpty();
+                                                        ViewBag.lstConductoresFinales = ListaConductoresFinal.DefaultIfEmpty().ToList().DefaultIfEmpty();
                                                         //.Select(h => new { id = h.ConductorId, text = h.NombreConductor + " / " + h.CodConductor + " ( CC: " + h.Documento + ")" }).ToList().DefaultIfEmpty();
 
                                                         return PartialView("~/Areas/Viaje/Views/Viaje/IniciarViaje.cshtml", ViajeSeleccionado);
@@ -332,26 +341,26 @@ namespace DynamicForecast.Areas.Viaje.Controllers
                                                         ViewBag.ErrorRecomendacion = "No hay conductores activos y disponibles para  realizar el viaje respués de realizas las validaciones del viaje y conductor";
                                                 }
                                                 else
-                                                    ViewBag.ErrorRecomendacion = "No hay conductores activos y disponibles con los certificado necesarios para el viaje";
+                                                    ViewBag.ErrorRecomendacion = "No hay conductores activos y disponibles con los certificado necesarios para el viaje. Pasó todas las validaciones para encontrar vehículos.";
                                             }
 
                                             else
-                                                ViewBag.ErrorRecomendacion = "No hay conductores activos y disponibles en el Departamento " + ViajeSeleccionado.CodDepartamentoOrigen ?? "" + "para realizar el viaje";
+                                                ViewBag.ErrorRecomendacion = "No hay conductores activos y disponibles en el Departamento " + ViajeSeleccionado.CodDepartamentoOrigen ?? "" + " para realizar el viaje. Pasó valicación de Peso y Volumen de Vehículos. Pasó todas las validaciones de Vehículos";
                                         }
                                         else
-                                            ViewBag.ErrorRecomendacion = "No hay vehículos activos y disponibles para realizar el viaje respués de realizas las validaciones del viaje y vehículos";
+                                            ViewBag.ErrorRecomendacion = "No hay vehículos activos y disponibles para realizar el viaje respués de realizas las validaciones del viaje y vehículos. Pasó valicación de Peso y Volumen de Vehículos. Pasó validación de Naturaleza. Pasó Validación de Departamento. Pasó validación Certificados";
                                     }
                                     else
-                                        ViewBag.ErrorRecomendacion = "No hay vehículos activos y disponibles con los certificado necesarios para el viaje";
+                                        ViewBag.ErrorRecomendacion = "No hay vehículos activos y disponibles con los certificado necesarios para el viaje. Pasó valicación de Peso y Volumen de Vehículos. Pasó validación de Naturaleza. Pasó Validación de Departamento";
                                 }
                                 else
-                                    ViewBag.ErrorRecomendacion = "No hay vehículos activos y disponibles en el Departamento " + ViajeSeleccionado.CodDepartamentoOrigen ?? "" + "para realizar el viaje";
+                                    ViewBag.ErrorRecomendacion = "No hay vehículos activos y disponibles en el Departamento " + ViajeSeleccionado.CodDepartamentoOrigen ?? "" + " para realizar el viaje. Pasó valicación de Peso y Volumen de Vehículos. Pasó validación de Naturaleza";
                             }
                             else
-                                ViewBag.ErrorRecomendacion = "No hay vehículos activos y disponibles con el Peso: " + ViajeSeleccionado.Contenido + " y Volumen: " + ViajeSeleccionado.Volumen + "para realizar el viaje";
+                                ViewBag.ErrorRecomendacion = "No hay vehículos activos y disponibles con el Peso: " + ViajeSeleccionado.Contenido + " y Volumen: " + ViajeSeleccionado.Volumen + " para realizar el viaje. Pasó validación de Naturaleza";
                         }
                         else
-                            ViewBag.ErrorRecomendacion = "No hay vehículos activos y disponibles con la Naturaleza " + ViajeSeleccionado.NaturalezaCarga ?? "" + "para realizar el viaje";
+                            ViewBag.ErrorRecomendacion = "No hay vehículos activos y disponibles con la Naturaleza " + ViajeSeleccionado.NaturalezaCarga ?? "" + " para realizar el viaje";
 
                     }
                     else
@@ -361,20 +370,21 @@ namespace DynamicForecast.Areas.Viaje.Controllers
                 catch (Exception ex)
                 {
 
-                    ViewBag.ErrorRecomendacion = "Error Inesperado en la Recomendación: " + ex.Message.ToString();
+                    ViewBag.ErrorRecomendacion = "Error Inesperado en la Recomendación: " + ex.Message.ToString() + "   --------   INNER EXCEPTION: " + ex.InnerException.ToString();
 
 
+                    return PartialView("~/Areas/Viaje/Views/Viaje/IniciarViaje.cshtml", ViajeSeleccionado);
 
-                    return View("~/Areas/Viaje/Views/Viaje/Index.cshtml", lstViaje);
                 }
             }
-            else
-                ViewBag.ErrorRecomendacion = "No se puede iniciar la recomendación del viaje, no se ha encontrado el ViajeId";
 
+            return PartialView("~/Areas/Viaje/Views/Viaje/IniciarViaje.cshtml", ViajeSeleccionado);
 
-            return View("~/Areas/Viaje/Views/Viaje/Index.cshtml", lstViaje);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult IniciarViaje([Bind] AP_Viaje c)
         {
             ViewBag.Error = "";
@@ -435,23 +445,26 @@ namespace DynamicForecast.Areas.Viaje.Controllers
             ViewBag.ErrorFinalizacion = "";
             ViewBag.ErrorEditar = "";
 
-
             int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
+
+            IViaje Viaje = new IViaje(FsvrConn);
+            var ViajeFinalizar = Viaje.GetViaje(fEmpresaId, (int)ViajeId).DefaultIfEmpty().FirstOrDefault();
+
+
             if (ViajeId != null && ViajeId > 0)
             {
-                IViaje Viaje = new IViaje(FsvrConn);
-                var ViajeFinalizar = Viaje.GetViaje(fEmpresaId, (int)ViajeId).DefaultIfEmpty().FirstOrDefault();
 
-                return View("~/Areas/Viaje/Views/Viaje/FinalizarViaje.cshtml", ViajeFinalizar);
+                return PartialView("~/Areas/Viaje/Views/Viaje/FinalizarViaje.cshtml", ViajeFinalizar);
             }
             else
                 ViewBag.ErrorFinalizacion = "No se puede finalizar el viaje, no se ha encontrado el ViajeId";
 
-            IList lstViaje = CargarDatosIndex();
+            return PartialView("~/Areas/Viaje/Views/Viaje/FinalizarViaje.cshtml", ViajeFinalizar);
 
-            return View("~/Areas/Viaje/Views/Viaje/Index.cshtml", lstViaje);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult FinalizarViaje([Bind] AP_Viaje c)
         {
             ViewBag.Error = "";
@@ -630,7 +643,7 @@ namespace DynamicForecast.Areas.Viaje.Controllers
 
             }
 
-            var lstViajees = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty();
+            var lstViajees = Viaje.GetViajesCompletos(fEmpresaId).DefaultIfEmpty();
 
             return View("~/Areas/Viaje/Views/Viaje/Index.cshtml", lstViajees.ToList());
         }
@@ -640,7 +653,7 @@ namespace DynamicForecast.Areas.Viaje.Controllers
             int fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
 
             IViaje Viaje = new IViaje(FsvrConn);
-            var lstViaje = Viaje.GetViajes(fEmpresaId).DefaultIfEmpty().ToList().DefaultIfEmpty().ToList();
+            var lstViaje = Viaje.GetViajesCompletos(fEmpresaId).DefaultIfEmpty().ToList().DefaultIfEmpty().ToList();
             ViewBag.Error = "";
             ViewBag.ViajeCreado = false;
             ViewBag.ViajeEliminado = false;
@@ -652,7 +665,7 @@ namespace DynamicForecast.Areas.Viaje.Controllers
             return lstViaje;
         }
 
-        public ActionResult GetViajesFind(string q)
+        public ActionResult GetViajesCompletosFind(string q)
         {
             var fEmpresaId = HttpContext.Session.GetInt32("EmpresaId") ?? 0;
             int fUsuarioId = HttpContext.Session.GetInt32("UsuarioId") ?? 0;

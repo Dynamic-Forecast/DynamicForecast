@@ -16,7 +16,7 @@ namespace DynamicForecast.Servicios
         public IEnumerable<DT_Conductor> GetConductores(int EmpresaId)
         {
             return FsvrConn.DT_Conductor.
-                            Where(h => h.EmpresaId == EmpresaId).
+                            Where(h => h.EmpresaId == EmpresaId).DefaultIfEmpty().
                             OrderByDescending(h => h.ConductorId).DefaultIfEmpty();
         }
 

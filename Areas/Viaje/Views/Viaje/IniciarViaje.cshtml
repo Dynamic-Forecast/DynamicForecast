@@ -3,295 +3,297 @@
     <div class="col-md-12">
 
         @{
-            if (ViewBag.ViewBag.ErrorRecomendacion != "")
+            if (ViewBag.ErrorRecomendacion != "")
             {
                 <div class="text-center text-danger">
-                    @ViewBag.ViewBag.ErrorRecomendacion
+                    @ViewBag.ErrorRecomendacion
                     <hr />
                 </div>
             }
+            else
+            {
+
+                <div class="text-bold text-center h4">Datos para dar Inicio al del Viaje</div>
+                <br />
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+
+                        <div class="card card-default">
+                            <div class="form-group col-md-12">
+                                <br />
+                                <h4 class="text-bold text-center">Vehículos Recomendados</h4>
+                                <div class="container-fluid">
+                                    <div class="card card-default">
+                                        <div class="card-body">
+                                            @{if (ViewBag.lstVehiculosFinales != null)
+                                                {
+
+                                                    <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatableVehiculos">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center"> Seleccionar Vehiculo</th>
+
+                                                                <th class="text-center">
+                                                                    Id Vehículo
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Placas Vehiculo
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Modelo / Marca
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Configuración
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Naturaleza Carga
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Estado Mecánico
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Estado Legal
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Descripción
+                                                                </th>
+
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in ViewBag.lstVehiculosFinales)
+                                                            {
+                                                                int VehiculoId = item.VehiculoId;
+                                                                <tr>
+                                                                    <td class="text-center align-middle">
+                                                                        <i class="fa fa-hand-point-left botonesVehiculo" id="btnSelecVehiculo-@VehiculoId" onclick="selecVehiculo(this, @VehiculoId);">Seleccionar</i>
+                                                                    </td>
+
+                                                                    <td class="text-center">
+                                                                        @item.VehiculoId
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.CodPlacas
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.Modelo - @item.MarcaEmpresa
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.CodConfiguracion
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.NaturalezaCarga
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.EstadoMecanico
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.EstadoLegal
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.Descripcion
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+
+
+                                                }
+                                                else
+                                                {
+
+                                                    <div class="card-body">
+                                                        <div class="card border-info mb-12 text-center">
+                                                            <div class="card-body text-info">
+                                                                <h4 class="card-title">No se pueden cargar los vehículos recomendados, por favor intnte de nuevo </h4>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <div class="card card-default">
+                            <div class="form-group col-md-12">
+                                <br />
+                                <h4 class="text-bold text-center">Conductores Recomendados</h4>
+                                <div class="container-fluid">
+                                    <div class="card card-default">
+                                        <div class="card-body">
+                                            @{if (ViewBag.lstConductoresFinales != null)
+
+                                                {
+
+                                                    <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatableConductores">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center"> Seleccionar Conductor</th>
+
+                                                                <th class="text-center">
+                                                                    Id Conductor
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Cod. Conductor
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Nombre
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Documento
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    E-Mail
+                                                                </th>
+                                                                <th class="text-center">
+                                                                    Celular / Teléfono
+                                                                <th class="text-center">
+                                                                    Dirección
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in ViewBag.lstConductoresFinales)
+                                                            {
+                                                                int ConductorId = item.ConductorId;
+                                                                <tr>
+                                                                    <td class="text-center align-middle">
+                                                                        <i class="fa fa-hand-point-left botonesConductor" id="btnSelecConductor-@ConductorId" onclick="selecConductor(this, @ConductorId);">Seleccionar</i>
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.ConductorId
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.CodConductor
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.NombreConductor
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.Documento
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.EMail
+                                                                    </td>
+                                                                    <td class="text-center">
+                                                                        @item.Celular / @item.Telefono
+                                                                    <td class="text-center">
+                                                                        @item.Direccion
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+
+
+                                                }
+                                                else
+                                                {
+
+                                                    <div class="card-body">
+                                                        <div class="card border-info mb-12 text-center">
+                                                            <div class="card-body text-info">
+                                                                <h4 class="card-title">No se pueden cargar los conductores recomendados, por favor intnte de nuevo </h4>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <form asp-action="IniciarViaje" method="post" enctype="multipart/form-data">
+
+                    <input asp-for="VehiculoId" id="inputVehiculoId" class="d-none" value="" />
+                    <input asp-for="ConductorId" id="inputConductorId" class="d-none" value="" />
+
+                    <div class="form-group text-right">
+                        <button type="submit" id="btnEnvioFormInicioViaje" class="btn btn-primary disabled"><t id="txtBtnCrear">Iniciar Viaje</t></button>
+                    </div>
+                </form>
+                <script>
+                    $(document).ready(function () {
+
+                        $("#datatableVehiculos, #datatableConductores").DataTable({
+                            paging: !0,
+                            ordering: !0,
+                            info: !0,
+                            responsive: true,
+                            destroy: true,
+                            pageLength: 5,
+                            oLanguage: {
+                                sSearch: "Buscar :",
+                                sLengthMenu: "_MENU_ registros por pagina",
+                                info: "Pagina _PAGE_ de _PAGES_",
+                                zeroRecords: "No hay Datos",
+                                infoEmpty: "No hay registros disponibles",
+                                infoFiltered: "(filtrado de _MAX_ registros totales)",
+                                oPaginate: { sNext: '<em class="fa fa-caret-right"></em>', sPrevious: '<em class="fa fa-caret-left"></em>' },
+                            },
+                            dom: "Bfrtip",
+                            buttons: [
+                                { extend: "copy", className: "btn-info", text: "Copiar" },
+                                { extend: "csv", className: "btn-info" },
+                                { extend: "excel", className: "btn-info", title: "XLS-File" },
+                                { extend: "pdf", className: "btn-info", title: $("title").text() },
+                                { extend: "print", className: "btn-info", text: "Imprimir" },
+                            ],
+                        });
+                    });
+
+
+                    var vSel = false;
+                    var cSel = false;
+                    var aSel = false;
+                    function selecVehiculo(btn, vehId) {
+
+                        $("#botonesVehiculo").style.color = "#007bff";
+
+                        $("#inputVehiculoId").val(vehId);
+                        btn.style.color = "green";
+                        vSel = true;
+                        if (vSel == true && cSel == true) {
+                            aSel = true;
+                            $("#btnEnvioFormInicioViaje").style.disabled = false;
+
+                        }
+                    }
+                    function selecConductor(btn, condId) {
+                        $("#botonesVehiculo").style.color = "#007bff";
+                        $("#inputConductorId").val(condId);
+                        btn.style.color = "green";
+                        cSel = true;
+                        if (vSel == true && cSel == true) {
+                            aSel = true;
+                            $("#btnEnvioFormInicioViaje").style.disabled = false;
+
+                        }
+                    }
+                </script>
+
+            }
         }
-        <div class="text-bold text-center h4">Datos para la Creación del Viaje</div>
-        <br />
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-
-                <div class="card card-default">
-                    <div class="form-group col-md-12">
-                        <br />
-                        <h4 class="text-bold text-center">Vehículos Recomendados</h4>
-                        <div class="container-fluid">
-                            <div class="card card-default">
-                                <div class="card-body">
-                                    @{if (ViewBag.lstVehiculosFinales != null)
-                                        {
-
-                                            <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatableVehiculos">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center"> Seleccionar Vehiculo</th>
-
-                                                        <th class="text-center">
-                                                            Id Vehículo
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Placas Vehiculo
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Modelo / Marca
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Configuración
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Naturaleza Carga
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Estado Mecánico
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Estado Legal
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Descripción
-                                                        </th>
-
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach (var item in ViewBag.lstVehiculosFinales)
-                                                    {
-                                                        int VehiculoId = item.VehiculoId;
-                                                        <tr>
-                                                            <td class="text-center align-middle">
-                                                                <i class="fa fa-hand-point-left botonesVehiculo" id="btnSelecVehiculo-@VehiculoId" onclick="selecVehiculo(this, @VehiculoId);">Seleccionar</i>
-                                                            </td>
-
-                                                            <td class="text-center">
-                                                                @item.VehiculoId
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.CodPlacas
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.Modelo - @item.MarcaEmpresa
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.CodConfiguracion
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.NaturalezaCarga
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.EstadoMecanico
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.EstadoLegal
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.Descripcion
-                                                            </td>
-                                                        </tr>
-                                                    }
-                                                </tbody>
-                                            </table>
-
-
-                                        }
-                                        else
-                                        {
-
-                                            <div class="card-body">
-                                                <div class="card border-info mb-12 text-center">
-                                                    <div class="card-body text-info">
-                                                        <h4 class="card-title">No se pueden cargar los vehículos recomendados, por favor intnte de nuevo </h4>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-
-
-
-
-            <div class="form-group col-md-6">
-                <div class="card card-default">
-                    <div class="form-group col-md-12">
-                        <br />
-                        <h4 class="text-bold text-center">Conductores Recomendados</h4>
-                        <div class="container-fluid">
-                            <div class="card card-default">
-                                <div class="card-body">
-                                    @{if (ViewBag.lstConductoresFinales != null)
-
-                                        {
-
-                                            <table class="table table-striped my-4 w-100 table-responsive-sm table-bordered" id="datatableConductores">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="text-center"> Seleccionar Conductor</th>
-
-                                                        <th class="text-center">
-                                                            Id Conductor
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Cod. Conductor
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Nombre
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Documento
-                                                        </th>
-                                                        <th class="text-center">
-                                                            E-Mail
-                                                        </th>
-                                                        <th class="text-center">
-                                                            Celular / Teléfono
-                                                        <th class="text-center">
-                                                            Dirección
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @foreach (var item in ViewBag.lstConductoresFinales)
-                                                    {
-                                                        int ConductorId = item.ConductorId;
-                                                        <tr>
-                                                            <td class="text-center align-middle">
-                                                                <i class="fa fa-hand-point-left botonesConductor" id="btnSelecConductor-@ConductorId" onclick="selecConductor(this, @ConductorId);">Seleccionar</i>
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.ConductorId
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.CodConductor
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.NombreConductor
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.Documento
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.EMail
-                                                            </td>
-                                                            <td class="text-center">
-                                                                @item.Celular / @item.Telefono
-                                                            <td class="text-center">
-                                                                @item.Direccion
-                                                            </td>
-                                                        </tr>
-                                                    }
-                                                </tbody>
-                                            </table>
-
-
-                                        }
-                                        else
-                                        {
-
-                                            <div class="card-body">
-                                                <div class="card border-info mb-12 text-center">
-                                                    <div class="card-body text-info">
-                                                        <h4 class="card-title">No se pueden cargar los conductores recomendados, por favor intnte de nuevo </h4>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-
-        </div>
-
-        <hr />
-
-        <form asp-action="IniciarViaje" method="post" enctype="multipart/form-data">
-
-            <input asp-for="VehiculoId" id="inputVehiculoId" class="d-none" value="" />
-            <input asp-for="ConductorId" id="inputConductorId" class="d-none" value="" />
-
-            <div class="form-group text-right">
-                <button type="submit" id="btnEnvioFormInicioViaje" class="btn btn-primary disabled"><t id="txtBtnCrear">Iniciar Viaje</t></button>
-            </div>
-        </form>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-
-        $("#datatableVehiculos, #datatableConductores").DataTable({
-            paging: !0,
-            ordering: !0,
-            info: !0,
-            responsive: true,
-            destroy: true,
-            pageLength: 5,
-            oLanguage: {
-                sSearch: "Buscar :",
-                sLengthMenu: "_MENU_ registros por pagina",
-                info: "Pagina _PAGE_ de _PAGES_",
-                zeroRecords: "No hay Datos",
-                infoEmpty: "No hay registros disponibles",
-                infoFiltered: "(filtrado de _MAX_ registros totales)",
-                oPaginate: { sNext: '<em class="fa fa-caret-right"></em>', sPrevious: '<em class="fa fa-caret-left"></em>' },
-            },
-            dom: "Bfrtip",
-            buttons: [
-                { extend: "copy", className: "btn-info", text: "Copiar" },
-                { extend: "csv", className: "btn-info" },
-                { extend: "excel", className: "btn-info", title: "XLS-File" },
-                { extend: "pdf", className: "btn-info", title: $("title").text() },
-                { extend: "print", className: "btn-info", text: "Imprimir" },
-            ],
-        });
-    });
-
-
-    var vSel = false;
-    var cSel = false;
-    var aSel = false;
-    function selecVehiculo(btn, vehId) {
-
-        $("#botonesVehiculo").style.color = "#007bff";
-
-        $("#inputVehiculoId").val(vehId);
-        btn.style.color = "green";
-        vSel = true;
-        if (vSel == true && cSel == true) {
-            aSel = true;
-            $("#btnEnvioFormInicioViaje").style.disabled = false;
-
-        }
-    }
-    function selecConductor(btn, condId) {
-        $("#botonesVehiculo").style.color = "#007bff";
-        $("#inputConductorId").val(condId);
-        btn.style.color = "green";
-        cSel = true;
-        if (vSel == true && cSel == true) {
-            aSel = true;
-            $("#btnEnvioFormInicioViaje").style.disabled = false;
-
-        }
-    }
-</script>

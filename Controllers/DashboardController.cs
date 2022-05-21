@@ -29,6 +29,7 @@ namespace DynamicForecast.Controllers
         {
             ViewBag.permitido = false;
             ViewBag.Error = "";
+            CargarDatos();
             return View();
         }
         public void CargarDatos()
@@ -37,6 +38,7 @@ namespace DynamicForecast.Controllers
             int fUsuarioId = HttpContext.Session.GetInt32("UsuarioId") ?? 0;
 
             IViaje Vaije = new IViaje(FsvrConn);
+
 
             var ListViajes = Vaije.GetViajes(fEmpresaId).DefaultIfEmpty();
 
@@ -50,12 +52,47 @@ namespace DynamicForecast.Controllers
 
                 var ViajesCreados = ListViajes.Count();
                 var ViajesFinalizados = ListViajes.Where(m => m.Estado.Equals("FN")).Count();
-                ViewBag.ViajesPendientesDeFinalizar = ListViajes.Where(m => m.Estado.Equals("EV")).Count();
+                ViewBag.ViajesPendientesDeFinalizar = ListViajes.Where(m => m.Estado.Equals("EP") || m.Estado.Equals("IN")).Count();
                 ViewBag.NumViajesCreados = ViajesCreados;
+                double porcentajeViajesConcretados;
+                ViewBag.NumViajesCreadosFinalizados = ViajesFinalizados;
                 if (ViajesCreados > 0)
-                    ViewBag.PorcentajeViajesConcretados = Math.Truncate((double)((ViajesFinalizados / ViajesCreados) * 100));
+                    porcentajeViajesConcretados = ((double)ViajesFinalizados / (double)ViajesCreados) * 100;
                 else
-                    ViewBag.PorcentajeViajesConcretados = 0;
+                    porcentajeViajesConcretados = 0;
+
+                ViewBag.PorcentajeViajesConcretados = porcentajeViajesConcretados;
+
+                IVehiculo Vehiculo = new IVehiculo(FsvrConn);
+                IConductor Conductor = new IConductor(FsvrConn);
+
+                var ListVehiculos = Vehiculo.GetVehiculos(fEmpresaId).DefaultIfEmpty();
+                var ListConductores = Conductor.GetConductores(fEmpresaId).DefaultIfEmpty();
+
+                var VehiculosCreados = ListVehiculos.Count();
+                var VehiculosCreadosOcupados = ListVehiculos.Where(m => m.Estado.Equals("OC")).Count();
+
+                var ConductoresCreados = ListConductores.Count();
+                var ConductoresCreadosOcupados = ListConductores.Where(m => m.Estado.Equals("OC")).Count();
+
+                double porcentajeVehiculosEnUso;
+                if (VehiculosCreados > 0)
+                    porcentajeVehiculosEnUso = ((double)VehiculosCreadosOcupados / (double)VehiculosCreados) * 100;
+                else
+                    porcentajeVehiculosEnUso = 0;
+
+                double porcentajeConductoreEnUso;
+                if (ConductoresCreados > 0)
+                    porcentajeConductoreEnUso = ((double)ConductoresCreadosOcupados / (double)ConductoresCreados) * 100;
+                else
+                    porcentajeConductoreEnUso = 0;
+
+                ViewBag.NumConductores = ConductoresCreados;
+                ViewBag.NumVehiculos = VehiculosCreados;
+
+                ViewBag.PorcentajeConductoresOcupados = porcentajeConductoreEnUso;
+                ViewBag.PorcentajeVehiculosOcupados = porcentajeVehiculosEnUso;
+
             }
             else
             {
@@ -65,6 +102,12 @@ namespace DynamicForecast.Controllers
                 ViewBag.PorcentajeViajesConcretados = 0;
                 ViewBag.ViajesPendientesDeFinalizar = 0;
                 ViewBag.PromedioSatisfaccion = 0;
+
+                ViewBag.NumConductores = 0;
+                ViewBag.NumVehiculos = 0;
+
+                ViewBag.PorcentajeConductoresOcupados = 0;
+                ViewBag.PorcentajeVehiculosOcupados = 0;
             }
         }
 

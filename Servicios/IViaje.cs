@@ -28,6 +28,13 @@ namespace DynamicForecast.Servicios
                             Where(h => h.EmpresaId == EmpresaId).
                             Where(h => h.ViajeId == ViajeId);
         }
+        public IEnumerable<AP_Viaje> GetViajesCompletos(int EmpresaId)
+        {
+            return FsvrConn.AP_Viaje.
+                            Include(h => h.CT_Tercero).AsNoTracking().DefaultIfEmpty().
+                            Include(h => h.DT_Usuario).AsNoTracking().DefaultIfEmpty().
+                            Where(h => h.EmpresaId == EmpresaId).DefaultIfEmpty();
+        }
         public IEnumerable<AP_Viaje> GetViajeCompleto(int EmpresaId, int ViajeId)
         {
             return FsvrConn.AP_Viaje.

@@ -169,13 +169,19 @@
                                         int ViajeId = item.ViajeId;
                                         <tr>
                                             <td class="text-center align-middle">
-                                                <i title="Eliminar Viaje">
-                                                    @Html.ActionLink("", "EliminarViaje", new { ViajeId = ViajeId }, new { @class = "fa fa-trash-alt" })
-                                                </i>
+                                                @if (item.Estado == "IN")
+                                                {
+                                                    <i title="Eliminar Viaje">
+                                                        @Html.ActionLink("", "EliminarViaje", new { ViajeId = ViajeId }, new { @class = "fa fa-trash-alt" })
+                                                    </i>
+                                                }
+                                                else
+                                                {
+                                                    <t>El Viaje ya ha sido Iniciado</t>
+                                                }
                                             </td>
                                             <td class="text-center align-middle">
-                                                @*<a  href="#" onclick="showInPopup('@Url.Action("EditarViaje", "Viaje", new { ViajeId = ViajeId }, Context.Request.Scheme)', 'Editar Viaje')">*@
-                                                <a href="#">
+                                                <a href="#" onclick="showInPopup('@Url.Action("EditarViaje", "Viaje", new { ViajeId = ViajeId }, Context.Request.Scheme)', 'Editar Viaje')">
                                                     <i class="fa fa-pen-alt " title="Editar Viaje"></i>
                                                 </a>
                                             </td>
@@ -191,7 +197,7 @@
                                                 @if (item.Estado == "EP")
                                                 {
                                                     <a href="#" onclick="showInPopup('@Url.Action("FinalizarViaje", "Viaje", new { ViajeId = ViajeId }, Context.Request.Scheme)', 'Finalizar Viaje')">
-                                                        <i class="fa fa-font-awesome-alt " title="Finalizar Viaje"></i>
+                                                        <i class="fa fa-flag-checkered" title="Finalizar Viaje"></i>
                                                     </a>
                                                 }
                                                 @if (item.Estado == "FN")
@@ -210,43 +216,43 @@
                                                 @Html.DisplayFor(modelItem => item.Descripcion)
                                             </td>
                                             <td class="text-center">
-                                                @Html.DisplayFor(modelItem => item.UsuarioId)
+                                                @Html.DisplayFor(modelItem => item.UsuarioId) - @Html.DisplayFor(modelItem => item.DT_Usuario.NombreUsr)
                                             </td>
                                             <td class="text-center">
-                                                @Html.DisplayFor(modelItem => item.TerceroId)
+                                                @Html.DisplayFor(modelItem => item.TerceroId) - @Html.DisplayFor(modelItem => item.CT_Tercero.NombreTer)
                                             </td>
                                             <td class="text-center">
-                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "009980")
+                                                @if (item.CodMercancia == "009980")
                                                 {
                                                     <t> 009980 - PRODUCTOS VARIOS</t>
                                                 }
-                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "009880")
+                                                @if (item.CodMercancia == "009880")
                                                 {
                                                     <t>009880 - LÍQUIDOS</t>
                                                 }
-                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "009990")
+                                                @if (item.CodMercancia == "009990")
                                                 {
                                                     <t>009990 - LÍQUIDOS INFLAMABLES</t>
                                                 }
-                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "003816")
+                                                @if (item.CodMercancia == "003816")
                                                 {
                                                     <t>003816 - CONTENEDOR VACIOs</t>
                                                 }
-                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "004415")
+                                                @if (item.CodMercancia == "004415")
                                                 {
                                                     <t> 004415 - CEMENTOS,  MORTEROS,  HORMIGONES Y PREPARACIONES SIMILARES,  REFRACTARIOS,  EX</t>
                                                 }
-                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "001006")
+                                                @if (item.CodMercancia == "001006")
                                                 {
                                                     <t>001006 - CAJONES,  CAJAS,  JAULAS,  TAMBORES Y ENVASES SIMILARES,  DE MADERA, CARRETES</t>
 
                                                 }
-                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "003105")
+                                                @if (item.CodMercancia == "003105")
                                                 {
                                                     <t> 003105 - ARROZ</t>
 
                                                 }
-                                                @if (@Html.DisplayTextFor(modelItem => item.NaturalezaCarga) == "009800")
+                                                @if (item.CodMercancia == "009800")
                                                 {
                                                     <t> 009800 - ABONOS MINERALES O QUIMICOS,  CON DOS O TRES DE LOS ELEMENTOS FERTILIZANTES NI</t>
                                                 }
@@ -257,17 +263,64 @@
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.ValorCotizado)
                                             </td>
-                                            <td class="text-center">
-                                                @Html.DisplayTextFor(modelItem => (item.ValorPagado))
+                                            <td class="text-center align-middle">
+
+                                                @if (item.Estado == "IN")
+                                                {
+                                                    <t>Viaje no Iniciado</t>
+                                                }
+                                                @if (item.Estado == "EP")
+                                                {
+                                                    <t>Viaje en Proceso</t>
+
+
+                                                }
+                                                @if (item.Estado == "FN")
+                                                {
+                                                    @Html.DisplayTextFor(modelItem => item.ValorPagado)
+
+                                                }
                                             </td>
+
                                             <td class="text-center">
                                                 @Html.DisplayTextFor(modelItem => item.FechaServicio)
                                             </td>
-                                            <td class="text-center">
-                                                @Html.DisplayTextFor(modelItem => item.FechaInicioViaje)
+
+
+                                            <td class="text-center align-middle">
+
+                                                @if (item.Estado == "IN")
+                                                {
+                                                    <t>Viaje no Iniciado</t>
+                                                }
+                                                @if (item.Estado == "EP")
+                                                {
+                                                    @Html.DisplayTextFor(modelItem => item.FechaInicioViaje)
+
+                                                }
+                                                @if (item.Estado == "FN")
+                                                {
+                                                    @Html.DisplayTextFor(modelItem => item.FechaInicioViaje)
+
+                                                }
                                             </td>
-                                            <td class="text-center">
-                                                @Html.DisplayTextFor(modelItem => item.FechaFinalizacion)
+
+                                            <td class="text-center align-middle">
+
+                                                @if (item.Estado == "IN")
+                                                {
+                                                    <t>Viaje no Iniciado</t>
+                                                }
+                                                @if (item.Estado == "EP")
+                                                {
+                                                    <t>Viaje en Proceso</t>
+
+                                                }
+                                                @if (item.Estado == "FN")
+                                                {
+                                                    @Html.DisplayTextFor(modelItem => item.FechaFinalizacion)
+
+                                                }
                                             </td>
 
                                             <td class="text-center">
